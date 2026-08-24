@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %} &mdash; Inventory{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <div>
+    <h4 class="fw-bold mb-0" style="color:var(--wel-primary);">
+      <i class="bi bi-boxes"></i> Component Inventory
+    </h4>
+    <span class="text-muted small">{{ components|length }} component(s) found</span>
+  </div>
+  <a href="{{ url_for('make_request') }}" class="btn btn-warning">
+    <i class="bi bi-cart3"></i> View Cart
+    {% if cart %}<span class="badge bg-dark ms-1">{{ cart|length }}</span>{% endif %}
+  </a>
+</div>
+
+<!-- Search bar -->
+<form method="GET" class="row g-2 mb-4">
+  <div class="col-md-5 search-bar d-flex">
+    <input type="text" name="q" class="form-control" value="{{ q }}"
+           placeholder="Search by model, description, location...">
+    <button type="submit" class="btn btn-iitb">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+  <div class="col-md-3">
+    <select name="type" class="form-select" onchange="this.form.submit()">
+      <option value="">All Types</option>
+      {% for t in types %}
+        <option value="{{ t }}" {% if t == type_filter %}selected{% endif %}>{{ t }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% if q or type_filter %}
+  <div class="col-auto">
+    <a href="{{ url_for('inventory') }}" class="btn btn-outline-secondary">
+      <i class="bi bi-x"></i> Clear
+    </a>
+  </div>
+  {% endif %}
+</form>
+
+{% if components %}
+<div class="table-responsive">
+  <table class="table table-hover align-middle mb-0">
+    <thead>
+      <tr>
+        <th style="width:50px">#</th>
+        <th>Type</th>
+        <th>Model No.</th>
+        <th>Description</th>
+        <th>Location</th>
+        <th style="width:100px">Available</th>
+        <th style="width:160px">Add to Cart</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in components %}
+      <tr class="{{ 'table-danger bg-danger bg-opacity-10' if c.quantity == 0 else '' }}">
+        <td class="text-muted small">{{ c.sr_no }}</td>
+        <td>
+          <span class="badge rounded-pill"
+                style="background:var(--wel-primary); font-size:.75rem;">{{ c.component_type or '—' }}</span>
+        </td>
+        <td class="fw-semibold">
+          {% if c.link %}
+            <a href="{{ c.link }}" target="_blank" rel="noopener">
+              {{ c.model_no }} <i class="bi bi-box-arrow-up-right" style="font-size:.7rem;"></i>
+            </a>
+          {% else %}
+            {{ c.model_no or '—' }}
+          {% endif %}
+        </td>
+        <td class="text-muted small" style="max-width:280px;">{{ c.description or '—' }}</td>
+        <td class="small"><i class="bi bi-geo-alt text-muted"></i> {{ c.location or '—' }}</td>
+        <td>
+          {% if c.quantity == 0 %}
+            <span class="badge bg-danger">Out of stock</span>
+          {% elif c.quantity <= 2 %}
+            <span class="badge bg-warning text-dark">{{ c.quantity }} left</span>
+          {% else %}
+            <span class="badge bg-success">{{ c.quantity }}</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if c.quantity > 0 %}
+          <form method="POST" action="{{ url_for('add_to_cart', cid=c.id) }}" class="d-flex gap-1">
+            <input type="number" name="quantity" value="1" min="1" max="{{ c.quantity }}"
+                   class="form-control form-control-sm" style="width:60px;">
+            <button type="submit" class="btn btn-sm btn-iitb" title="Add to cart">
+              <i class="bi bi-cart-plus"></i>
+            </button>
+          </form>
+          {% else %}
+            <span class="text-danger small">Unavailable</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+  <div class="alert alert-info">
+    <i class="bi bi-info-circle"></i>
+    {% if q or type_filter %}No components match your search.
+    {% else %}No components in inventory yet. An admin needs to upload the Excel file.{% endif %}
+  </div>
+{% endif %}
+{% endblock %}

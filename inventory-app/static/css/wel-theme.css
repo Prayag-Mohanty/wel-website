@@ -1,0 +1,127 @@
+/* ==========================================================================
+   IITB WEL Inventory - WEL theme layer
+   Loaded after Bootstrap; matches the main wel.ee.iitb.ac.in site.
+   ========================================================================== */
+:root{
+  --wel-primary:#0c53a5;
+  --wel-primary-dark:#083c76;
+  --wel-primary-light:#e8f1fb;
+  --wel-secondary:#da212f;
+  --wel-ink:#060b23;
+  --wel-body:#444;
+  --wel-muted:#6b7280;
+  --wel-line:#dcdfe4;
+  --wel-bg:#f6f8fc;
+
+  /* keep the old variable names working wherever templates still use them */
+  --iitb-blue:#0c53a5;
+  --iitb-gold:#da212f;
+
+  --bs-primary:#0c53a5;
+  --bs-primary-rgb:12,83,165;
+  --bs-body-font-family:"Barlow","Segoe UI",system-ui,-apple-system,sans-serif;
+  --bs-border-radius:10px;
+}
+
+body{
+  background:var(--wel-bg);
+  font-family:"Barlow","Segoe UI",system-ui,-apple-system,sans-serif;
+  color:var(--wel-body);
+  display:flex;flex-direction:column;min-height:100vh;
+}
+h1,h2,h3,h4,h5,h6{color:var(--wel-ink);font-weight:700;letter-spacing:-.015em}
+a{color:var(--wel-primary)}
+a:hover{color:var(--wel-primary-dark)}
+main{flex:1}
+
+/* ---------- top strip ---------- */
+.wel-topbar{
+  background:var(--wel-ink);color:#9aa3c4;font-size:.8rem;line-height:1;padding:.55rem 0;
+}
+.wel-topbar a{color:#c3cae4;text-decoration:none}
+.wel-topbar a:hover{color:#fff}
+
+/* ---------- header ---------- */
+.navbar.wel-navbar{
+  background:#fff !important;border-bottom:1px solid var(--wel-line);
+  box-shadow:0 1px 3px rgba(6,11,35,.05);padding:.6rem 0;
+}
+.wel-navbar .navbar-brand{display:flex;align-items:center;gap:.7rem;color:var(--wel-ink) !important;font-weight:800}
+.wel-navbar .navbar-brand img{height:40px;width:auto}
+.wel-navbar .navbar-brand .bt{display:flex;flex-direction:column;line-height:1.15}
+.wel-navbar .navbar-brand .bt strong{font-size:1rem;letter-spacing:-.02em}
+.wel-navbar .navbar-brand .bt span{font-size:.72rem;color:var(--wel-muted);font-weight:500}
+.wel-navbar .nav-link{
+  color:#1b2340 !important;font-weight:600;font-size:.92rem;border-radius:8px;padding:.5rem .8rem !important;
+}
+.wel-navbar .nav-link:hover,.wel-navbar .nav-link.active{
+  color:var(--wel-primary) !important;background:var(--wel-primary-light);
+}
+.wel-navbar .navbar-toggler{border-color:var(--wel-line)}
+.wel-navbar .navbar-toggler-icon{
+  background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23060b23' stroke-width='2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+.wel-chip{
+  display:inline-flex;align-items:center;gap:.35rem;padding:.32rem .75rem;border-radius:999px;
+  background:var(--wel-primary-light);color:var(--wel-primary);font-size:.8rem;font-weight:600;
+}
+.wel-chip--admin{background:#fdeaec;color:var(--wel-secondary)}
+
+/* ---------- buttons ---------- */
+.btn{border-radius:999px;font-weight:600;padding:.5rem 1.2rem;border-width:2px}
+.btn-iitb,.btn-primary{background:var(--wel-primary);border-color:var(--wel-primary);color:#fff}
+.btn-iitb:hover,.btn-primary:hover{background:var(--wel-primary-dark);border-color:var(--wel-primary-dark);color:#fff}
+.btn-warning{background:var(--wel-secondary);border-color:var(--wel-secondary);color:#fff}
+.btn-warning:hover{background:#ad1926;border-color:#ad1926;color:#fff}
+.btn-outline-secondary{border-color:var(--wel-line);color:var(--wel-ink)}
+.btn-outline-secondary:hover{background:var(--wel-primary);border-color:var(--wel-primary);color:#fff}
+.btn-outline-light:hover{color:var(--wel-ink)}
+.btn-sm{padding:.35rem .9rem;font-size:.85rem}
+
+/* ---------- cards, tables, forms ---------- */
+.card{
+  border:1px solid var(--wel-line) !important;border-radius:14px;
+  box-shadow:0 1px 2px rgba(6,11,35,.05),0 2px 8px rgba(6,11,35,.04) !important;
+}
+.card-header{background:#fff;border-bottom:1px solid var(--wel-line);font-weight:700;color:var(--wel-ink)}
+.table{--bs-table-hover-bg:#f6f8fc}
+.table thead th{
+  background:var(--wel-ink) !important;color:#fff !important;font-weight:600;
+  font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+}
+.table>:not(caption)>*>*{padding:.75rem .9rem}
+.table-responsive{border:1px solid var(--wel-line);border-radius:14px;background:#fff;overflow:hidden}
+.form-control,.form-select{
+  border-color:var(--wel-line);border-radius:10px;padding:.55rem .85rem;font-size:.95rem;
+}
+.form-control:focus,.form-select:focus{
+  border-color:var(--wel-primary);box-shadow:0 0 0 .22rem var(--wel-primary-light);
+}
+.search-bar .form-control{border-top-right-radius:0;border-bottom-right-radius:0}
+.search-bar .btn{border-top-left-radius:0;border-bottom-left-radius:0}
+
+/* ---------- badges & alerts ---------- */
+.badge-pending{background:#fff4d6;color:#8a6300}
+.badge-approved{background:#e4f6ec;color:#1a7a45}
+.badge-rejected{background:#fdeaec;color:#ad1926}
+.alert{border:0;border-left:4px solid;border-radius:0 10px 10px 0;font-size:.95rem}
+.alert-success{background:#e4f6ec;border-left-color:#1a7a45;color:#126035}
+.alert-danger{background:#fdeaec;border-left-color:var(--wel-secondary);color:#8f1420}
+.alert-warning{background:#fff4d6;border-left-color:#d69e2e;color:#7a5600}
+.alert-info{background:var(--wel-primary-light);border-left-color:var(--wel-primary);color:var(--wel-primary-dark)}
+
+/* ---------- footer ---------- */
+.wel-footer{background:var(--wel-ink);color:#98a2c4;font-size:.88rem;padding:2rem 0 1.4rem;margin-top:3rem}
+.wel-footer a{color:#c3cae4;text-decoration:none}
+.wel-footer a:hover{color:#fff}
+.wel-footer .row{gap:1rem 0}
+.wel-footer h6{color:#fff;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.8rem;font-weight:700}
+.wel-footer .fbot{
+  border-top:1px solid rgba(255,255,255,.1);margin-top:1.6rem;padding-top:1rem;
+  font-size:.82rem;color:#7c86ab;
+}
+
+@media (max-width:991px){
+  .wel-navbar .nav-link{padding:.6rem .5rem !important}
+  .wel-navbar .navbar-brand .bt span{display:none}
+}

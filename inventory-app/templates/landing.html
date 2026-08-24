@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-8 col-lg-7 text-center">
+    <i class="bi bi-cpu-fill" style="font-size: 4rem; color: var(--wel-primary);"></i>
+    <h1 class="fw-bold mt-3" style="color: var(--wel-primary);">IITB WEL Inventory</h1>
+    <p class="text-muted fs-5 mt-2">Component management system for WEL Lab courses at IIT Bombay</p>
+    <hr class="my-4">
+    <div class="row g-4 justify-content-center mt-1">
+
+      <!-- Student card -->
+      <div class="col-md-5">
+        <div class="card p-4 h-100 border-top border-primary border-4">
+          <i class="bi bi-people-fill mb-3" style="font-size:2rem; color:var(--wel-primary);"></i>
+          <h5 class="fw-bold">Student / Team</h5>
+          <p class="text-muted small">Register your team or log in to browse components and submit requests.</p>
+          <div class="d-grid gap-2 mt-auto">
+            <a href="{{ url_for('login') }}" class="btn btn-iitb">
+              <i class="bi bi-box-arrow-in-right"></i> Student Login
+            </a>
+            <a href="{{ url_for('register') }}" class="btn btn-outline-secondary">
+              <i class="bi bi-person-plus"></i> Register Team
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin card -->
+      <div class="col-md-5">
+        <div class="card p-4 h-100 border-top border-warning border-4">
+          <i class="bi bi-shield-lock-fill mb-3" style="font-size:2rem; color:var(--wel-secondary);"></i>
+          <h5 class="fw-bold">Lab Team / Admin</h5>
+          <p class="text-muted small">Manage inventory, review component requests, and approve or reject them.</p>
+          <div class="d-grid mt-auto">
+            <a href="{{ url_for('admin_login') }}" class="btn fw-semibold"
+               style="background:var(--wel-secondary); color:#fff;">
+              <i class="bi bi-shield-lock"></i> Admin Login
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

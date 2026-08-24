@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %} &mdash; Admin Dashboard{% endblock %}
+{% block content %}
+<h4 class="fw-bold mb-4" style="color:var(--wel-primary);">
+  <i class="bi bi-speedometer2"></i> Admin Dashboard
+</h4>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card p-4 text-center border-start border-warning border-4">
+      <h2 class="text-warning fw-bold">{{ pending }}</h2>
+      <div class="text-muted">Pending Requests</div>
+      <a href="{{ url_for('admin_requests', status='pending') }}"
+         class="btn btn-sm btn-warning mt-2">Review Now</a>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-4 text-center border-start border-primary border-4">
+      <h2 class="fw-bold" style="color:var(--wel-primary);">{{ total_comp }}</h2>
+      <div class="text-muted">Total Components</div>
+      <a href="{{ url_for('admin_inventory') }}" class="btn btn-sm btn-iitb mt-2">Manage</a>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card p-4 text-center border-start border-success border-4">
+      <h2 class="fw-bold text-success">{{ total_teams }}</h2>
+      <div class="text-muted">Registered Teams</div>
+      <a href="{{ url_for('admin_teams') }}" class="btn btn-sm btn-outline-success mt-2">View Teams</a>
+    </div>
+  </div>
+</div>
+
+{% if low_stock %}
+<div class="alert alert-warning">
+  <strong><i class="bi bi-exclamation-triangle-fill"></i> Low Stock Alert</strong>
+  <ul class="mb-0 mt-1">
+    {% for c in low_stock %}
+      <li>{{ c.model_no }} ({{ c.component_type }}) &mdash; only <strong>{{ c.quantity }}</strong> remaining at {{ c.location }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<div class="row g-3 mt-1">
+  <div class="col-md-6">
+    <div class="card p-4">
+      <h6 class="fw-semibold mb-3">Quick Actions</h6>
+      <div class="d-grid gap-2">
+        <a href="{{ url_for('upload_excel') }}" class="btn btn-iitb">
+          <i class="bi bi-upload"></i> Upload Excel Inventory
+        </a>
+        <a href="{{ url_for('admin_requests') }}" class="btn btn-outline-warning">
+          <i class="bi bi-list-check"></i> View All Requests
+        </a>
+        <a href="{{ url_for('admin_inventory') }}" class="btn btn-outline-secondary">
+          <i class="bi bi-boxes"></i> Manage Inventory
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card p-4">
+      <h6 class="fw-semibold mb-3">Grant Admin Access</h6>
+      <form method="POST" action="{{ url_for('make_admin') }}">
+        <div class="mb-2">
+          <input type="email" name="email" class="form-control"
+                 placeholder="user@iitb.ac.in" required>
+          <div class="form-text">User must have registered first.</div>
+        </div>
+        <button type="submit" class="btn btn-iitb">Make Admin</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

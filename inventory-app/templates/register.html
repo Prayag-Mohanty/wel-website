@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block title %} &mdash; Register{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-7">
+    <div class="card p-4 mt-3">
+      <h3 class="fw-bold mb-1" style="color: var(--wel-primary);">
+        <i class="bi bi-person-plus-fill"></i> Register Team Account
+      </h3>
+      <p class="text-muted mb-4">One account per team. Use the team leader's IITB email.</p>
+
+      <form method="POST" id="reg-form">
+
+        <!-- ── Team details ── -->
+        <h6 class="text-uppercase text-muted mb-2" style="letter-spacing:.08em; font-size:.78rem;">Team Details</h6>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Team Name <span class="text-danger">*</span></label>
+          <input type="text" name="team_name" class="form-control" placeholder="e.g. Team Alpha" required>
+        </div>
+
+        <!-- ── Members ── -->
+        <h6 class="text-uppercase text-muted mb-2 mt-4" style="letter-spacing:.08em; font-size:.78rem;">Team Members</h6>
+        <p class="text-muted small mb-3">Add all members of your team with their registration numbers.</p>
+
+        <div id="members-container">
+          <div class="member-row row g-2 mb-2">
+            <div class="col-md-6">
+              <input type="text" name="member_name" class="form-control" placeholder="Full Name" required>
+            </div>
+            <div class="col-md-5">
+              <input type="text" name="member_reg" class="form-control" placeholder="Roll No. (e.g. 22B1234)" required>
+            </div>
+            <div class="col-md-1 d-flex align-items-center">
+              <button type="button" class="btn btn-sm btn-outline-danger remove-member" style="display:none !important;" onclick="removeMember(this)">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary mt-1 mb-4" onclick="addMember()">
+          <i class="bi bi-plus"></i> Add Another Member
+        </button>
+
+        <!-- ── Account credentials ── -->
+        <h6 class="text-uppercase text-muted mb-2 mt-2" style="letter-spacing:.08em; font-size:.78rem;">Account Credentials</h6>
+        <div class="mb-3">
+          <label class="form-label fw-semibold">IITB Email <span class="text-danger">*</span></label>
+          <input type="email" name="email" class="form-control" placeholder="rollno@iitb.ac.in" required>
+          <div class="form-text">Must end with @iitb.ac.in</div>
+        </div>
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Password <span class="text-danger">*</span></label>
+            <input type="password" name="password" id="pw" class="form-control"
+                   placeholder="Min. 6 characters" required minlength="6">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Confirm Password <span class="text-danger">*</span></label>
+            <input type="password" name="confirm" id="pw2" class="form-control"
+                   placeholder="Repeat password" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-iitb w-100 py-2 fw-semibold">
+          <i class="bi bi-check2-circle"></i> Create Team Account
+        </button>
+
+        <p class="text-center text-muted mt-3 mb-0 small">
+          Already registered? <a href="{{ url_for('login') }}">Log in here</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function addMember() {
+  const container = document.getElementById('members-container');
+  const row = document.createElement('div');
+  row.className = 'member-row row g-2 mb-2';
+  row.innerHTML = `
+    <div class="col-md-6">
+      <input type="text" name="member_name" class="form-control" placeholder="Full Name" required>
+    </div>
+    <div class="col-md-5">
+      <input type="text" name="member_reg" class="form-control" placeholder="Roll No. (e.g. 22B1234)" required>
+    </div>
+    <div class="col-md-1 d-flex align-items-center">
+      <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeMember(this)">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>`;
+  container.appendChild(row);
+  updateRemoveButtons();
+}
+
+function removeMember(btn) {
+  btn.closest('.member-row').remove();
+  updateRemoveButtons();
+}
+
+function updateRemoveButtons() {
+  const rows = document.querySelectorAll('.member-row');
+  rows.forEach((r, i) => {
+    const btn = r.querySelector('.remove-member, button[onclick="removeMember(this)"]');
+    if (btn) btn.style.display = rows.length > 1 ? '' : 'none !important';
+  });
+}
+
+document.getElementById('reg-form').addEventListener('submit', function(e) {
+  const pw  = document.getElementById('pw').value;
+  const pw2 = document.getElementById('pw2').value;
+  if (pw !== pw2) {
+    e.preventDefault();
+    alert('Passwords do not match!');
+  }
+});
+</script>
+{% endblock %}

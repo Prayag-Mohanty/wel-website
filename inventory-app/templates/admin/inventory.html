@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %} &mdash; Manage Inventory{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4 class="fw-bold mb-0" style="color:var(--wel-primary);">
+    <i class="bi bi-boxes"></i> Manage Inventory ({{ components|length }} items)
+  </h4>
+  <a href="{{ url_for('upload_excel') }}" class="btn btn-iitb btn-sm">
+    <i class="bi bi-upload"></i> Upload Excel
+  </a>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-hover align-middle">
+    <thead>
+      <tr>
+        <th>#</th><th>Type</th><th>Model No.</th><th>Description</th>
+        <th>Location</th><th>Qty</th><th>Update Qty</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in components %}
+      <tr>
+        <td class="text-muted small">{{ c.sr_no }}</td>
+        <td><span class="badge rounded-pill" style="background:var(--wel-primary);font-size:.73rem;">{{ c.component_type }}</span></td>
+        <td class="fw-semibold small">
+          {% if c.link %}<a href="{{ c.link }}" target="_blank">{{ c.model_no }}</a>
+          {% else %}{{ c.model_no }}{% endif %}
+        </td>
+        <td class="text-muted small" style="max-width:220px;">{{ c.description[:80] }}</td>
+        <td class="small">{{ c.location }}</td>
+        <td>
+          {% if c.quantity == 0 %}<span class="badge bg-danger">0</span>
+          {% elif c.quantity <= 2 %}<span class="badge bg-warning text-dark">{{ c.quantity }}</span>
+          {% else %}<span class="badge bg-success">{{ c.quantity }}</span>{% endif %}
+        </td>
+        <td>
+          <form method="POST" action="{{ url_for('update_quantity', cid=c.id) }}"
+                class="d-flex gap-1">
+            <input type="number" name="quantity" value="{{ c.quantity }}" min="0"
+                   class="form-control form-control-sm" style="width:70px;">
+            <button type="submit" class="btn btn-sm btn-iitb">Save</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

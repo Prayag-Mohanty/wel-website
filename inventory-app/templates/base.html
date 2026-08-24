@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IITB WEL Inventory{% block title %}{% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static', filename='img/wel-logo.png') }}" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- WEL theme: loaded last so it wins over Bootstrap -->
+  <link href="{{ url_for('static', filename='css/wel-theme.css') }}" rel="stylesheet">
+</head>
+<body>
+
+<!-- ── top strip ───────────────────────────────────────────────────────── -->
+<div class="wel-topbar">
+  <div class="container-fluid px-4 d-flex flex-wrap justify-content-between align-items-center gap-2"
+       style="max-width:1440px;">
+    <div>Indian Institute of Technology Bombay &middot; Department of Electrical Engineering</div>
+    <div class="d-none d-md-flex gap-3">
+      <a href="mailto:wel@ee.iitb.ac.in"><i class="bi bi-envelope"></i> wel@ee.iitb.ac.in</a>
+      <a href="https://wel.ee.iitb.ac.in/"><i class="bi bi-box-arrow-up-right"></i> WEL website</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── header ──────────────────────────────────────────────────────────── -->
+<nav class="navbar navbar-expand-lg wel-navbar">
+  <div class="container-fluid px-4" style="max-width:1440px;">
+    <a class="navbar-brand" href="{{ url_for('landing') }}">
+      <img src="{{ url_for('static', filename='img/wel-logo.png') }}" alt="Wadhwani Electronics Laboratory">
+      <span class="bt">
+        <strong>IITB WEL Inventory</strong>
+        <span>Wadhwani Electronics Laboratory</span>
+      </span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"
+            aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navmenu">
+
+      {% if current_user.is_authenticated and current_user.is_admin %}
+      <!-- ── ADMIN NAVBAR ── -->
+      <ul class="navbar-nav me-auto ms-lg-4">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_dashboard') }}"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_requests') }}"><i class="bi bi-list-check"></i> Requests</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_inventory') }}"><i class="bi bi-boxes"></i> Inventory</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_teams') }}"><i class="bi bi-people"></i> Teams</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('upload_excel') }}"><i class="bi bi-upload"></i> Upload Excel</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+        <span class="wel-chip wel-chip--admin"><i class="bi bi-shield-lock-fill"></i> Admin</span>
+        <a href="{{ url_for('logout') }}" class="btn btn-sm btn-outline-secondary">Log out</a>
+      </div>
+
+      {% elif current_user.is_authenticated %}
+      <!-- ── STUDENT NAVBAR ── -->
+      <ul class="navbar-nav me-auto ms-lg-4">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('inventory') }}"><i class="bi bi-boxes"></i> Inventory</a></li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('make_request') }}">
+            <i class="bi bi-cart3"></i> Cart
+            {% set cart_count = session.get('cart', {})|length %}
+            {% if cart_count %}<span class="badge bg-danger rounded-pill ms-1">{{ cart_count }}</span>{% endif %}
+          </a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('my_requests') }}"><i class="bi bi-clock-history"></i> My Requests</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+        {% if current_user.team %}
+          <span class="wel-chip"><i class="bi bi-people-fill"></i> {{ current_user.team.name }}</span>
+        {% endif %}
+        <a href="{{ url_for('logout') }}" class="btn btn-sm btn-outline-secondary">Log out</a>
+      </div>
+
+      {% else %}
+      <!-- ── LOGGED OUT NAVBAR ── -->
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1 mt-3 mt-lg-0">
+        <li class="nav-item"><a class="nav-link" href="https://wel.ee.iitb.ac.in/">WEL site</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_login') }}">Admin</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Student login</a></li>
+        <li class="nav-item ms-lg-2"><a class="btn btn-sm btn-iitb" href="{{ url_for('register') }}">Register team</a></li>
+      </ul>
+      {% endif %}
+
+    </div>
+  </div>
+</nav>
+
+<!-- ── page ────────────────────────────────────────────────────────────── -->
+<main class="container-fluid px-4 mt-4" style="max-width:1300px;">
+  {% with msgs = get_flashed_messages(with_categories=true) %}
+    {% for cat, msg in msgs %}
+      <div class="alert alert-{{ cat }} alert-dismissible fade show" role="alert">
+        {{ msg }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ── footer ──────────────────────────────────────────────────────────── -->
+<footer class="wel-footer">
+  <div class="container-fluid px-4" style="max-width:1440px;">
+    <div class="row">
+      <div class="col-md-5 mb-3">
+        <h6>IITB WEL Inventory</h6>
+        <p class="mb-0" style="max-width:42ch;">
+          The component stock system of the Wadhwani Electronics Laboratory, Department of Electrical
+          Engineering, IIT Bombay. Register your team once, then search stock and raise requests.
+        </p>
+      </div>
+      <div class="col-md-3 mb-3">
+        <h6>Links</h6>
+        <div class="d-flex flex-column gap-2">
+          <a href="https://wel.ee.iitb.ac.in/">WEL website</a>
+          <a href="https://wel.ee.iitb.ac.in/inventory.html">How requests work</a>
+          <a href="https://wel.ee.iitb.ac.in/components.html">About the components</a>
+          <a href="https://wel.ee.iitb.ac.in/contact.html">Contact the lab</a>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <h6>Reach us</h6>
+        <div class="d-flex flex-column gap-2">
+          <span><i class="bi bi-geo-alt"></i> 3rd Floor, EE Department, IIT Bombay, Powai, Mumbai 400076</span>
+          <a href="mailto:wel@ee.iitb.ac.in"><i class="bi bi-envelope"></i> wel@ee.iitb.ac.in</a>
+          <span><i class="bi bi-telephone"></i> +91-22-2576-4484</span>
+        </div>
+      </div>
+    </div>
+    <div class="fbot d-flex flex-wrap justify-content-between gap-2">
+      <span>&copy; <span id="welYear">2026</span> Wadhwani Electronics Laboratory, IIT Bombay.</span>
+      <span>Component requests are reviewed by lab staff before issue.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>document.getElementById('welYear').textContent = new Date().getFullYear();</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

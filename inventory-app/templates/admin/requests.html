@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% block title %} &mdash; Manage Requests{% endblock %}
+{% block content %}
+<h4 class="fw-bold mb-3" style="color:var(--wel-primary);">
+  <i class="bi bi-list-check"></i> Component Requests
+</h4>
+
+<div class="btn-group mb-4" role="group">
+  <a href="{{ url_for('admin_requests', status='pending') }}"
+     class="btn btn-sm {{ 'btn-warning text-dark' if status == 'pending' else 'btn-outline-warning' }}">
+    Pending
+  </a>
+  <a href="{{ url_for('admin_requests', status='approved') }}"
+     class="btn btn-sm {{ 'btn-success' if status == 'approved' else 'btn-outline-success' }}">
+    Approved
+  </a>
+  <a href="{{ url_for('admin_requests', status='rejected') }}"
+     class="btn btn-sm {{ 'btn-danger' if status == 'rejected' else 'btn-outline-danger' }}">
+    Rejected
+  </a>
+</div>
+
+{% if requests %}
+  {% for req in requests %}
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-start"
+         style="background: #f0f4ff;">
+      <div>
+        <span class="fw-bold">Request #{{ req.id }}</span>
+        <span class="mx-2 text-muted">|</span>
+        <strong class="text-primary">Team: {{ req.team.name }}</strong>
+        <div class="text-muted small mt-1">
+          Submitted: {{ req.created_at.strftime('%d %b %Y, %I:%M %p') }}
+          {% if req.updated_at != req.created_at %}
+            &middot; Updated: {{ req.updated_at.strftime('%d %b %Y') }}
+          {% endif %}
+        </div>
+      </div>
+      <span class="badge-{{ req.status }} mt-1">{{ req.status.upper() }}</span>
+    </div>
+    <div class="card-body">
+      <!-- Members info -->
+      {% set members = req.team.members %}
+      {% if members %}
+      <div class="mb-3 p-2 bg-light rounded">
+        <strong class="small"><i class="bi bi-people-fill"></i> Team Members:</strong>
+        <span class="small text-muted ms-2">
+          {% for m in members %}{{ m.name }} ({{ m.reg_no }}){% if not loop.last %}, {% endif %}{% endfor %}
+        </span>
+      </div>
+      {% endif %}
+
+      <!-- Items table -->
+      <table class="table table-sm align-middle mb-3">
+        <thead class="table-light">
+          <tr>
+            <th>Type</th>
+            <th>Model No.</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Qty Requested</th>
+            <th>In Stock Now</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in req.items %}
+          <tr>
+            <td>{{ item.component.component_type }}</td>
+            <td class="fw-semibold">{{ item.component.model_no }}</td>
+            <td class="text-muted small">{{ item.component.description[:60] }}</td>
+            <td class="small"><i class="bi bi-geo-alt text-muted"></i> {{ item.component.location }}</td>
+            <td><span class="badge bg-primary">{{ item.quantity }}</span></td>
+            <td>
+              {% if item.component.quantity >= item.quantity %}
+                <span class="text-success"><i class="bi bi-check-circle-fill"></i> {{ item.component.quantity }}</span>
+              {% else %}
+                <span class="text-danger"><i class="bi bi-exclamation-circle-fill"></i> {{ item.component.quantity }} (need {{ item.quantity }})</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% if req.notes %}
+        <div class="text-muted small mb-3">
+          <i class="bi bi-chat-text"></i> <em>{{ req.notes }}</em>
+        </div>
+      {% endif %}
+
+      {% if req.status == 'pending' %}
+      <div class="d-flex gap-2">
+        <form method="POST" action="{{ url_for('approve_request', rid=req.id) }}"
+              onsubmit="return confirm('Approve request #{{ req.id }} and deduct from inventory?')">
+          <button type="submit" class="btn btn-success">
+            <i class="bi bi-check-circle"></i> Approve &amp; Issue
+          </button>
+        </form>
+        <form method="POST" action="{{ url_for('reject_request', rid=req.id) }}">
+          <button type="submit" class="btn btn-danger">
+            <i class="bi bi-x-circle"></i> Reject
+          </button>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+  <div class="alert alert-info">No {{ status }} requests right now.</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Inventory app runtime files - never commit these
+inventory-app/.env
+inventory-app/instance/
+inventory-app/__pycache__/
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local build log
+build.log

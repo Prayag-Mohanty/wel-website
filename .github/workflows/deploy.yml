@@ -1,0 +1,59 @@
+name: Build and deploy to GitHub Pages
+
+# Runs on every push to main: rebuilds the HTML from _src/ and publishes the site.
+# That means you can edit _src/pages_*.py directly on github.com and the live
+# site updates about a minute later - no laptop needed.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:        # lets you re-deploy by hand from the Actions tab
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build the site
+        run: python _src/build.py
+
+      - name: Fail if any internal link is broken
+        run: |
+          python _src/build.py | tee build.log
+          grep -q "All internal links resolve." build.log
+
+      - name: Stage the files to publish
+        run: |
+          mkdir -p _site
+          cp *.html _site/
+          cp -r assets _site/
+          cp README.md _site/ 2>/dev/null || true
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

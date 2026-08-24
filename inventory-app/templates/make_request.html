@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %} &mdash; Request Cart{% endblock %}
+{% block content %}
+<h4 class="fw-bold mb-3" style="color:var(--wel-primary);">
+  <i class="bi bi-cart3"></i> Request Cart
+</h4>
+
+{% if cart_items %}
+<div class="card p-4 mb-3">
+  <table class="table table-hover align-middle mb-0">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Model No.</th>
+        <th>Available</th>
+        <th>Requesting</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for comp, qty in cart_items %}
+      <tr>
+        <td>
+          <div class="fw-semibold small">{{ comp.component_type }}</div>
+          <div class="text-muted small">{{ comp.description[:70] }}</div>
+        </td>
+        <td>{{ comp.model_no }}</td>
+        <td><span class="badge bg-success">{{ comp.quantity }}</span></td>
+        <td><span class="badge bg-primary fs-6">{{ qty }}</span></td>
+        <td>
+          <a href="{{ url_for('remove_from_cart', cid=comp.id) }}"
+             class="btn btn-sm btn-outline-danger" title="Remove">
+            <i class="bi bi-trash"></i>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<form method="POST">
+  <div class="card p-4 mb-3">
+    <label class="form-label fw-semibold">Notes for lab team <span class="text-muted fw-normal">(optional)</span></label>
+    <textarea name="notes" class="form-control" rows="3"
+              placeholder="e.g. needed for Assignment 2, will return by Friday..."></textarea>
+  </div>
+  <div class="d-flex gap-2">
+    <button type="submit" class="btn btn-success px-4">
+      <i class="bi bi-send"></i> Submit Request
+    </button>
+    <a href="{{ url_for('inventory') }}" class="btn btn-outline-secondary">
+      <i class="bi bi-plus"></i> Add More Components
+    </a>
+    <a href="{{ url_for('clear_cart') }}" class="btn btn-outline-danger ms-auto"
+       onclick="return confirm('Clear your cart?')">
+      <i class="bi bi-trash"></i> Clear Cart
+    </a>
+  </div>
+</form>
+
+{% else %}
+<div class="card p-5 text-center">
+  <i class="bi bi-cart-x" style="font-size: 3rem; color: #ccc;"></i>
+  <p class="mt-3 text-muted">Your cart is empty.</p>
+  <a href="{{ url_for('inventory') }}" class="btn btn-iitb mt-2">Browse Inventory</a>
+</div>
+{% endif %}
+{% endblock %}
