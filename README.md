@@ -375,9 +375,11 @@ A few things are reproduced exactly as the current site publishes them, and may 
    ones the current site actually populates. The other five categories are described but have no
    model listings yet. Add them to `SIGNAL_GENERATORS`-style lists in `pages_resources.py` as the
    data becomes available.
-4. **Research assistants** are the five named in `RESEARCH_ASSISTANTS` in `_src/pages_people.py`.
-   The old team page also lists Vineesh Modi, Prabhakar Singh, Jaydev Bapat and Tarun Choudhary
-   (M.Tech 2026 batches, so they may have graduated) - add them back if they are still with the lab.
+4. **Five research assistants have no photograph yet** - Adisha P V, Nikita Rajpurohit, Utkarsh
+   Shukla, Vevinya A and Navaneeth C - so their cards show initials. Save each photo into
+   `assets/img/team/` and put the path in the fourth field of their entry in
+   `RESEARCH_ASSISTANTS` in `_src/pages_people.py`. Their batch year was not supplied either, so
+   the card says "M.Tech EE7" rather than a guessed graduation year.
 5. **Course pages** carry many links to `10.107.68.222`, the old lab server. They are tagged
    `internal` because they only resolve on the institute network. Some sidebar items on the source
    pages - EDL group allotment and timeline, EE 230 batch lists, EE 712 lab schedule - had no

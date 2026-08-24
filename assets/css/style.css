@@ -494,6 +494,16 @@ hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
 }
 .flipcard__back .flipcard__contact div{display:flex;gap:.45rem;align-items:flex-start;margin-bottom:.3rem}
 .flipcard__back .flipcard__contact svg{width:13px;height:13px;flex:none;margin-top:.28rem;color:var(--muted)}
+/* LinkedIn as an icon button rather than another line of text */
+.flipcard__social{margin-top:.5rem}
+.social-icon{
+  display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;
+  background:var(--primary-light);color:var(--primary);transition:all .2s var(--ease);
+}
+.social-icon:hover{background:var(--primary);color:#fff;transform:translateY(-1px)}
+.flipcard__back .flipcard__contact .flipcard__social svg{
+  width:15px;height:15px;margin-top:0;color:currentColor;
+}
 .flipcard__back::-webkit-scrollbar{width:5px}
 .flipcard__back::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
 

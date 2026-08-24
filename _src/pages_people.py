@@ -168,6 +168,16 @@ STAFF_FLAT = [m for _title, _cat, members in STAFF_GROUPS for m in members]
 #   "Amit Shetye": "https://www.linkedin.com/in/amit-shetye-xxxx/",
 # ---------------------------------------------------------------------------
 LINKEDIN = {
+    "Prayag Mohanty": "https://www.linkedin.com/in/prayag-mohanty/",
+    "Anubhav Bhura": "https://www.linkedin.com/in/anubhavbhura13",
+    "Sachin Soneria": "https://www.linkedin.com/in/sachin-soneria",
+    "Aatmaj Barbhaiya": "https://www.linkedin.com/in/aatmajb/",
+    "Shanthan Rao Pinninti": "https://www.linkedin.com/in/shanthan-rao-a7a4601a8/",
+    "Adisha P V": "https://www.linkedin.com/in/adisha-p-v-6b42091ab",
+    "Nikita Rajpurohit": "https://www.linkedin.com/in/nikita-rajpurohit-7291131a6",
+    "Utkarsh Shukla": "https://www.linkedin.com/in/usin",
+    "Vevinya A": "https://www.linkedin.com/in/vevinya-a-0002641aa/",
+    "Navaneeth C": "https://www.linkedin.com/in/nvneethc",
 }
 
 # ---------------------------------------------------------------------------
@@ -192,11 +202,36 @@ RESEARCH_ASSISTANTS = [
      "assets/img/people/aatmaj-barbhaiya.jpg",
      "Aatmaj completed his B.E. in Electronics and Communication Engineering from L.D. College of "
      "Engineering. His research interests encompass accelerator architecture."),
-    ("Shantan Rao Pinninti", "M.Tech EE7 (2027)", "shanthanrao078@gmail.com",
+    ("Shanthan Rao Pinninti", "M.Tech EE7 (2027)", "shanthanrao078@gmail.com",
      "assets/img/team/shantan-pinninti.png",
-     "Shantan completed his B.Tech from CVR College of Engineering. His research interests lie at "
+     "Shanthan completed his B.Tech from CVR College of Engineering. His research interests lie at "
      "the intersection of semiconductor devices and circuit design, with a focus on CMOS technology, "
      "low-power VLSI circuits, and device-circuit co-design."),
+    # Photographs for the five below have not been supplied as files yet, so their
+    # cards fall back to initials. Drop a photo into assets/img/team/ and put the
+    # path in the fourth field to use it.
+    ("Adisha P V", "M.Tech EE7", "24m1221@iitb.ac.in",
+     "",
+     "Adisha completed her B.Tech in Electronics and Communication Engineering from Government "
+     "Engineering College Wayanad. Her research interests are semiconductor devices and digital "
+     "VLSI design."),
+    ("Nikita Rajpurohit", "M.Tech EE7", "24m1203@iitb.ac.in",
+     "",
+     "Nikita completed her B.Tech in Electrical Engineering from Engineering College Bikaner. Her "
+     "research interests are analog circuits and devices."),
+    ("Utkarsh Shukla", "M.Tech EE6", "24m1171@iitb.ac.in",
+     "",
+     "Utkarsh completed his B.Tech in Electrical Engineering from MMMUT Gorakhpur. His research "
+     "interests are analog and mixed-signal design."),
+    ("Vevinya A", "M.Tech EE6", "vevinyagifty@gmail.com",
+     "",
+     "Vevinya completed her B.Tech in Electronics and Communication Engineering from MEPCO Schlenk "
+     "Engineering College. Her research interests are processor design, digital circuit design and "
+     "VLSI design."),
+    ("Navaneeth C", "M.Tech EE1", "nvneethc@gmail.com",
+     "",
+     "Navaneeth completed his B.Tech at TKM College of Engineering. His research interests are "
+     "wireless communication and the capacity of wireless channels."),
 ]
 
 
@@ -250,8 +285,11 @@ def _flip_card(name, role, email, phone, src, bio, cat=None, team=""):
     if phone:
         lines.append('<div>%s<span>%s</span></div>' % (icon("phone"), phone))
     if LINKEDIN.get(name):
-        lines.append('<div>%s<a href="%s" target="_blank" rel="noopener">LinkedIn</a></div>'
-                     % (icon("linkedin"), LINKEDIN[name]))
+        lines.append(
+            '<div class="flipcard__social">'
+            '<a class="social-icon" href="%s" target="_blank" rel="noopener" '
+            'aria-label="%s on LinkedIn" title="%s on LinkedIn">%s</a>'
+            '</div>' % (LINKEDIN[name], name, name, icon("linkedin")))
 
     return """        <div class="flipcard reveal" tabindex="0" role="button" aria-label="{name}, {role}. Activate to read their biography and contact details."{data}>
           <div class="flipcard__inner">
