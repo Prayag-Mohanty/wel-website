@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """Workshops - NPTEL, teacher training and community outreach.
 
-NPTEL workshops run every year and the recordings go up on the WEL YouTube
-channel, so each edition below carries its own videos. To add next year's
+NPTEL workshops run every year and highlights of each one go up on the WEL
+YouTube channel, so each edition below carries its own highlights video. To add next year's
 edition, put a new entry at the top of NPTEL_EDITIONS with its video IDs.
 
 A video id is the part after watch?v= in the YouTube URL.
@@ -35,7 +35,7 @@ NPTEL_EDITIONS = [
         "intro": [
             "The 2026 edition was the widest yet, running four separate courses that between them "
             "cover hardware digital design, device physics, analog design and embedded systems. "
-            "Recordings of all four sessions are below.",
+            "Highlights from all four courses are below.",
         ],
         "courses": [
             "Digital Systems using hardware CPLD",
@@ -59,7 +59,7 @@ NPTEL_EDITIONS = [
         "intro": [
             "The 2024 edition again paired the two flagship hardware courses &mdash; digital design "
             "on the in-house Krypton CPLD board, and the microcontroller lab on the in-house PT-51. "
-            "Both full sessions are recorded below.",
+            "Highlights from both courses are below.",
         ],
         "courses": [
             "Digital system design and verification using the CPLD board (Krypton)",
@@ -233,10 +233,10 @@ WORKSHOPS_BODY = """  <section class="section section--tight">
     <div class="wrap">
       <div class="section-head reveal">
         <span class="eyebrow">NPTEL workshops</span>
-        <h2>Run every year, recorded every year</h2>
-        <p>WEL hosts NPTEL workshops annually and publishes the recordings on the
+        <h2>Run every year, with highlights from each</h2>
+        <p>WEL hosts NPTEL workshops annually and publishes highlights from each one on the
           <a href="{youtube}" target="_blank" rel="noopener">WEL YouTube channel</a>. Every edition is
-          below, newest first, with its sessions embedded.</p>
+          below, newest first, with its highlights video.</p>
       </div>
 
       {year_nav}
@@ -336,10 +336,10 @@ PAGES = [{
     "file": "workshops.html", "nav": "programs.html", "sub": "workshops.html",
     "title": "Workshops | Wadhwani Electronics Laboratory",
     "desc": "NPTEL workshops, teacher training and community outreach at the Wadhwani Electronics "
-            "Laboratory, IIT Bombay - every edition with its recorded sessions.",
+            "Laboratory, IIT Bombay - every edition with highlights from the workshop.",
     "hero": page_hero("Workshops",
                       "NPTEL workshops run every year, teacher training for college faculty, and "
-                      "outreach for school students - with the recordings.",
+                      "outreach for school students - with highlights from each one.",
                       [("Programs", "programs.html"), ("Workshops", "workshops.html")],
                       "assets/img/site/workshop-kv-powai.jpg"),
     "body": WORKSHOPS_BODY,

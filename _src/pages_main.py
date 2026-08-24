@@ -470,7 +470,7 @@ PROGRAMS_BODY = """  <section class="section">
           been part of alumni outreach activities through the EE Alumni and Corporate Engagement (ACE)
           cell.</p>
         <div class="btn-row">
-          <a class="btn btn--primary btn--sm" href="workshops.html">All workshops, with recordings</a>
+          <a class="btn btn--primary btn--sm" href="workshops.html">All workshops, with highlights</a>
         </div>
       </div>
     </div>
