@@ -159,25 +159,10 @@ def build_nav(active, active_sub):
 def header(active, active_sub):
     return """  <a class="skip-link" href="#main">Skip to main content</a>
 
-  <div class="topbar">
-    <div class="wrap topbar__inner">
-      <div>Indian Institute of Technology Bombay &middot; Department of Electrical Engineering</div>
-      <div class="topbar__meta">
-        <a href="mailto:{email}">{mail}{email}</a>
-        <span>{phone}{phone_lab}</span>
-        <a href="{old_site}" target="_blank" rel="noopener">Archived site {external}</a>
-      </div>
-    </div>
-  </div>
-
   <header class="site-header" id="siteHeader">
     <div class="wrap header__inner">
-      <a class="brand" href="index.html">
-        <img src="assets/img/site/wel-logo.png" alt="Wadhwani Electronics Laboratory logo" width="120" height="46">
-        <span class="brand__text">
-          <span class="brand__name">Wadhwani Electronics Laboratory</span>
-          <span class="brand__sub">Electrical Engineering &middot; IIT Bombay</span>
-        </span>
+      <a class="brand" href="index.html" aria-label="Wadhwani Electronics Laboratory - home">
+        <img src="assets/img/site/wel-logo.png" alt="Wadhwani Electronics Laboratory" width="120" height="46">
       </a>
 
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
@@ -199,15 +184,7 @@ def header(active, active_sub):
     </div>
   </header>
   <div class="nav-scrim" id="navScrim"></div>
-""".format(
-        nav=build_nav(active, active_sub),
-        email=SITE["email"],
-        phone_lab=SITE["phone_lab"],
-        old_site=SITE["old_site"],
-        mail=icon("mail"),
-        phone=icon("phone"),
-        external=icon("external"),
-    )
+""".format(nav=build_nav(active, active_sub))
 
 
 def footer():

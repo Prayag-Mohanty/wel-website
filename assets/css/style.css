@@ -128,14 +128,6 @@ hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
 /* ==========================================================================
    Header
    ========================================================================== */
-.topbar{background:var(--ink);color:#9aa3c4;font-size:.82rem;line-height:1}
-.topbar__inner{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.55rem 0;flex-wrap:wrap}
-.topbar a{color:#c3cae4}
-.topbar a:hover{color:#fff}
-.topbar__meta{display:flex;gap:1.3rem;align-items:center;flex-wrap:wrap}
-.topbar__meta span,.topbar__meta a{display:inline-flex;align-items:center;gap:.4rem}
-.topbar svg{width:13px;height:13px;opacity:.75}
-
 .site-header{position:sticky;top:0;z-index:200;background:#fff;border-bottom:1px solid var(--line);transition:box-shadow .25s var(--ease)}
 .site-header.is-stuck{box-shadow:0 6px 24px rgba(6,11,35,.09)}
 .header__inner{
@@ -143,11 +135,8 @@ hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
   width:min(100% - 2rem,1440px);
 }
 
-.brand{display:flex;align-items:center;gap:.8rem;flex:0 1 auto;min-width:0}
-.brand img{height:46px;width:auto}
-.brand__text{display:flex;flex-direction:column;line-height:1.12}
-.brand__name{font-weight:800;font-size:1.02rem;color:var(--ink);letter-spacing:-.02em;white-space:nowrap}
-.brand__sub{font-size:.72rem;color:var(--muted);letter-spacing:.03em;font-weight:500}
+.brand{display:flex;align-items:center;flex:none}
+.brand img{height:52px;width:auto}
 
 /* nav */
 .nav{margin-left:auto;display:flex;align-items:center;gap:.15rem}
@@ -549,15 +538,9 @@ tbody td:first-child{font-weight:600;color:var(--ink)}
 /* ==========================================================================
    Responsive
    ========================================================================== */
-@media (max-width:1400px){
-  .nav__link{padding:.5rem .52rem;font-size:.855rem}
-  .brand img{height:40px}
-  .brand__name{font-size:.95rem}
-}
 @media (max-width:1180px){
-  .nav__link{padding:.45rem .4rem;font-size:.8rem}
-  .brand__sub{display:none}
-  .brand__name{font-size:.88rem;max-width:14ch;line-height:1.2}
+  .nav__link{padding:.5rem .55rem;font-size:.86rem}
+  .brand img{height:44px}
   .header__inner{gap:.9rem}
 }
 @media (max-width:1024px){
