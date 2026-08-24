@@ -1,0 +1,27 @@
+{
+ "updated": "2026-08-25",
+ "sample": true,
+ "_readme": "SAMPLE DATA. Replace it with the real stock by running: python _src/inventory_import.py path/to/components.xlsx  - that reads the same spreadsheet the Flask app imports and overwrites this file with sample set to false.",
+ "components": [
+  {"sr": 1, "type": "Resistor", "model": "CFR-25JB-1K", "description": "1 kilo-ohm, 1/4 W carbon film, 5% tolerance", "link": "", "location": "Rack A / Drawer 3", "qty": 480},
+  {"sr": 2, "type": "Resistor", "model": "CFR-25JB-10K", "description": "10 kilo-ohm, 1/4 W carbon film, 5% tolerance", "link": "", "location": "Rack A / Drawer 3", "qty": 350},
+  {"sr": 3, "type": "Capacitor", "model": "ECA-1HM101", "description": "100 uF 50 V aluminium electrolytic, radial", "link": "", "location": "Rack A / Drawer 7", "qty": 210},
+  {"sr": 4, "type": "Capacitor", "model": "K104K15X7RF5UH5", "description": "0.1 uF 50 V ceramic disc, decoupling", "link": "", "location": "Rack A / Drawer 8", "qty": 640},
+  {"sr": 5, "type": "Analog IC", "model": "LM741CN", "description": "General purpose operational amplifier, DIP-8", "link": "", "location": "Rack B / Bin 2", "qty": 95},
+  {"sr": 6, "type": "Analog IC", "model": "LM358N", "description": "Dual low-power operational amplifier, DIP-8", "link": "", "location": "Rack B / Bin 2", "qty": 120},
+  {"sr": 7, "type": "Digital IC", "model": "SN74HC00N", "description": "Quad 2-input NAND gate, DIP-14", "link": "", "location": "Rack B / Bin 9", "qty": 60},
+  {"sr": 8, "type": "Digital IC", "model": "SN74HC74N", "description": "Dual D-type flip-flop with preset and clear, DIP-14", "link": "", "location": "Rack B / Bin 9", "qty": 44},
+  {"sr": 9, "type": "Microcontroller", "model": "AT89C5131", "description": "8051-core microcontroller, as used on the PT-51 board", "link": "", "location": "Rack C / Bin 1", "qty": 12},
+  {"sr": 10, "type": "Microcontroller", "model": "ATmega328P-PU", "description": "8-bit AVR microcontroller, DIP-28", "link": "", "location": "Rack C / Bin 2", "qty": 18},
+  {"sr": 11, "type": "Data converter", "model": "ADC0808CCN", "description": "8-bit analogue to digital converter, 8 channel", "link": "", "location": "Rack C / Bin 5", "qty": 9},
+  {"sr": 12, "type": "Data converter", "model": "DAC0808LCN", "description": "8-bit digital to analogue converter", "link": "", "location": "Rack C / Bin 5", "qty": 7},
+  {"sr": 13, "type": "Sensor", "model": "MPU-6050", "description": "6-axis accelerometer and gyroscope module, I2C", "link": "", "location": "Rack D / Bin 4", "qty": 2},
+  {"sr": 14, "type": "Sensor", "model": "LM35DZ", "description": "Precision centigrade temperature sensor, TO-92", "link": "", "location": "Rack D / Bin 4", "qty": 35},
+  {"sr": 15, "type": "Display", "model": "JHD162A", "description": "16x2 character LCD module, HD44780 compatible", "link": "", "location": "Rack D / Bin 9", "qty": 26},
+  {"sr": 16, "type": "Motor", "model": "28BYJ-48", "description": "5 V unipolar stepper motor with ULN2003 driver board", "link": "", "location": "Rack E / Shelf 1", "qty": 14},
+  {"sr": 17, "type": "Discrete", "model": "1N4007", "description": "1 A 1000 V general purpose rectifier diode", "link": "", "location": "Rack A / Drawer 11", "qty": 500},
+  {"sr": 18, "type": "Discrete", "model": "BC547B", "description": "NPN small-signal transistor, TO-92", "link": "", "location": "Rack A / Drawer 12", "qty": 300},
+  {"sr": 19, "type": "Regulator", "model": "LM7805CT", "description": "5 V 1 A positive voltage regulator, TO-220", "link": "", "location": "Rack B / Bin 14", "qty": 0},
+  {"sr": 20, "type": "Crystal", "model": "HC-49S 11.0592MHz", "description": "11.0592 MHz crystal, standard for 8051 baud rates", "link": "", "location": "Rack C / Bin 8", "qty": 48}
+ ]
+}

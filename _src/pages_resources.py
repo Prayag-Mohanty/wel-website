@@ -555,12 +555,14 @@ INVENTORY_BODY = """  <section class="section">
     <div class="wrap">
       <div class="grid g2" style="align-items:start">
         <div class="reveal">
-          <span class="eyebrow">Component stock portal</span>
-          <h2>Search stock, build a cart, submit as a team</h2>
-          <p>The WEL Inventory is the lab's component stock system. Project teams register once,
-            search the component list by type, model number, description or storage location, add what
-            they need to a request cart and submit it with a note. Lab staff review the request, and on
-            approval the stock is decremented automatically.</p>
+          <span class="eyebrow">Component stock</span>
+          <h2>What the lab holds, and how to ask for it</h2>
+          <p>WEL Inventory is the lab's component stock system. <strong>The full listing is on this
+            page</strong> &mdash; search it, build a request list and send it to the lab, without
+            signing in.</p>
+          <p>The same stock is also served by the WEL Inventory portal, which adds team accounts, a
+            tracked request queue and automatic stock updates on approval. Both read the same
+            component spreadsheet.</p>
           {launch}
         </div>
 
@@ -583,29 +585,111 @@ INVENTORY_BODY = """  <section class="section">
     </div>
   </section>
 
+  <section class="section section--alt" id="browse">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Browse the stock</span>
+        <h2>What the lab has right now</h2>
+        <p>Search by model number, description, type or where it is kept. Add what you need to a
+          request list and send it to the lab.</p>
+      </div>
+
+      <div id="inv" data-email="{email}" class="reveal">
+        <div class="note" id="invSample" hidden>
+          <strong>This listing is sample data.</strong> It shows how the browser works, not the real
+          stock. Lab staff: run <code>python _src/inventory_import.py components.xlsx</code> on the
+          component spreadsheet to replace it.
+        </div>
+
+        <div class="note" id="invStatus">Loading the component list&hellip;</div>
+
+        <div class="inv-controls">
+          <div class="searchbox" style="margin:0;max-width:none">
+            {i_search}
+            <input type="search" id="invSearch" placeholder="Search model, description, type or location&hellip;"
+                   aria-label="Search the component list">
+          </div>
+          <select id="invType" aria-label="Filter by component type">
+            <option value="">All types</option>
+          </select>
+          <select id="invStock" aria-label="Filter by availability">
+            <option value="">Any stock level</option>
+            <option value="in">In stock</option>
+            <option value="low">Low stock</option>
+          </select>
+        </div>
+
+        <div class="inv-meta">
+          <span id="invCount"></span>
+          <span hidden>Stock as of <span id="invUpdated"></span></span>
+        </div>
+
+        <div class="table-wrap" id="invTable" hidden>
+          <table class="inv-table">
+            <thead>
+              <tr><th>Component</th><th>Type</th><th>Location</th><th>In stock</th><th>Request</th></tr>
+            </thead>
+            <tbody id="invBody"></tbody>
+          </table>
+          <p class="no-results" id="invEmpty" hidden style="display:block">Nothing matches that search.</p>
+        </div>
+
+        <div class="inv-cart" id="invCart" hidden>
+          <h3>Your request list <span class="inv-badge" id="invCartCount">0</span></h3>
+          <ul class="inv-cart-list" id="invCartList"></ul>
+
+          <div class="inv-fields">
+            <label>Team name
+              <input type="text" id="invTeam" placeholder="e.g. Team Omega" autocomplete="organization">
+            </label>
+            <label>Members and roll numbers
+              <input type="text" id="invMembers" placeholder="A. Student 24M1177, B. Student 24M1178">
+            </label>
+            <label>What it is for
+              <textarea id="invNote" rows="2" placeholder="Course or project, and how long you need it"></textarea>
+            </label>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn--red btn--sm" id="invMail">Email this request</button>
+            <button type="button" class="btn btn--outline btn--sm" id="invCopy">Copy as text</button>
+            <button type="button" class="btn btn--outline btn--sm" id="invClear">Clear list</button>
+          </div>
+          <p class="inv-copied" id="invCopied" hidden></p>
+
+          <p class="inv-foot">Your list is kept in this browser only. Sending it emails the lab, who
+            check the stock and confirm. Nothing is reserved until they reply.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section section--alt">
     <div class="wrap">
       <div class="section-head reveal">
         <span class="eyebrow">For project teams</span>
         <h2>How to raise a component request</h2>
+        <p>Two ways, depending on whether the portal is running.</p>
       </div>
       <div class="grid g4">
-        <div class="lcard reveal"><span class="lcard__icon">{i_people}</span><h3>1. Register your team</h3>
-          <p>One registration per team: team name, every member's name and roll number, and one
-             <strong>@iitb.ac.in</strong> email with a shared password.</p></div>
-        <div class="lcard reveal"><span class="lcard__icon">{i_search}</span><h3>2. Search the stock</h3>
-          <p>Filter by component type or search across model number, description and storage location.</p></div>
-        <div class="lcard reveal"><span class="lcard__icon">{i_box}</span><h3>3. Add to cart</h3>
-          <p>Set a quantity for each part and add it to your request cart. The cart lives with your team.</p></div>
-        <div class="lcard reveal"><span class="lcard__icon">{i_clip}</span><h3>4. Submit &amp; collect</h3>
-          <p>Add a note describing the project, submit, and track the status under <em>My Requests</em>.
-             Collect from the lab once approved.</p></div>
+        <div class="lcard reveal"><span class="lcard__icon">{i_search}</span><h3>1. Find the parts</h3>
+          <p>Search the listing above by model number, description, type or where it is kept, and
+             filter by availability.</p></div>
+        <div class="lcard reveal"><span class="lcard__icon">{i_box}</span><h3>2. Build your list</h3>
+          <p>Set a quantity for each part and add it. The list stays in your browser, so you can come
+             back to it later.</p></div>
+        <div class="lcard reveal"><span class="lcard__icon">{i_clip}</span><h3>3. Send it</h3>
+          <p>Add your team name, members and what it is for, then email the list to the lab or copy it
+             as text.</p></div>
+        <div class="lcard reveal"><span class="lcard__icon">{i_people}</span><h3>4. Collect</h3>
+          <p>Lab staff check the stock and confirm. Nothing is reserved until they reply.</p></div>
       </div>
       <div class="note mt2 reveal" style="margin-top:2rem">
-        <strong>One open request at a time.</strong> A team can have only one pending request; submit the
-        next one after the current request has been approved or rejected. Requests are visible to the lab
-        staff with the full team roster, so make sure member names and roll numbers are correct at
-        registration.
+        <strong>Through the portal instead.</strong> When the WEL Inventory portal is running, teams
+        register once with one <strong>@iitb.ac.in</strong> address, submit the same cart through it,
+        and track the status under <em>My Requests</em>. Approval there decrements stock automatically,
+        and a team can have one pending request at a time. The listing above and the portal read the
+        same component spreadsheet.
       </div>
     </div>
   </section>
@@ -639,8 +723,8 @@ INVENTORY_BODY = """  <section class="section">
       </div>
     </div>
   </section>
-""".format(launch=_LAUNCH, email=SITE["email"],
-           i_people=icon("people"), i_search=icon("search"), i_box=icon("box"),
+""".format(launch=_LAUNCH, email=SITE["email"], i_search=icon("search"),
+           i_people=icon("people"), i_box=icon("box"),
            i_clip=icon("clipboard"), i_chip=icon("chip"))
 
 
@@ -715,5 +799,6 @@ PAGES = [
                           [("Resources", "resources.html"), ("WEL Inventory", "inventory.html")],
                           "assets/img/site/components.jpg"),
         "body": INVENTORY_BODY,
+        "extra_js": '  <script src="assets/js/inventory.js"></script>\n',
     },
 ]

@@ -213,7 +213,7 @@ def header(active, active_sub):
 """.format(nav=build_nav(active, active_sub))
 
 
-def footer():
+def footer(extra_js=""):
     return """  <footer class="site-footer">
     <div class="wrap">
       <div class="footer__grid">
@@ -270,8 +270,9 @@ def footer():
 
   <button class="to-top" id="toTop" aria-label="Back to top">{up}</button>
   <script src="assets/js/main.js?v={v}"></script>
-""".format(
+{extra_js}""".format(
         v=asset_version(),
+        extra_js=extra_js,
         linkedin=SITE["linkedin"], youtube=SITE["youtube"], email=SITE["email"],
         phone_lab=SITE["phone_lab"], phone_office=SITE["phone_office"],
         old_site=SITE["old_site"],
@@ -339,7 +340,7 @@ def render(page):
         extra_head=page.get("extra_head", ""),
         header=header(page.get("nav"), page.get("sub")),
         body=body,
-        footer=footer(),
+        footer=footer(page.get("extra_js", "")),
     )
 
 

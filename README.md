@@ -269,7 +269,39 @@ site. `app.py` is byte-identical to your zip — verified by diff. What was adde
 - `render.yaml`, `DEPLOY.md` — hosting
 - the other templates — only the two hard-coded colours swapped for theme variables
 
-### It needs its own host
+### Two halves
+
+The component stock appears in two places, both fed by the same spreadsheet:
+
+**1. On the website** (`inventory.html`) - a searchable listing of everything the lab holds, with a
+request list you can email to the lab. Works on GitHub Pages, no sign-in, nothing to run. This is
+what most students need.
+
+**2. The portal** (`inventory-app/`) - your friend's Flask app, which adds team accounts, a tracked
+request queue, admin approve/reject and automatic stock decrement. Needs a host that runs Python.
+
+### Keeping the listing current
+
+The site reads `assets/data/inventory.json`. Regenerate it from the component spreadsheet - the same
+file the app's "Upload Excel" screen takes:
+
+```bash
+python _src/inventory_import.py path/to/components.xlsx
+```
+
+```bash
+python _src/build.py
+```
+
+Then commit and push. It accepts `.xlsx`, `.xls` and `.csv`, and the same column names the app
+accepts: `Sr No`, `Type of Component`, `Model No`, `Description`, `Link`, `Location`, `Quantity`.
+Blank rows are skipped and a missing quantity becomes 1. Reading `.xlsx` needs
+`pip install pandas openpyxl`; `.csv` needs nothing.
+
+**The file currently holds sample data**, and the page says so in an amber notice until you replace
+it. Run the importer once on the real spreadsheet and the notice disappears.
+
+### The portal needs its own host
 
 The website is static files on GitHub Pages. **GitHub Pages cannot run Python.** So the two halves
 run in different places:
