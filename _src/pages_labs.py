@@ -78,40 +78,27 @@ TEACHING_BODY = """  <section class="section">
 # ===========================================================================
 # SEMESTER PAGES
 # ===========================================================================
-AUTUMN_COURSES = [
-    ("EE 214", "Digital Circuits Lab",
-     "Combinational and sequential digital design, brought up on WEL's CPLD and FPGA boards."),
-    ("EE 236", "Electronic Devices Lab",
-     "Characterisation and measurement of electronic devices on the standard WEL bench setup."),
-    ("EE 340", "Communications Lab",
-     "Communication systems experiments; the in-house IQ Modulator board illustrates several concepts."),
-]
+def _courses(semester):
+    """Course rows for a semester, each linking to its own detail page.
 
-SPRING_COURSES = [
-    ("EE 230", "Analog Circuits Lab",
-     "Analog building blocks measured with the bench DSO, AFG, supply and multimeter."),
-    ("EE 344", "Electronics Design Lab-I",
-     "A semester-long project course: students take a design from concept through to a prototype."),
-    ("EE 712", "Embedded Systems Design Lab",
-     "Embedded systems work supported by the Embedded Systems Lab set up within WEL."),
-    ("EE 616", "Electronics Systems Design",
-     "System-level electronics design for the M.Tech Electronic Systems specialisation."),
-    ("EE 337", "Microprocessor",
-     "Microprocessor architecture and programming, taught on the in-house 8051-based PT-51 board."),
-]
-
-
-def _courses(rows):
+    The list comes straight from pages_courses.COURSES so a course only ever
+    has to be described in one place.
+    """
+    from pages_courses import COURSES_BY_SEMESTER
     out = []
-    for code, name, blurb in rows:
-        out.append("""        <div class="course reveal">
+    for c in COURSES_BY_SEMESTER[semester]:
+        out.append("""        <a class="course reveal" href="course-{slug}.html">
           <span class="course__code">{code}</span>
-          <div><h4>{name}</h4><p>{blurb}</p></div>
-        </div>""".format(code=code, name=name, blurb=blurb))
+          <div>
+            <h4>{name}</h4>
+            <p>{blurb}</p>
+            <span class="arrow-link">Course page</span>
+          </div>
+        </a>""".format(slug=c["slug"], code=c["code"], name=c["title"], blurb=c["blurb"]))
     return "\n".join(out)
 
 
-def _semester_body(rows, other_label, other_href, note):
+def _semester_body(semester, other_label, other_href, note):
     return """  <section class="section">
     <div class="wrap">
       <div class="section-head reveal">
@@ -141,7 +128,7 @@ def _semester_body(rows, other_label, other_href, note):
       </div>
     </div>
   </section>
-""".format(rows=_courses(rows), other_label=other_label, other_href=other_href, note=note,
+""".format(rows=_courses(semester), other_label=other_label, other_href=other_href, note=note,
            i_board=icon("board"), i_scope=icon("scope"), i_box=icon("box"))
 
 
@@ -249,7 +236,7 @@ PAGES = [
                           [("Teaching Labs", "teaching-labs.html"), ("Autumn Semester", "autumn-semester.html")],
                           "assets/img/site/lab-sessions.jpg"),
         "body": _semester_body(
-            AUTUMN_COURSES, "Spring semester courses", "spring-semester.html",
+            "Autumn", "Spring semester courses", "spring-semester.html",
             "Courses conducted in the Wadhwani Electronics Lab during the autumn semester. "
             "Course content and slot allocation are announced by the department each year."),
     },
@@ -263,7 +250,7 @@ PAGES = [
                           [("Teaching Labs", "teaching-labs.html"), ("Spring Semester", "spring-semester.html")],
                           "assets/img/site/work-stations.jpeg"),
         "body": _semester_body(
-            SPRING_COURSES, "Autumn semester courses", "autumn-semester.html",
+            "Spring", "Autumn semester courses", "autumn-semester.html",
             "Courses conducted in the Wadhwani Electronics Lab during the spring semester. "
             "Course content and slot allocation are announced by the department each year."),
     },

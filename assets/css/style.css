@@ -431,8 +431,29 @@ tbody td:first-child{font-weight:600;color:var(--ink)}
 .course{
   display:flex;gap:1.1rem;align-items:flex-start;padding:1.2rem 1.3rem;background:#fff;
   border:1px solid var(--line);border-radius:var(--radius);transition:all .25s var(--ease);
+  color:inherit;text-decoration:none;
 }
-.course:hover{border-color:var(--primary-mid);box-shadow:var(--shadow-sm);transform:translateX(3px)}
+.course:hover{border-color:var(--primary-mid);box-shadow:var(--shadow-sm);transform:translateX(3px);color:inherit}
+.course:hover h4{color:var(--primary)}
+.course h4{transition:color .2s var(--ease)}
+.course .arrow-link{margin-top:.6rem;font-size:.8rem}
+
+/* course detail pages */
+.res-list{list-style:none;padding:0;margin:0;display:grid;gap:.6rem;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.res-list li{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:.85rem 1.05rem;font-size:.94rem;transition:all .2s var(--ease);
+}
+.res-list li:hover{border-color:var(--primary-mid);box-shadow:var(--shadow-sm)}
+.res-list a{font-weight:600;display:inline-flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.tag-internal{
+  display:inline-block;padding:.1rem .45rem;border-radius:999px;background:#fff4d6;color:#7a5600;
+  font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;vertical-align:middle;
+}
+.course-figure{margin:2.4rem auto 0;max-width:640px;text-align:center}
+.course-figure img{border-radius:var(--radius);box-shadow:var(--shadow);margin-inline:auto}
+.course-figure figcaption{margin-top:.8rem;font-size:.88rem;color:var(--muted)}
+table td .tag-internal{margin-left:.2rem}
 .course__code{
   flex:none;padding:.4rem .75rem;border-radius:var(--radius-sm);background:var(--ink);color:#fff;
   font-size:.82rem;font-weight:700;letter-spacing:.03em;font-variant-numeric:tabular-nums;

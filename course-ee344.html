@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EE 344: Electronics Design Lab-I | Wadhwani Electronics Laboratory</title>
+<meta name="description" content="EE 344 Electronics Design Lab-I at the Wadhwani Electronics Laboratory, IIT Bombay. The capstone design course: take an electronic product from concept to working prototype over a semester.">
+<meta name="theme-color" content="#0c53a5">
+<link rel="icon" href="assets/img/site/wel-logo.png" type="image/png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="EE 344: Electronics Design Lab-I | Wadhwani Electronics Laboratory">
+<meta property="og:description" content="EE 344 Electronics Design Lab-I at the Wadhwani Electronics Laboratory, IIT Bombay. The capstone design course: take an electronic product from concept to working prototype over a semester.">
+<meta property="og:image" content="assets/img/site/homepage-hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css?v=76a38e89">
+<script>document.documentElement.className += " js";</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header" id="siteHeader">
+    <div class="wrap header__inner">
+      <a class="brand" href="index.html" aria-label="Wadhwani Electronics Laboratory - home">
+        <img src="assets/img/site/wel-logo.png" alt="Wadhwani Electronics Laboratory" width="120" height="46">
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" id="nav" aria-label="Main navigation">
+        <ul style="display:contents;list-style:none;margin:0;padding:0">
+          <li class="nav__item"><a class="nav__link" href="index.html">Home</a></li>
+          <li class="nav__item nav__item--has-children"><a class="nav__link" href="about.html" aria-haspopup="true">About <svg class="nav__caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="dropdown"><a href="about.html">About WEL<small>What we are, who we are, what we do</small></a><a href="achievements.html">Achievements<small>Products, publications and recognition</small></a><a href="blogs.html">Blogs<small>Reports and writing from the lab</small></a></div></li>
+          <li class="nav__item nav__item--has-children"><a class="nav__link is-active" href="teaching-labs.html" aria-haspopup="true">Teaching Labs <svg class="nav__caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="dropdown"><a href="autumn-semester.html">Autumn Semester<small>Courses running July - November</small></a><a href="spring-semester.html" class="is-active">Spring Semester<small>Courses running January - April</small></a></div></li>
+          <li class="nav__item"><a class="nav__link" href="programs.html">Programs</a></li>
+          <li class="nav__item nav__item--has-children"><a class="nav__link" href="resources.html" aria-haspopup="true">Resources <svg class="nav__caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="dropdown"><a href="advanced-facilities.html">Advanced Facilities in WEL<small>Chambers, printers, cutters, winders</small></a><a href="made-in-wel.html">Development Boards - Made in WEL<small>PicoIRIS, PT-51, Xen-10, IQ Modulator</small></a><a href="instruments.html">Instruments<small>Generators, scopes, analyzers, meters</small></a><a href="components.html">Components<small>Stock, datasheets and component lists</small></a><a href="inventory.html">IITB WEL Inventory<small>Search stock and raise a component request</small></a></div></li>
+          <li class="nav__item nav__item--has-children"><a class="nav__link" href="online-request.html" aria-haspopup="true">Online Request <svg class="nav__caret" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a><div class="dropdown"><a href="online-request.html#special-facilities">Special Facilities Request<small>Chambers, EMI/EMC, PCB, prototyping</small></a><a href="online-request.html#dev-boards">Development Boards & Modules<small>Borrow boards for a project</small></a><a href="online-request.html#equipment-loan">Equipment Loan<small>Borrow instruments for a period</small></a></div></li>
+          <li class="nav__item"><a class="nav__link" href="people.html">People</a></li>
+          <li class="nav__item"><a class="nav__link" href="gallery.html">Gallery</a></li>
+          <li class="nav__item"><a class="nav__link" href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav__mobile-cta">
+          <a class="btn btn--red btn--sm" href="inventory.html">WEL Inventory</a>
+        </div>
+      </nav>
+
+      <div class="header__cta">
+        <a class="btn btn--red btn--sm" href="inventory.html">WEL Inventory</a>
+      </div>
+    </div>
+  </header>
+  <div class="nav-scrim" id="navScrim"></div>
+
+  <main id="main">
+  <section class="page-hero">
+    <div class="page-hero__bg"><img src="assets/img/site/lab-sessions.jpg" alt="" loading="eager"></div>
+    <div class="wrap page-hero__inner">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span>/</span><a href="teaching-labs.html">Teaching Labs</a><span>/</span><a href="spring-semester.html">Spring Semester</a><span>/</span>EE 344</nav>
+      <h1>EE 344: Electronics Design Lab-I</h1>
+      <p>The capstone design course: take an electronic product from concept to working prototype over a semester.</p>
+    </div>
+  </section>
+  <section class="section section--tight">
+    <div class="wrap-narrow prose reveal">
+        <p>The <strong>Electronics Design Lab (EDL)</strong> course, a capstone design course at the Department of Electrical Engineering, IIT Bombay, empowers students to develop electronic products from concept to prototype. The introduction of the Experiential Learning Lab (ELL) significantly enhanced the curriculum and the technology readiness level (TRL) of student project prototypes. ELL has facilities for 3D printing, 3D scanning, desktop CNC milling, lathe, laser cutting and vacuum forming.</p>
+        <p>Previously limited to basic printed circuit boards (PCBs) and rudimentary packaging, EDL now fosters innovation through access to advanced PCB fabrication and rapid prototyping tools. The upgraded facilities enable students to create more impactful prototypes, bridging theory with hands-on application-driven problem solving, and training them to become innovators.</p>
+        <ul>
+          <li>EDL has an enrollment of more than 200 students in each batch and runs for around 15 weeks.</li>
+          <li>Students are expected to form their own groups of four or five students.</li>
+          <li>Each student group is expected to spend approximately 30 person-hours per week on the project.</li>
+        </ul>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Teaching</span>
+        <h2>Course instructors</h2>
+      </div>
+      <div class="grid g4">
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/courses/siddharth-tallur.png" alt="Prof. Siddharth Tallur" loading="lazy"></div>
+          <div class="person__body">
+            <h4><a href="https://www.ee.iitb.ac.in/web/people/siddharth-tallur/" target="_blank" rel="noopener">Prof. Siddharth Tallur</a></h4>
+            <span class="person__role">Course Instructor</span>
+            <div class="person__contact">
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><a href="mailto:stallur@ee.iitb.ac.in">stallur@ee.iitb.ac.in</a></div>
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h3l1.5 4-2 1.5a12 12 0 006.4 6.4l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.6 5.2 2 2 0 016.6 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>022-2576-9422 (O)</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/courses/satish-mulleti.jpg" alt="Prof. Satish Mulleti" loading="lazy"></div>
+          <div class="person__body">
+            <h4><a href="https://www.ee.iitb.ac.in/web/people/satish-mulleti/" target="_blank" rel="noopener">Prof. Satish Mulleti</a></h4>
+            <span class="person__role">Course Instructor</span>
+            <div class="person__contact">
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><a href="mailto:satishmulleti@ee.iitb.ac.in">satishmulleti@ee.iitb.ac.in</a></div>
+              
+            </div>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/courses/pc-pandey.jpg" alt="Prof. P. C. Pandey" loading="lazy"></div>
+          <div class="person__body">
+            <h4><a href="https://www.ee.iitb.ac.in/~pcpandey/" target="_blank" rel="noopener">Prof. P. C. Pandey</a></h4>
+            <span class="person__role">Course Instructor</span>
+            <div class="person__contact">
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><a href="mailto:pcpandey@ee.iitb.ac.in">pcpandey@ee.iitb.ac.in</a></div>
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h3l1.5 4-2 1.5a12 12 0 006.4 6.4l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.6 5.2 2 2 0 016.6 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>022-2572-3707 (O)</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/courses/apurba-bhattacharya.jpg" alt="Prof. Apurba Bhattacharya" loading="lazy"></div>
+          <div class="person__body">
+            <h4><a href="https://www.ee.iitb.ac.in/web/people/apurba-narayan-bhattacharya/" target="_blank" rel="noopener">Prof. Apurba Bhattacharya</a></h4>
+            <span class="person__role">Course Instructor</span>
+            <div class="person__contact">
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><a href="mailto:apurbabhattacharya@ee.iitb.ac.in">apurbabhattacharya@ee.iitb.ac.in</a></div>
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h3l1.5 4-2 1.5a12 12 0 006.4 6.4l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.6 5.2 2 2 0 016.6 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>022-2576-7417 (O)</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/people/apurba-laha.png" alt="Prof. Apurba Laha" loading="lazy"></div>
+          <div class="person__body">
+            <h4><a href="https://www.ee.iitb.ac.in/web/people/apurba-laha/" target="_blank" rel="noopener">Prof. Apurba Laha</a></h4>
+            <span class="person__role">Course Instructor</span>
+            <div class="person__contact">
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><a href="mailto:laha@ee.iitb.ac.in">laha@ee.iitb.ac.in</a></div>
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h3l1.5 4-2 1.5a12 12 0 006.4 6.4l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.6 5.2 2 2 0 016.6 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>022-2576-9408 (O)</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/courses/debanjan-bhowmik.jpg" alt="Prof. Debanjan Bhowmik" loading="lazy"></div>
+          <div class="person__body">
+            <h4><a href="https://www.ee.iitb.ac.in/web/people/debanjan-bhowmik/" target="_blank" rel="noopener">Prof. Debanjan Bhowmik</a></h4>
+            <span class="person__role">Course Instructor</span>
+            <div class="person__contact">
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><a href="mailto:debanjan@ee.iitb.ac.in">debanjan@ee.iitb.ac.in</a></div>
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h3l1.5 4-2 1.5a12 12 0 006.4 6.4l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.6 5.2 2 2 0 016.6 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>022-2576-9429 (O)</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/courses/jayanta-mukherjee.jpg" alt="Prof. Jayanta Mukherjee" loading="lazy"></div>
+          <div class="person__body">
+            <h4><a href="https://www.ee.iitb.ac.in/web/people/jayanta-mukherjee/" target="_blank" rel="noopener">Prof. Jayanta Mukherjee</a></h4>
+            <span class="person__role">Course Instructor</span>
+            <div class="person__contact">
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><a href="mailto:jayanta@ee.iitb.ac.in">jayanta@ee.iitb.ac.in</a></div>
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h3l1.5 4-2 1.5a12 12 0 006.4 6.4l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.6 5.2 2 2 0 016.6 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>022-2576-7479 (O)</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/courses/anil-kottantharayil.png" alt="Prof. Anil Kottantharayil" loading="lazy"></div>
+          <div class="person__body">
+            <h4><a href="https://www.ee.iitb.ac.in/web/people/anil-kottantharayil/" target="_blank" rel="noopener">Prof. Anil Kottantharayil</a></h4>
+            <span class="person__role">Course Instructor</span>
+            <div class="person__contact">
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><a href="mailto:anilkg@ee.iitb.ac.in">anilkg@ee.iitb.ac.in</a></div>
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h3l1.5 4-2 1.5a12 12 0 006.4 6.4l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.6 5.2 2 2 0 016.6 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>022-2576-7438 (O)</span></div>
+            </div>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/courses/himanshu-bahirat.jpg" alt="Prof. Himanshu Bahirat" loading="lazy"></div>
+          <div class="person__body">
+            <h4><a href="https://www.ee.iitb.ac.in/web/people/himanshu-j-bahirat/" target="_blank" rel="noopener">Prof. Himanshu Bahirat</a></h4>
+            <span class="person__role">Course Instructor</span>
+            <div class="person__contact">
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><a href="mailto:hjbahirat@ee.iitb.ac.in">hjbahirat@ee.iitb.ac.in</a></div>
+              <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h3l1.5 4-2 1.5a12 12 0 006.4 6.4l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.6 5.2 2 2 0 016.6 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>022-2576-9415 (O)</span></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section section--alt section--tight">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Course resources</span>
+        <h2>Material and links</h2>
+      </div>
+      <div class="reveal">
+          <ul class="res-list">
+            <li><a href="http://10.107.68.222/teaching_labs/EDL/Labsheets/" target="_blank" rel="noopener">Labsheets <span class="tag-internal" title="Only reachable on the IIT Bombay network">internal</span></a></li>
+            <li><a href="http://10.107.68.222/teaching_labs/EDL/Tiva_c" target="_blank" rel="noopener">Resources for TIVA-C <span class="tag-internal" title="Only reachable on the IIT Bombay network">internal</span></a></li>
+            <li><a href="http://10.107.68.222/teaching_labs/EDL/Aurum" target="_blank" rel="noopener">Resources for Aurum <span class="tag-internal" title="Only reachable on the IIT Bombay network">internal</span></a></li>
+            <li><a href="http://10.107.68.222/teaching_labs/EDL/PCB_Design" target="_blank" rel="noopener">Resources for PCB design <span class="tag-internal" title="Only reachable on the IIT Bombay network">internal</span></a></li>
+            <li><a href="http://10.107.68.222/teaching_labs/EDL/project_ideas" target="_blank" rel="noopener">Project ideas <span class="tag-internal" title="Only reachable on the IIT Bombay network">internal</span></a></li>
+            <li><a href="http://10.107.68.222/teaching_labs/EDL/project_template" target="_blank" rel="noopener">Template for project proposal <span class="tag-internal" title="Only reachable on the IIT Bombay network">internal</span></a></li>
+            <li><a href="http://10.107.68.222/teaching_labs/EDL/Approval_Form.doc" target="_blank" rel="noopener">Component purchase approval form <span class="tag-internal" title="Only reachable on the IIT Bombay network">internal</span></a></li>
+          </ul>
+          <p style="font-size:.88rem;color:var(--muted);margin-top:1rem">
+            Links marked <span class="tag-internal">internal</span> are hosted on the lab server and
+            open only from the IIT Bombay network.</p>
+          <div class="note" style="margin-top:1.4rem">Group allotment, the course timeline and the archive of past project reports are published by the course staff each semester.</div>
+      </div>
+    </div>
+  </section>
+  <section class="section section--alt section--tight">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Lab support</span>
+        <h2>Supporting staff</h2>
+        <p>WEL staff who run this lab day to day.</p>
+      </div>
+      <div class="grid g4">
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/people/maheshwar-mangat.jpg" alt="Maheshwar Mangat" loading="lazy"></div>
+          <div class="person__body">
+            <h4>Maheshwar Mangat</h4>
+            <span class="person__role">Sr. Technical Superintendent</span>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/people/ankur-agarwal.jpg" alt="Ankur Agarwal" loading="lazy"></div>
+          <div class="person__body">
+            <h4>Ankur Agarwal</h4>
+            <span class="person__role">Jr. Technical Superintendent</span>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/people/suraj-sarfare.jpg" alt="Suraj Suresh Sarfare" loading="lazy"></div>
+          <div class="person__body">
+            <h4>Suraj Suresh Sarfare</h4>
+            <span class="person__role">Junior Mechanic</span>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/people/mangesh-ingle.jpg" alt="Mangesh U. Ingle" loading="lazy"></div>
+          <div class="person__body">
+            <h4>Mangesh U. Ingle</h4>
+            <span class="person__role">Sr. Project Assistant</span>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/people/sunil-raut.jpg" alt="Sunil Sheshrao Raut" loading="lazy"></div>
+          <div class="person__body">
+            <h4>Sunil Sheshrao Raut</h4>
+            <span class="person__role">Project Attendant</span>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person__photo"><img src="assets/img/people/vijay-patil.jpg" alt="Vijay Vilas Patil" loading="lazy"></div>
+          <div class="person__body">
+            <h4>Vijay Vilas Patil</h4>
+            <span class="person__role">Project Assistant</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="btn-row reveal">
+        <a class="btn btn--outline" href="spring-semester.html">All spring semester courses</a>
+        <a class="btn btn--outline" href="teaching-labs.html">Teaching labs</a>
+        <a class="btn btn--outline" href="contact.html">Ask the lab</a>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/img/site/wel-logo.png" alt="Wadhwani Electronics Laboratory" width="140" height="56">
+          <p>Where electronics lives. WEL provides students at IIT Bombay the space, hardware and
+             mentorship to make impactful innovations in electronic systems, through curricular and
+             co-curricular activities.</p>
+          <div class="social">
+            <a href="https://www.linkedin.com/company/wadhwani-electronics-laboratory/" target="_blank" rel="noopener" aria-label="WEL on LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.85V21h-4z"/></svg></a>
+            <a href="https://www.youtube.com/@wadhwanielectronicslaborat9314" target="_blank" rel="noopener" aria-label="WEL on YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23 12s0-3.4-.44-5.03a2.6 2.6 0 00-1.83-1.84C19.1 4.7 12 4.7 12 4.7s-7.1 0-8.73.43A2.6 2.6 0 001.44 6.97C1 8.6 1 12 1 12s0 3.4.44 5.03a2.6 2.6 0 001.83 1.84c1.63.43 8.73.43 8.73.43s7.1 0 8.73-.43a2.6 2.6 0 001.83-1.84C23 15.4 23 12 23 12zM9.75 15.5v-7l6 3.5z"/></svg></a>
+            <a href="mailto:wel@ee.iitb.ac.in" aria-label="Email WEL"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></a>
+          </div>
+        </div>
+
+        <div>
+          <h5>Explore</h5>
+          <ul>
+            <li><a href="about.html">About WEL</a></li>
+            <li><a href="teaching-labs.html">Teaching Labs</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="blogs.html">Blogs</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5>Resources</h5>
+          <ul>
+            <li><a href="advanced-facilities.html">Advanced Facilities</a></li>
+            <li><a href="made-in-wel.html">Made in WEL Boards</a></li>
+            <li><a href="instruments.html">Instruments</a></li>
+            <li><a href="components.html">Components</a></li>
+            <li><a href="inventory.html">IITB WEL Inventory</a></li>
+            <li><a href="online-request.html">Online Requests</a></li>
+          </ul>
+        </div>
+
+        <div class="footer__contact">
+          <h5>Reach us</h5>
+          <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.1 7-11a7 7 0 10-14 0c0 4.9 7 11 7 11z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6" stroke="currentColor" stroke-width="1.7"/></svg><span>3rd Floor, Electrical Engineering Department,<br>IIT Bombay, Powai, Mumbai 400076</span></div>
+          <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.7"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><a href="mailto:wel@ee.iitb.ac.in">wel@ee.iitb.ac.in</a></div>
+          <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6.6 3h3l1.5 4-2 1.5a12 12 0 006.4 6.4l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17 17 0 014.6 5.2 2 2 0 016.6 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><span>+91-22-2576-4484 (Lab)<br>+91-22-2159-3524 (Office)</span></div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>&copy; <span data-year>2026</span> Wadhwani Electronics Laboratory, IIT Bombay. All rights reserved.</span>
+        <span><a href="contact.html">Contact</a> &middot; <a href="https://www.ee.iitb.ac.in/~wel_iitb/index.php" target="_blank" rel="noopener">Archived website</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <script src="assets/js/main.js?v=76a38e89"></script>
+</body>
+</html>

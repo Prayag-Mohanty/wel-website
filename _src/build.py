@@ -316,10 +316,10 @@ def render(page):
 
 
 def main():
-    import pages_main, pages_labs, pages_resources, pages_people
+    import pages_main, pages_labs, pages_resources, pages_people, pages_courses
 
     pages = []
-    for mod in (pages_main, pages_labs, pages_resources, pages_people):
+    for mod in (pages_main, pages_labs, pages_resources, pages_people, pages_courses):
         pages.extend(mod.PAGES)
 
     written = []
