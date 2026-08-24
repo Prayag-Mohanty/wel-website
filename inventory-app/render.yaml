@@ -1,0 +1,28 @@
+# Render blueprint for WEL Inventory.
+#
+# In the Render dashboard: New -> Blueprint -> pick this repository.
+# Render reads this file and creates the service.
+#
+# IMPORTANT: the free instance type has no persistent disk. SQLite lives on
+# ephemeral storage, so the database resets whenever the service restarts or
+# redeploys. That is fine for a demo, NOT for real stock records. For real use
+# either attach a paid disk, switch to Render's Postgres, or host on the lab
+# server / PythonAnywhere instead. See DEPLOY.md.
+
+services:
+  - type: web
+    name: wel-inventory
+    runtime: python
+    rootDir: inventory-app
+    plan: free
+    buildCommand: pip install -r requirements.txt gunicorn
+    startCommand: gunicorn wsgi:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.4"
+      - key: SECRET_KEY
+        generateValue: true          # Render generates a strong random value
+      - key: ADMIN_EMAIL
+        sync: false                  # set this yourself in the dashboard
+      - key: ADMIN_PASSWORD
+        sync: false                  # set this yourself in the dashboard

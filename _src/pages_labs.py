@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Teaching labs (overview / autumn / spring) and the online request pages."""
-from build import SITE, icon, page_hero
+from build import SITE, icon, page_hero, inventory_url, inventory_live
 
 # ===========================================================================
 # TEACHING LABS - OVERVIEW
@@ -135,17 +135,29 @@ def _semester_body(semester, other_label, other_href, note):
 # ===========================================================================
 # ONLINE REQUEST
 # ===========================================================================
+
+# Requests for boards and equipment are handled by the WEL Inventory app.
+if inventory_live():
+    _PORTAL_NOTE = """<div class="note">
+          <strong>Boards, modules and equipment</strong> are requested through
+          <a href="{app}" target="_blank" rel="noopener">WEL Inventory</a>, using the same team
+          registration and approval flow as component stock.
+        </div>""".format(app=SITE["inventory_app"])
+else:
+    _PORTAL_NOTE = """<div class="note note--red">
+          <strong>The request portal is being moved.</strong> Board, module and equipment requests are
+          handled by <a href="inventory.html">WEL Inventory</a>, which is not online yet. Until it is,
+          write to <a href="mailto:{email}">{email}</a> and the lab staff will sort it out.
+        </div>""".format(email=SITE["email"])
+
+
 REQUEST_BODY = """  <section class="section">
     <div class="wrap">
       <div class="wrap-narrow reveal" style="width:100%;padding:0;margin:0 0 2.4rem">
         <p class="lead">Three kinds of request are handled online: access to special facilities,
           borrowing development boards and modules, and equipment loans. Requests are tracked, and stock
           is updated when a request is approved.</p>
-        <div class="note note--red">
-          <strong>On the institute network.</strong> The request portal is hosted inside the lab network.
-          If the links below do not open, connect to the IIT Bombay network or VPN first, or write to
-          <a href="mailto:{email}">{email}</a>.
-        </div>
+        {portal_note}
       </div>
 
       <div class="grid g3">
@@ -166,7 +178,7 @@ REQUEST_BODY = """  <section class="section">
           <p>Take development boards from WEL for a specific time period &mdash; PT-51, Xen-10, Krypton,
              the IQ Modulator and the module stock that goes with them.</p>
           <div class="btn-row" style="margin-top:1.2rem">
-            <a class="btn btn--primary btn--sm" href="{portal}" target="_blank" rel="noopener">Request a board {i_ext}</a>
+            <a class="btn btn--primary btn--sm" href="{inv}"{inv_target}>Request a board {i_ext_or_blank}</a>
             <a class="btn btn--outline btn--sm" href="made-in-wel.html">See boards</a>
           </div>
         </div>
@@ -177,7 +189,7 @@ REQUEST_BODY = """  <section class="section">
           <p>Borrow instruments from WEL for a specific time period &mdash; generators, oscilloscopes,
              analyzers, meters and supplies, subject to availability.</p>
           <div class="btn-row" style="margin-top:1.2rem">
-            <a class="btn btn--primary btn--sm" href="{portal}" target="_blank" rel="noopener">Request equipment {i_ext}</a>
+            <a class="btn btn--primary btn--sm" href="{inv}"{inv_target}>Request equipment {i_ext_or_blank}</a>
             <a class="btn btn--outline btn--sm" href="instruments.html">See instruments</a>
           </div>
         </div>
@@ -203,12 +215,15 @@ REQUEST_BODY = """  <section class="section">
       </div>
       <div class="note mt2 reveal" style="margin-top:2rem">
         <strong>Component stock</strong> - resistors, capacitors, discrete devices, ICs, sensors, motors
-        and displays - is handled through the <a href="inventory.html">IITB WEL Inventory</a> portal,
+        and displays - is handled through the <a href="inventory.html">WEL Inventory</a> portal,
         which uses the same team registration and approval flow.
       </div>
     </div>
   </section>
-""".format(email=SITE["email"], portal=SITE["request_portal"], facilities_form=SITE["facilities_form"],
+""".format(email=SITE["email"], portal_note=_PORTAL_NOTE, inv=inventory_url(),
+           inv_target=(' target="_blank" rel="noopener"' if inventory_live() else ''),
+           i_ext_or_blank=(icon("external") if inventory_live() else ''),
+           facilities_form=SITE["facilities_form"],
            i_flask=icon("flask"), i_board=icon("board"), i_scope=icon("scope"), i_people=icon("people"),
            i_search=icon("search"), i_clip=icon("clipboard"), i_box=icon("box"), i_ext=icon("external"))
 

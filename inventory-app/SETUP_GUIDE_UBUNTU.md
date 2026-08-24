@@ -1,4 +1,4 @@
-# IITB WEL Inventory — Complete Setup Guide (Ubuntu)
+# WEL Inventory — Complete Setup Guide (Ubuntu)
 
 ---
 
@@ -111,7 +111,7 @@ Open Firefox or Chrome and go to:
 http://localhost:5000
 ```
 
-You will see the IITB WEL Inventory homepage with two options:
+You will see the WEL Inventory homepage with two options:
 - Student / Team portal
 - Admin portal
 

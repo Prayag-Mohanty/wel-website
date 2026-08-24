@@ -57,7 +57,7 @@ HOME_BODY = """  <section class="section section--tight">
         </a>
         <a class="lcard lcard--red reveal" href="inventory.html">
           <span class="lcard__icon">{i_box}</span>
-          <h3>IITB WEL Inventory</h3>
+          <h3>WEL Inventory</h3>
           <p>Search component stock, add to a cart and raise a request as a project team.</p>
         </a>
         <a class="lcard lcard--red reveal" href="online-request.html">
@@ -317,7 +317,7 @@ HOME_BODY = """  <section class="section section--tight">
         <span class="eyebrow" style="color:#bcd8f8">Get started</span>
         <h2>Need a board, an instrument or a facility?</h2>
         <p>Requests for development boards, equipment loans and special facilities are handled online.
-           Component stock is searchable through the IITB WEL Inventory portal.</p>
+           Component stock is searchable through the WEL Inventory portal.</p>
         <div class="btn-row">
           <a class="btn btn--red" href="inventory.html">Open WEL Inventory</a>
           <a class="btn btn--ghost" href="online-request.html">Make a request</a>

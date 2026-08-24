@@ -1,4 +1,4 @@
-# IITB WEL Inventory — Complete Windows Setup Guide
+# WEL Inventory — Complete Windows Setup Guide
 ### Step-by-step from zero to running website
 
 ---
@@ -206,7 +206,7 @@ Open your web browser (Chrome/Firefox/Edge) and go to:
 http://localhost:5000
 ```
 
-You will see the **IITB WEL Inventory** landing page!
+You will see the **WEL Inventory** landing page!
 
 **To stop the server:** Press `Ctrl + C` in the terminal.
 

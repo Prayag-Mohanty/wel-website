@@ -2,7 +2,7 @@
 
 A complete rebuild of the WEL website for IIT Bombay. It carries over every section of the old
 WordPress site (`ee.iitb.ac.in/~wel_iitb`) and every section of the current Drupal site
-(`wel.ee.iitb.ac.in`), including the IITB WEL Inventory, which now sits under **Resources**.
+(`wel.ee.iitb.ac.in`), including the WEL Inventory, which now sits under **Resources**.
 
 Link: https://prayag-mohanty.github.io/wel-website/
 
@@ -79,7 +79,7 @@ WEL website/
 | Development Boards Made in WEL | `made-in-wel.html` |
 | Instruments | `instruments.html` |
 | Components | `components.html` |
-| **IITB WEL Inventory** | `inventory.html` |
+| **WEL Inventory** | `inventory.html` |
 | Online Request | `online-request.html` |
 | People | `people.html` |
 | Faculty Members | `faculty.html` |
@@ -121,7 +121,7 @@ SITE = {
     "email": "wel@ee.iitb.ac.in",
     "phone_lab": "+91-22-2576-4484",
     "request_portal": "http://10.107.68.191",   # equipment / board requests
-    "inventory_app": "http://10.107.68.191",    # IITB WEL Inventory
+    "inventory_app": "http://10.107.68.191",    # WEL Inventory
     ...
 }
 ```
@@ -258,39 +258,62 @@ either file changes, so browsers pick up updates immediately instead of serving 
 
 ---
 
-## The inventory app
+## WEL Inventory
 
-`inventory-app/` is your Flask application with its interface reskinned to match the site — same
-logo, typography, blue, red, dark header strip and footer. **No application logic was changed**;
-`app.py` is byte-identical to what you sent. What changed:
+`inventory-app/` **is** the Flask application you sent, with its interface reskinned to match the
+site. `app.py` is byte-identical to your zip — verified by diff. What was added around it:
 
-- `templates/base.html` — rewritten with the WEL header, topbar and footer, and links back to
-  the main site
-- `static/css/wel-theme.css` — new; a theme layer loaded after Bootstrap so it overrides it
-- `static/img/wel-logo.png` — new
-- the other templates — only the two hard-coded colours (`#003366`, `#c8a84b`) swapped for the
-  theme variables, so they follow the palette
+- `templates/base.html` — rewritten with the WEL header and footer
+- `static/css/wel-theme.css` — a theme layer loaded after Bootstrap
+- `wsgi.py` — production entry point (see below)
+- `render.yaml`, `DEPLOY.md` — hosting
+- the other templates — only the two hard-coded colours swapped for theme variables
 
-Running it is unchanged, and `SETUP_GUIDE.md` still applies:
+### It needs its own host
+
+The website is static files on GitHub Pages. **GitHub Pages cannot run Python.** So the two halves
+run in different places:
+
+```
+prayag-mohanty.github.io/wel-website/   the website     (GitHub Pages, static)
+        │
+        └── "Open WEL Inventory" ──────► wherever you host the app  (runs Python)
+```
+
+Once the app is running, set its address in **one place** and every inventory link on the site
+follows:
+
+```python
+# _src/build.py
+"inventory_app": "https://your-address-here",
+```
+
+While it is empty, the site says the portal is not online yet instead of linking somewhere broken.
+
+**`inventory-app/DEPLOY.md` has the three options** — the lab server, PythonAnywhere (free, and the
+data persists), or Render (free, but the SQLite database resets on every restart, so not for real
+stock records).
+
+### Why wsgi.py exists
+
+`app.py` creates the database tables inside `if __name__ == '__main__'`. A production server imports
+the module rather than running it, so that block never fires and the app would start against an
+empty database. `wsgi.py` does that setup at import time and exposes `app`, leaving `app.py`
+untouched. Serve it with `gunicorn wsgi:app`.
+
+### Running it locally
 
 ```bash
 cd inventory-app
 python -m venv venv
-venv\Scripts\activate
+venv\Scriptsctivate
 pip install -r requirements.txt
 copy .env.example .env
 python app.py
 ```
 
-Two notes for the lab server:
-
-- Bootstrap and Bootstrap Icons load from jsDelivr, as they did before. If the server has no
-  outbound internet, download those two files into `static/` and change the two `<link>` tags in
-  `templates/base.html` to point at them.
-- `.env` is deliberately not included — copy `.env.example` and set a real `SECRET_KEY`,
-  `ADMIN_EMAIL` and `ADMIN_PASSWORD`. Do not reuse the sample secret key in production.
-
----
+`.env` is gitignored and must stay that way — `SECRET_KEY` signs the login cookies, and a guessable
+one lets someone forge an admin session.
 
 ## Where the content came from
 

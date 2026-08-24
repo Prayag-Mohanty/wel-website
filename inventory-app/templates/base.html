@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IITB WEL Inventory{% block title %}{% endblock %}</title>
+  <title>WEL Inventory{% block title %}{% endblock %}</title>
   <link rel="icon" href="{{ url_for('static', filename='img/wel-logo.png') }}" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +22,7 @@
     <div>Indian Institute of Technology Bombay &middot; Department of Electrical Engineering</div>
     <div class="d-none d-md-flex gap-3">
       <a href="mailto:wel@ee.iitb.ac.in"><i class="bi bi-envelope"></i> wel@ee.iitb.ac.in</a>
-      <a href="https://wel.ee.iitb.ac.in/"><i class="bi bi-box-arrow-up-right"></i> WEL website</a>
+      <a href="https://prayag-mohanty.github.io/wel-website/"><i class="bi bi-box-arrow-up-right"></i> WEL website</a>
     </div>
   </div>
 </div>
@@ -33,7 +33,7 @@
     <a class="navbar-brand" href="{{ url_for('landing') }}">
       <img src="{{ url_for('static', filename='img/wel-logo.png') }}" alt="Wadhwani Electronics Laboratory">
       <span class="bt">
-        <strong>IITB WEL Inventory</strong>
+        <strong>WEL Inventory</strong>
         <span>Wadhwani Electronics Laboratory</span>
       </span>
     </a>
@@ -82,7 +82,7 @@
       {% else %}
       <!-- ── LOGGED OUT NAVBAR ── -->
       <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1 mt-3 mt-lg-0">
-        <li class="nav-item"><a class="nav-link" href="https://wel.ee.iitb.ac.in/">WEL site</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://prayag-mohanty.github.io/wel-website/">WEL site</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_login') }}">Admin</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Student login</a></li>
         <li class="nav-item ms-lg-2"><a class="btn btn-sm btn-iitb" href="{{ url_for('register') }}">Register team</a></li>
@@ -110,7 +110,7 @@
   <div class="container-fluid px-4" style="max-width:1440px;">
     <div class="row">
       <div class="col-md-5 mb-3">
-        <h6>IITB WEL Inventory</h6>
+        <h6>WEL Inventory</h6>
         <p class="mb-0" style="max-width:42ch;">
           The component stock system of the Wadhwani Electronics Laboratory, Department of Electrical
           Engineering, IIT Bombay. Register your team once, then search stock and raise requests.
@@ -119,10 +119,10 @@
       <div class="col-md-3 mb-3">
         <h6>Links</h6>
         <div class="d-flex flex-column gap-2">
-          <a href="https://wel.ee.iitb.ac.in/">WEL website</a>
-          <a href="https://wel.ee.iitb.ac.in/inventory.html">How requests work</a>
-          <a href="https://wel.ee.iitb.ac.in/components.html">About the components</a>
-          <a href="https://wel.ee.iitb.ac.in/contact.html">Contact the lab</a>
+          <a href="https://prayag-mohanty.github.io/wel-website/">WEL website</a>
+          <a href="https://prayag-mohanty.github.io/wel-website/inventory.html">How requests work</a>
+          <a href="https://prayag-mohanty.github.io/wel-website/components.html">About the components</a>
+          <a href="https://prayag-mohanty.github.io/wel-website/contact.html">Contact the lab</a>
         </div>
       </div>
       <div class="col-md-4 mb-3">

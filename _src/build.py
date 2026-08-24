@@ -31,11 +31,34 @@ SITE = {
     "linkedin": "https://www.linkedin.com/company/wadhwani-electronics-laboratory/",
     "youtube": "https://www.youtube.com/@wadhwanielectronicslaborat9314",
     "old_site": "https://www.ee.iitb.ac.in/~wel_iitb/index.php",
-    # The internal request / inventory portal.  Change in one place if the host moves.
-    "request_portal": "http://10.107.68.191",
-    "inventory_app": "http://10.107.68.191",
+
+    # ------------------------------------------------------------------
+    # WEL Inventory - the Flask app in inventory-app/.
+    #
+    # Put its address here once it is running and every link on the site
+    # points at it.  Leave it empty and the site says so honestly instead of
+    # linking somewhere broken.
+    #
+    #   on the lab server   "http://wel.ee.iitb.ac.in:5000"
+    #   on PythonAnywhere   "https://welinventory.pythonanywhere.com"
+    #   on Render           "https://wel-inventory.onrender.com"
+    #
+    # See inventory-app/DEPLOY.md.
+    # ------------------------------------------------------------------
+    "inventory_app": "",
+
     "facilities_form": "https://wel.ee.iitb.ac.in/wel_facilities_update",
 }
+
+
+def inventory_url(fallback="inventory.html"):
+    """Where inventory links should point.  Falls back to the info page while
+    the app has no address, so the site never carries a dead link."""
+    return SITE["inventory_app"] or fallback
+
+
+def inventory_live():
+    return bool(SITE["inventory_app"])
 
 # ---------------------------------------------------------------------------
 # Navigation:  (label, href, [(sub label, sub href, sub note), ...])
@@ -57,7 +80,7 @@ NAV = [
         ("Development Boards - Made in WEL", "made-in-wel.html", "PicoIRIS, PT-51, Xen-10, IQ Modulator"),
         ("Instruments", "instruments.html", "Generators, scopes, analyzers, meters"),
         ("Components", "components.html", "Stock, datasheets and component lists"),
-        ("IITB WEL Inventory", "inventory.html", "Search stock and raise a component request"),
+        ("WEL Inventory", "inventory.html", "Search stock and raise a component request"),
     ]),
     ("Online Request", "online-request.html", [
         ("Special Facilities Request", "online-request.html#special-facilities", "Chambers, EMI/EMC, PCB, prototyping"),
@@ -222,7 +245,7 @@ def footer():
             <li><a href="made-in-wel.html">Made in WEL Boards</a></li>
             <li><a href="instruments.html">Instruments</a></li>
             <li><a href="components.html">Components</a></li>
-            <li><a href="inventory.html">IITB WEL Inventory</a></li>
+            <li><a href="inventory.html">WEL Inventory</a></li>
             <li><a href="online-request.html">Online Requests</a></li>
           </ul>
         </div>

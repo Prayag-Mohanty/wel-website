@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Resources hub, advanced facilities, Made in WEL boards, instruments,
-components and the IITB WEL Inventory front door."""
-from build import SITE, icon, page_hero
+components and the WEL Inventory front door."""
+from build import SITE, icon, page_hero, inventory_live
 
 # ===========================================================================
 # RESOURCES HUB
@@ -37,7 +37,7 @@ RESOURCES_BODY = """  <section class="section">
              displays, plus datasheets.</p></a>
 
         <a class="lcard lcard--red reveal" href="inventory.html"><span class="lcard__icon">{i_box}</span>
-          <h3>IITB WEL Inventory</h3>
+          <h3>WEL Inventory</h3>
           <p>The searchable component stock portal: browse, add to a request cart and submit as a
              project team.</p></a>
 
@@ -521,7 +521,7 @@ COMPONENTS_BODY = """  <section class="section">
           <p>Sensors, regulators, crystals, motors, displays and similar parts.</p></div>
         <div class="lcard lcard--red reveal"><span class="lcard__icon">{i_box}</span><h3>List of components available</h3>
           <p>The live list, with quantities and locations, is in the
-             <a href="inventory.html">IITB WEL Inventory</a> portal.</p></div>
+             <a href="inventory.html">WEL Inventory</a> portal.</p></div>
       </div>
     </div>
   </section>
@@ -529,27 +529,39 @@ COMPONENTS_BODY = """  <section class="section">
 
 
 # ===========================================================================
-# IITB WEL INVENTORY
+# WEL INVENTORY
 # ===========================================================================
+if inventory_live():
+    _LAUNCH = """<div class="btn-row">
+            <a class="btn btn--red" href="{app}" target="_blank" rel="noopener">Open WEL Inventory {i_ext}</a>
+            <a class="btn btn--outline" href="components.html">About the components</a>
+          </div>""".format(app=SITE["inventory_app"], i_ext=icon("external"))
+else:
+    # No address configured yet, so link to something real rather than nowhere.
+    _LAUNCH = """<div class="btn-row">
+            <a class="btn btn--outline" href="components.html">About the components</a>
+            <a class="btn btn--outline" href="contact.html">Ask the lab</a>
+          </div>
+          <div class="note note--red" style="margin-top:1.6rem">
+            <strong>The portal is not online yet.</strong> WEL Inventory is a Flask application that
+            lives with this website's source in <code>inventory-app/</code>. It needs a host that can
+            run Python &mdash; the lab server, or a free service such as PythonAnywhere. Once it is
+            running, put its address in <code>SITE["inventory_app"]</code> in
+            <code>_src/build.py</code> and every link on this site will point at it.
+            Setup steps are in <code>inventory-app/DEPLOY.md</code>.
+          </div>"""
+
 INVENTORY_BODY = """  <section class="section">
     <div class="wrap">
       <div class="grid g2" style="align-items:start">
         <div class="reveal">
           <span class="eyebrow">Component stock portal</span>
           <h2>Search stock, build a cart, submit as a team</h2>
-          <p>The IITB WEL Inventory is the lab's component stock system. Project teams register once,
+          <p>The WEL Inventory is the lab's component stock system. Project teams register once,
             search the component list by type, model number, description or storage location, add what
             they need to a request cart and submit it with a note. Lab staff review the request, and on
             approval the stock is decremented automatically.</p>
-          <div class="btn-row">
-            <a class="btn btn--red" href="{app}" target="_blank" rel="noopener">Open the inventory portal {i_ext}</a>
-            <a class="btn btn--outline" href="components.html">About the components</a>
-          </div>
-          <div class="note note--red" style="margin-top:1.6rem">
-            <strong>Inside the institute network.</strong> The portal runs on the lab server. If the link
-            does not open, connect to the IIT Bombay network or VPN, or write to
-            <a href="mailto:{email}">{email}</a>.
-          </div>
+          {launch}
         </div>
 
         <div class="reveal">
@@ -627,7 +639,7 @@ INVENTORY_BODY = """  <section class="section">
       </div>
     </div>
   </section>
-""".format(app=SITE["inventory_app"], email=SITE["email"], i_ext=icon("external"),
+""".format(launch=_LAUNCH, email=SITE["email"],
            i_people=icon("people"), i_search=icon("search"), i_box=icon("box"),
            i_clip=icon("clipboard"), i_chip=icon("chip"))
 
@@ -694,13 +706,13 @@ PAGES = [
     },
     {
         "file": "inventory.html", "nav": "resources.html", "sub": "inventory.html",
-        "title": "IITB WEL Inventory | Wadhwani Electronics Laboratory",
+        "title": "WEL Inventory | Wadhwani Electronics Laboratory",
         "desc": "Search the WEL component stock, build a request cart and submit it as a project team. "
-                "The IITB WEL Inventory portal for students and lab staff.",
-        "hero": page_hero("IITB WEL Inventory",
+                "The WEL Inventory portal for students and lab staff.",
+        "hero": page_hero("WEL Inventory",
                           "The component stock portal: search what the lab holds, build a cart and "
                           "submit a request as a project team.",
-                          [("Resources", "resources.html"), ("IITB WEL Inventory", "inventory.html")],
+                          [("Resources", "resources.html"), ("WEL Inventory", "inventory.html")],
                           "assets/img/site/components.jpg"),
         "body": INVENTORY_BODY,
     },
