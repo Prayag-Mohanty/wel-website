@@ -522,7 +522,7 @@ PROGRAMS_BODY = """  <section class="section">
         <h2>Want to collaborate with WEL?</h2>
         <p>Institutions and student groups interested in workshops, training or outreach programs on
            WEL hardware and lab content are welcome to get in touch.</p>
-        <div class="btn-row"><a class="btn btn--red" href="contact.html">Talk to the lab</a></div>
+        <div class="btn-row"><a class="btn btn--red" href="contact.html">Talk to us</a></div>
       </div>
     </div>
   </section>
