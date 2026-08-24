@@ -620,33 +620,6 @@ ACHIEVEMENTS_BODY = """  <section class="section">
 """.format(cards=_ach_cards())
 
 # ===========================================================================
-# BLOGS
-# ===========================================================================
-BLOGS_BODY = """  <section class="section">
-    <div class="wrap">
-      <div class="grid g3">
-        <article class="card reveal">
-          <div class="card__media"><img src="assets/img/site/wel1-lab.jpeg" alt="Online lab courses at WEL" loading="lazy"></div>
-          <div class="card__body">
-            <div class="card__meta">20 May 2021 &middot; WEL</div>
-            <h3>Online lab courses @ WEL</h3>
-            <p>A report on the first-of-their-kind online laboratory courses conducted in the Spring
-              2020&ndash;21 semester by Prof. Siddharth Tallur, then Faculty-in-charge, WEL.</p>
-            <a class="arrow-link" href="https://www.ee.iitb.ac.in/~wel_iitb/blog/index.html" target="_blank" rel="noopener">Read on the archive</a>
-          </div>
-        </article>
-      </div>
-
-      <div class="note mt2 reveal" style="margin-top:2.4rem">
-        <strong>Writing for the lab?</strong> Reports, project write-ups and course retrospectives from
-        students, research assistants and staff are welcome here. Send a draft to
-        <a href="mailto:{email}">{email}</a> and it will be published on this page.
-      </div>
-    </div>
-  </section>
-""".format(email=SITE["email"])
-
-# ===========================================================================
 # CONTACT
 # ===========================================================================
 CONTACT_BODY = """  <section class="section">
@@ -764,16 +737,6 @@ PAGES = [
                           [("About", "about.html"), ("Achievements", "achievements.html")],
                           "assets/img/site/madeinwel.png"),
         "body": ACHIEVEMENTS_BODY,
-    },
-    {
-        "file": "blogs.html", "nav": "about.html", "sub": "blogs.html",
-        "title": "Blogs | Wadhwani Electronics Laboratory",
-        "desc": "Reports and writing from the Wadhwani Electronics Laboratory, IIT Bombay.",
-        "hero": page_hero("Blogs",
-                          "Reports, retrospectives and writing from the lab.",
-                          [("About", "about.html"), ("Blogs", "blogs.html")],
-                          "assets/img/site/work-stations.jpeg"),
-        "body": BLOGS_BODY,
     },
     {
         "file": "contact.html", "nav": "contact.html", "sub": None,

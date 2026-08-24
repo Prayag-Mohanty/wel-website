@@ -567,6 +567,32 @@ table td .tag-internal{margin-left:.2rem}
 .quote footer{margin-top:1rem;font-size:.86rem;font-weight:700;color:var(--ink);font-style:normal}
 .quote footer span{display:block;font-weight:500;color:var(--muted);font-size:.82rem}
 
+/* article figures */
+.figure-grid{
+  display:grid;gap:1.4rem;margin:2.4rem 0;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+}
+.figure-grid--3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.figure-grid figure{margin:0}
+.figure-grid img{
+  width:100%;border-radius:var(--radius);border:1px solid var(--line);
+  box-shadow:var(--shadow-sm);background:var(--bg-alt);
+}
+.figure-grid figcaption{
+  margin-top:.7rem;font-size:.85rem;line-height:1.5;color:var(--muted);text-align:center;
+}
+
+/* pull quote inside an article */
+.pullquote{
+  margin:2.2rem 0;padding:1.4rem 1.6rem;border-left:4px solid var(--primary);
+  background:var(--primary-light);border-radius:0 var(--radius) var(--radius) 0;
+}
+.pullquote p{font-size:1rem;line-height:1.65;color:var(--ink-soft);font-style:italic;margin:0}
+.pullquote footer{
+  margin-top:.9rem;font-size:.86rem;font-weight:700;color:var(--ink);font-style:normal;
+}
+.pullquote footer span{display:block;font-weight:500;color:var(--muted);font-size:.8rem;margin-top:.1rem}
+
 /* prose */
 .prose h2{margin-top:2.4rem}
 .prose h3{margin-top:2rem}
