@@ -97,11 +97,6 @@ STAFF_GROUPS = [
          "maintaining the lab records, and keeping track of the lab equipment and boards. He has "
          "received a Diploma in Electronics from the Maharashtra State Board of Technical Education, "
          "Mumbai."),
-        ("Sheetal Shivaji Patil", "Sr. Project Technical Assistant", "214076006@iitb.ac.in",
-         "022-2576-4412 (O)",
-         "assets/img/team/sheetal-patil.jpg",
-         "Sheetal is pursuing a Ph.D. in Electronic Systems from Electrical Engineering, IIT Bombay. "
-         "Her research work includes FPGA-based embedded systems and structural health monitoring."),
     ]),
     ("System Administration", "Systems", [
         ("Nilesh Tukaram Sawant", "Sr. Technical Superintendent (Sysad)", "nilesh.t.sawant@ee.iitb.ac.in",
@@ -156,20 +151,24 @@ STAFF_GROUPS = [
          "Vijay is a Project Assistant. He is involved in testing and checking of the Krypton board, "
          "digital multimeter, arbitrary function generator, and power supply. He has completed his "
          "Bachelor of Arts."),
-        ("Chandrashekhar Shele", "Multi-Skilled Assistant", "shekhars@ee.iitb.ac.in",
-         "022-2576-4409 (O) &middot; 92202 12167 (M)",
-         "assets/img/people/chandrashekhar-shele.jpg",
-         "Chandrashekhar is a Multi-Skilled Assistant at WEL, supporting day-to-day lab operations "
-         "across the teaching laboratories."),
-        ("V. V. Shahin", "Jr. Mechanic (Electronics)", "vvshahin@ee.iitb.ac.in",
-         "022-2576-4412 (O)",
-         "",
-         "Shahin is a Junior Mechanic (Electronics) at WEL, working on the teaching laboratories and "
-         "the maintenance of lab equipment and development boards."),
     ]),
 ]
 
 STAFF_FLAT = [m for _title, _cat, members in STAFF_GROUPS for m in members]
+
+# ---------------------------------------------------------------------------
+# LinkedIn profiles, keyed by the exact name used above.
+#
+# Neither the old team page nor the current site publishes these - the old
+# site's "View Profile" buttons all pointed at an empty "http://" - so this
+# starts empty on purpose rather than with guessed URLs. Add a line and the
+# LinkedIn link appears on the back of that person's card; leave someone out
+# and their card simply omits it.
+#
+#   "Amit Shetye": "https://www.linkedin.com/in/amit-shetye-xxxx/",
+# ---------------------------------------------------------------------------
+LINKEDIN = {
+}
 
 # ---------------------------------------------------------------------------
 # M.Tech research assistants.  (name, batch, email, photo, bio)
@@ -237,10 +236,17 @@ def _faculty_card(name, role, email, phone, src, profile):
 
 
 def _flip_card(name, role, email, phone, src, bio, cat=None):
-    """Flip card: contact on the front, bio on the back."""
+    """Flip card: photo, name and role on the front; bio and contact on the back."""
     data = ' data-cat="%s"' % cat if cat else ""
-    phone_line = '<div>%s</div>' % phone if phone else ""
-    return """        <div class="flipcard reveal" tabindex="0" role="button" aria-label="{name}, {role}. Activate to read biography."{data}>
+
+    lines = ['<div>%s<a href="mailto:%s">%s</a></div>' % (icon("mail"), email, email)]
+    if phone:
+        lines.append('<div>%s<span>%s</span></div>' % (icon("phone"), phone))
+    if LINKEDIN.get(name):
+        lines.append('<div>%s<a href="%s" target="_blank" rel="noopener">LinkedIn</a></div>'
+                     % (icon("linkedin"), LINKEDIN[name]))
+
+    return """        <div class="flipcard reveal" tabindex="0" role="button" aria-label="{name}, {role}. Activate to read their biography and contact details."{data}>
           <div class="flipcard__inner">
             <div class="flipcard__face flipcard__front">
               {photo}
@@ -248,21 +254,20 @@ def _flip_card(name, role, email, phone, src, bio, cat=None):
               <div class="flipcard__id">
                 <h4>{name}</h4>
                 <span class="person__role">{role}</span>
-                <div class="flipcard__contact">
-                  <div><a href="mailto:{email}">{email}</a></div>
-                  {phone_line}
-                </div>
               </div>
             </div>
             <div class="flipcard__face flipcard__back">
               <h4>{name}</h4>
               <span class="person__role">{role}</span>
               <p>{bio}</p>
+              <div class="flipcard__contact">
+                {contact}
+              </div>
             </div>
           </div>
         </div>""".format(name=name, role=role, data=data,
                          photo=_photo(name, src, "flipcard__photo"),
-                         email=email, phone_line=phone_line, bio=bio)
+                         contact="\n                ".join(lines), bio=bio)
 
 
 def _faculty_grid():
@@ -310,14 +315,25 @@ PEOPLE_BODY = """  <section class="section">
       <div class="grid g4">
 {faculty}
       </div>
-      <div class="btn-row mt2" style="margin-top:1.8rem">
-        <a class="btn btn--outline btn--sm" href="faculty.html">Faculty page</a>
-        <a class="btn btn--outline btn--sm" href="staff.html">Staff page</a>
-      </div>
     </div>
   </section>
 
   <section class="section section--alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Staff</span>
+        <h2>The team that runs the lab</h2>
+        <p>Lab administration and procurement, development of new hardware platforms and experiments,
+          planning and execution of lab courses, outreach programs, systems and network, and
+          day-to-day operations. Hover over a card &mdash; or tap it &mdash; to read what each person
+          does and how to reach them.</p>
+      </div>
+
+{staff_groups}
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap">
       <div class="section-head reveal">
         <span class="eyebrow">Research assistants</span>
@@ -336,7 +352,7 @@ PEOPLE_BODY = """  <section class="section">
       </div>
     </div>
   </section>
-""".format(faculty=_faculty_grid(), ras=_ra_cards())
+""".format(faculty=_faculty_grid(), staff_groups=_staff_groups_html(), ras=_ra_cards())
 
 
 # ===========================================================================
@@ -382,37 +398,9 @@ STAFF_BODY = """  <section class="section">
 {groups}
     </div>
   </section>
-
-  <section class="section section--alt section--tight">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">Directory</span>
-        <h2>Contact details at a glance</h2>
-      </div>
-      <div class="table-wrap reveal">
-        <table>
-          <thead><tr><th>Name</th><th>Position</th><th>Email</th><th>Contact</th></tr></thead>
-          <tbody>
-{rows}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
 """
 
-
-def _staff_rows():
-    out = []
-    for _title, _cat, members in STAFF_GROUPS:
-        for name, role, email, phone, _src, _bio in members:
-            out.append('            <tr><td>%s</td><td>%s</td>'
-                       '<td><a href="mailto:%s">%s</a></td><td>%s</td></tr>'
-                       % (name, role, email, email, phone))
-    return "\n".join(out)
-
-
-STAFF_BODY = STAFF_BODY.format(groups=_staff_groups_html(), rows=_staff_rows())
+STAFF_BODY = STAFF_BODY.format(groups=_staff_groups_html())
 
 
 # ===========================================================================

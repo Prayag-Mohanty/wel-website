@@ -333,6 +333,22 @@ hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
   border:1px solid var(--line);border-radius:var(--radius);background:#fff;overflow:hidden;
   display:flex;flex-direction:column;
 }
+/* The email and LinkedIn links live on the back. backface-visibility hides a
+   face visually but leaves its links in the tab order, so a keyboard user
+   would otherwise tab into links they cannot see. Toggling visibility takes
+   the back out of the tab order and the accessibility tree until the card is
+   turned.
+
+   No transition on this: a delayed visibility swap only lands if the browser
+   actually runs the transition, and if it does not the back stays hidden for
+   good and its links become unreachable. Switching instantly is safe because
+   backface-visibility still hides the back until it has turned past edge-on,
+   so there is no flash. The front is left visible throughout for the same
+   reason - it carries no links, so nothing is gained by hiding it. */
+.flipcard__back{visibility:hidden}
+.flipcard:hover .flipcard__back,
+.flipcard:focus-within .flipcard__back,
+.flipcard.is-flipped .flipcard__back{visibility:visible}
 .flipcard:hover .flipcard__face,
 .flipcard.is-flipped .flipcard__face{box-shadow:var(--shadow);border-color:var(--primary-mid)}
 
@@ -359,6 +375,11 @@ hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
 .flipcard__back h4{margin:0 0 .1rem;font-size:.96rem}
 .flipcard__back .person__role{margin-bottom:.7rem}
 .flipcard__back p{font-size:.82rem;line-height:1.55;color:var(--body);margin:0}
+.flipcard__back .flipcard__contact{
+  margin-top:.85rem;padding-top:.7rem;border-top:1px solid var(--line);font-size:.78rem;
+}
+.flipcard__back .flipcard__contact div{display:flex;gap:.45rem;align-items:flex-start;margin-bottom:.3rem}
+.flipcard__back .flipcard__contact svg{width:13px;height:13px;flex:none;margin-top:.28rem;color:var(--muted)}
 .flipcard__back::-webkit-scrollbar{width:5px}
 .flipcard__back::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
 
