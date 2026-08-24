@@ -165,18 +165,17 @@ go that route, delete `_src/` so nobody later regenerates over your edits.
 The repository is already initialised, committed on `main`, and carries a workflow that rebuilds and
 publishes on every push. You only need to create the remote and push once.
 
-**1. Create an empty repository** at <https://github.com/new>. Name it something like `wel-website`.
-Do **not** tick "Add a README" — the repo already has one.
+**1. Create an empty repository** at <https://github.com/new>. Name it exactly `wel-website`,
+owner `Prayag-Mohanty`. Do **not** tick "Add a README" — the repo already has one.
 
-**2. Push it** (replace `YOUR-USERNAME`):
-
-```bash
-git remote add origin https://github.com/YOUR-USERNAME/wel-website.git
-```
+**2. Push.** The remote is already configured, so this is the whole command:
 
 ```bash
 git push -u origin main
 ```
+
+The first push opens a browser window to sign in to GitHub (Git Credential Manager). Approve it once
+and it is remembered for every push after that.
 
 **3. Turn Pages on.** In the repository: **Settings → Pages → Build and deployment → Source →
 GitHub Actions**. That is the only click required; do not pick "Deploy from a branch".
@@ -184,7 +183,7 @@ GitHub Actions**. That is the only click required; do not pick "Deploy from a br
 **4. Watch it build.** The **Actions** tab shows the run. After about a minute the site is live at:
 
 ```
-https://YOUR-USERNAME.github.io/wel-website/
+https://prayag-mohanty.github.io/wel-website/
 ```
 
 That URL is public, shareable, HTTPS, and free with no bandwidth bill.
@@ -206,8 +205,8 @@ The Action rebuilds and deploys. Useful for a quick fix from a phone or someone 
 
 Free options, in order of effort:
 
-- **Rename the repo** to `YOUR-USERNAME.github.io` and the site serves from
-  `https://YOUR-USERNAME.github.io/` with no subfolder.
+- **Rename the repo** to `Prayag-Mohanty.github.io` and the site serves from
+  `https://prayag-mohanty.github.io/` with no subfolder.
 - **Use a domain you own** — add it under Settings → Pages → Custom domain, and GitHub issues the
   HTTPS certificate for free.
 - **Ask the department** for something like `wel.ee.iitb.ac.in` to point at the Pages site with a
