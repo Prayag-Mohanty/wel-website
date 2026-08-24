@@ -531,51 +531,29 @@ PROGRAMS_BODY = """  <section class="section">
 # ===========================================================================
 # ACHIEVEMENTS
 # ===========================================================================
-ACH = [
-    ("hardware-kits", "assets/img/site/madeinwel.png", "Course hardware",
-     "Hardware kits for lab courses", "Product developer: Vivekanand Dhakane",
-     "Hardware required for laboratory courses at WEL is primarily designed and manufactured in-house. "
-     "This tradition has been in place for more than 10 years, and numerous students and staff have "
-     "participated in developing and benefiting from such hardware for courses and projects. Notable "
-     "examples include Krypton (Intel MAX V CPLD), Xen-10 (MAX 10 CPLD), PT-51 (Microchip AT89C5131), "
-     "the IQ modulator board and PicoIRIS, an all-in-one lab-on-board under development.",
-     "made-in-wel.html", "View the boards"),
-    ("inspec", "assets/img/site/inspec-cs100.jpg", "Translational R&amp;D",
-     "inSPEC CS100", "Handheld rebar inspection device",
-     "The inSPEC CS100 is a handheld device designed for on-demand inspection and measurement of rebar "
-     "diameter and cover thickness in reinforced concrete structures. It is particularly useful for "
-     "structural analysis applications including repairs, renovations, inspections and quality control "
-     "of RCC structures. The device is being commercialised by Nirixense Technologies Pvt. Ltd., a "
-     "startup incubated at SINE, IIT Bombay.", "", ""),
-    ("qmagpi", "assets/img/site/qmagpi.jpg", "Research instrument",
-     "QMagPi", "Quantum Magnetometer with PI control",
-     "QMagPi is a compact and portable magnetometer based on an ensemble of NV centers. It was "
-     "developed at the PQuest lab in collaboration with WEL.", "made-in-wel.html#qmagpi", "Board details"),
-    ("nirmiti", "assets/img/site/nirmiti.jpg", "Outreach",
-     "Nirmiti", "Product developer: Vivekanand Dhakane",
-     "Nirmiti is an initiative started by Vivekanand Dhakane during the COVID-19 lockdown at his village "
-     "Shevgaon, to make electronics learning affordable, simple and language-independent for everyone "
-     "from schoolchildren to engineers and hobbyists.", "", ""),
-    ("welpcr", "assets/img/site/welpcr.png", "Open source",
-     "WEL PCR", "Low-cost DNA thermal cycler",
-     "WELPCR is a low-cost polymerase chain reaction thermal cycler for DNA amplification developed at "
-     "WEL. Inspired by the OpenPCR design, it is a standalone device that needs no computer or mobile "
-     "device to configure and operate. The bill of materials for one unit is under Rs. 10,000 "
-     "(about USD 120), which makes it a strong resource for educational and research use in "
-     "laboratories with limited resources. The design is open-source and available to developers who "
-     "want to assemble their own units.", "", ""),
-    ("acpad", "assets/img/site/micron.png", "Alumni product",
-     "ACPAD", "Product developer: Amaldev V",
-     "ACPAD is the world's first wireless MIDI controller for acoustic guitar. With ACPAD you have "
-     "access to hundreds of instruments, sound effects and loops &mdash; right where you want them, on "
-     "your guitar.", "", ""),
-]
-
-
+# Achievement cards. Each one links to its own detail page in pages_products.py;
+# the hardware-kits card points at the Made in WEL page, which already covers it
+# in full rather than repeating it.
 def _ach_cards():
+    from pages_products import PRODUCTS
+
+    cards = [(
+        "hardware-kits", "assets/img/site/madeinwel.png", "Course hardware",
+        "Hardware kits for lab courses", "Product developer: Vivekanand Dhakane",
+        "Hardware required for laboratory courses at WEL is primarily designed and manufactured "
+        "in-house. This tradition has been in place for more than 10 years, and numerous students and "
+        "staff have participated in developing and benefiting from such hardware for courses and "
+        "projects. Notable examples include Krypton (Intel MAX V CPLD), Xen-10 (MAX 10 CPLD), PT-51 "
+        "(Microchip AT89C5131), the IQ modulator board and PicoIRIS, an all-in-one lab-on-board under "
+        "development.",
+        "made-in-wel.html",
+    )]
+    for prod in PRODUCTS:
+        cards.append((prod["slug"], prod["card"], prod["tag"], prod["name"], prod["meta"],
+                      prod["blurb"], "product-%s.html" % prod["slug"]))
+
     out = []
-    for anchor, img, tag, title, sub, body, link, link_label in ACH:
-        cta = '<a class="arrow-link" href="%s">%s</a>' % (link, link_label) if link else ""
+    for anchor, img, tag, title, sub, body, link in cards:
         out.append("""        <article class="card reveal" id="{a}">
           <div class="card__media card__media--contain"><img src="{img}" alt="{title}" loading="lazy"></div>
           <div class="card__body">
@@ -583,9 +561,10 @@ def _ach_cards():
             <h3>{title}</h3>
             <div class="card__meta">{sub}</div>
             <p>{body}</p>
-            {cta}
+            <a class="btn btn--outline btn--sm" href="{link}">Read more</a>
           </div>
-        </article>""".format(a=anchor, img=img, tag=tag, title=title, sub=sub, body=body, cta=cta))
+        </article>""".format(a=anchor, img=img, tag=tag, title=title, sub=sub,
+                             body=body, link=link))
     return "\n".join(out)
 
 
