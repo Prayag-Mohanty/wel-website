@@ -108,7 +108,13 @@ _ASSET_V = None
 
 
 def asset_version():
-    """Short hash of the CSS + JS so browsers pick up changes after a rebuild."""
+    """Short hash of the CSS + JS so browsers pick up changes after a rebuild.
+
+    Line endings are normalised before hashing: git hands out CRLF on Windows
+    and LF on the Linux CI runner, and without this the same source would
+    produce a different hash on each, leaving the generated HTML permanently
+    dirty after a checkout.
+    """
     global _ASSET_V
     if _ASSET_V is None:
         import hashlib
@@ -117,7 +123,7 @@ def asset_version():
             path = os.path.join(ROOT, rel.replace("/", os.sep))
             if os.path.exists(path):
                 with open(path, "rb") as fh:
-                    h.update(fh.read())
+                    h.update(fh.read().replace(b"\r\n", b"\n"))
         _ASSET_V = h.hexdigest()[:8]
     return _ASSET_V
 
