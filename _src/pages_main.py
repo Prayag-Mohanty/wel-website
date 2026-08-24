@@ -8,7 +8,7 @@ from build import SITE, icon, page_hero
 HOME_HERO = """  <section class="hero">
     <div class="hero__bg"><img src="assets/img/site/homepage-hero.jpg" alt="" fetchpriority="high"></div>
     <div class="wrap hero__inner">
-      <h1>Where Electronics <em>Lives.</em></h1>
+      <h1>Where electronics <em>lives.</em></h1>
       <p class="hero__sub">The <strong>Wadhwani Electronics Laboratory</strong> is the hub of electronics
         activity in the Department of Electrical Engineering, IIT Bombay &mdash; teaching labs, in-house
         hardware, rapid prototyping and advanced measurement, all under one roof.
