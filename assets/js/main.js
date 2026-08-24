@@ -107,6 +107,27 @@
     counters.forEach(function (el) { cio.observe(el); });
   }
 
+  /* ---------------- flip cards ----------------
+     CSS handles hover and keyboard focus. This adds tap-to-flip for touch
+     devices and Enter/Space for keyboard users, and stops a click on the
+     email link from also flipping the card. */
+  $$('.flipcard').forEach(function (card) {
+    function toggle() { card.classList.toggle('is-flipped'); }
+
+    on(card, 'click', function (e) {
+      if (e.target.closest('a')) return;   // let the email link work
+      toggle();
+    });
+    on(card, 'keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        if (e.target.closest('a')) return;
+        e.preventDefault();
+        toggle();
+      }
+    });
+    on(card, 'blur', function () { card.classList.remove('is-flipped'); });
+  });
+
   /* ---------------- accordions ---------------- */
   $$('.acc__head').forEach(function (head) {
     on(head, 'click', function () {

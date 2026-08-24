@@ -311,6 +311,64 @@ hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
   color:var(--primary);letter-spacing:.02em;
 }
 .person.is-hidden{display:none}
+
+/* ---------- flip cards (staff and research assistants) ----------
+   Front carries photo, name, role and contact - so nothing you need to reach
+   someone is ever hidden behind an interaction. The back carries the bio.
+   Flips on hover, on keyboard focus, and on tap. */
+.flipcard{
+  perspective:1400px;height:395px;cursor:pointer;background:none;border:0;padding:0;
+  font-family:inherit;text-align:left;width:100%;display:block;
+}
+.flipcard.is-hidden{display:none}
+.flipcard__inner{
+  position:relative;width:100%;height:100%;transform-style:preserve-3d;
+  transition:transform .65s var(--ease),box-shadow .3s var(--ease);
+}
+.flipcard:hover .flipcard__inner,
+.flipcard:focus-visible .flipcard__inner,
+.flipcard.is-flipped .flipcard__inner{transform:rotateY(180deg)}
+.flipcard__face{
+  position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border:1px solid var(--line);border-radius:var(--radius);background:#fff;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.flipcard:hover .flipcard__face,
+.flipcard.is-flipped .flipcard__face{box-shadow:var(--shadow);border-color:var(--primary-mid)}
+
+.flipcard__photo{aspect-ratio:4/3;background:linear-gradient(160deg,#eef3fa,#dde7f5);overflow:hidden;flex:none}
+.flipcard__photo img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.flipcard__id{padding:.9rem 1.05rem 1rem;display:flex;flex-direction:column;flex:1;min-height:0}
+.flipcard__id h4{margin:0 0 .15rem;font-size:.98rem;line-height:1.28}
+.flipcard__id .person__role{margin-bottom:.5rem}
+.flipcard__contact{
+  font-size:.78rem;line-height:1.6;margin-top:auto;border-top:1px solid var(--line-soft);
+  padding-top:.55rem;word-break:break-word;color:var(--muted);
+}
+.flipcard__contact a{color:var(--primary);font-weight:500}
+.flipcard__hint{
+  position:absolute;right:.7rem;top:.7rem;width:24px;height:24px;border-radius:50%;
+  background:rgba(6,11,35,.62);color:#fff;display:grid;place-items:center;font-size:.72rem;
+  font-weight:700;pointer-events:none;
+}
+
+.flipcard__back{
+  transform:rotateY(180deg);padding:1.2rem 1.25rem;overflow-y:auto;
+  background:linear-gradient(165deg,#fff,#f4f8fd);
+}
+.flipcard__back h4{margin:0 0 .1rem;font-size:.96rem}
+.flipcard__back .person__role{margin-bottom:.7rem}
+.flipcard__back p{font-size:.82rem;line-height:1.55;color:var(--body);margin:0}
+.flipcard__back::-webkit-scrollbar{width:5px}
+.flipcard__back::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+
+@media (hover:none){
+  .flipcard:hover .flipcard__inner{transform:none}
+  .flipcard.is-flipped .flipcard__inner{transform:rotateY(180deg)}
+}
+@media (prefers-reduced-motion:reduce){
+  .flipcard__inner{transition:none}
+}
 .person__body{padding:1.1rem 1.2rem 1.3rem;flex:1;display:flex;flex-direction:column}
 .person__body h4{margin-bottom:.15rem;font-size:1.03rem;line-height:1.3}
 .person__role{font-size:.82rem;font-weight:600;color:var(--primary);margin-bottom:.6rem;display:block}

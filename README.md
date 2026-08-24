@@ -309,18 +309,24 @@ keeps working if they go away.
 
 A few things are reproduced exactly as the current site publishes them, and may want a second look:
 
-1. **Prof. Arun S.'s email** is listed as `sarun.laha@ee.iitb.ac.in` on the current site. That looks
-   like it may have picked up part of Prof. Apurba Laha's address. Verify it.
-2. **V. V. Shahin has no photograph** — the image on the current site returns a 404, so the card
-   falls back to initials. Drop a photo at `assets/img/people/vv-shahin.jpg` and add the path to
-   `STAFF` in `_src/pages_people.py`.
+1. **Prof. Arun S.'s email is corrected here.** The current WEL site publishes
+   `sarun.laha@ee.iitb.ac.in`, which appears to have absorbed part of Prof. Apurba Laha's address.
+   His EE department profile gives `sarun@ee.iitb.ac.in`, and that is what this site uses. Worth
+   fixing on the Drupal site too.
+2. **V. V. Shahin has no photograph** anywhere on either site, so his card falls back to initials.
+   Drop a photo at `assets/img/team/vv-shahin.jpg` and add the path to his entry in `STAFF_GROUPS`
+   in `_src/pages_people.py`.
 3. **The instruments page** lists the five signal generators in full, because those are the only
    ones the current site actually populates. The other five categories are described but have no
    model listings yet. Add them to `SIGNAL_GENERATORS`-style lists in `pages_resources.py` as the
    data becomes available.
-4. **Research assistants are described but not named.** The old site's RA list covers M.Tech 2026
-   and 2027 batches and some of those students have since graduated, so publishing it unverified
-   would be wrong. Add the current roster to `pages_people.py` when you have it.
-5. **Course descriptions** on the semester pages are short, factual summaries. The course codes and
-   titles are exactly as the current site lists them; the one-line descriptions are new and should
-   be reviewed by whoever runs each course.
+4. **Research assistants** are the five named in `RESEARCH_ASSISTANTS` in `_src/pages_people.py`.
+   The old team page also lists Vineesh Modi, Prabhakar Singh, Jaydev Bapat and Tarun Choudhary
+   (M.Tech 2026 batches, so they may have graduated) - add them back if they are still with the lab.
+5. **Course pages** carry many links to `10.107.68.222`, the old lab server. They are tagged
+   `internal` because they only resolve on the institute network. Some sidebar items on the source
+   pages - EDL group allotment and timeline, EE 230 batch lists, EE 712 lab schedule - had no
+   destination at all, so they are described in a note rather than linked.
+6. **Course descriptions** on the semester pages and course pages come from the current Drupal
+   site. The one-line summaries in the semester lists are new and worth a review by whoever runs
+   each course.

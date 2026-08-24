@@ -1,86 +1,179 @@
 # -*- coding: utf-8 -*-
-"""People (overview / faculty / staff) and the gallery."""
+"""People (overview / faculty / staff) and the gallery.
+
+Staff and research assistants render as flip cards: the front carries the
+photo, name, role and contact details, and the back carries the bio.  Nothing
+needed to contact someone is hidden behind the flip.
+"""
 import json
 import os
 
 from build import SITE, icon, page_hero, HERE
 
 # ---------------------------------------------------------------------------
-# Data.  Names, roles, emails and phone numbers as published by the lab.
+# Faculty.  (name, role, email, phone, photo, ee_profile_url)
+# Profile links go to the Department of Electrical Engineering website.
 # ---------------------------------------------------------------------------
 FACULTY = [
     ("Prof. Rajbabu Velmurugan", "Lab In-charge", "rajbabu@ee.iitb.ac.in",
-     "022-2576-7444 (O) / 022-2576-8444 (R)", "assets/img/people/rajbabu-velmurugan.png"),
+     "022-2576-7444 (O) / 022-2576-8444 (R)", "assets/img/people/rajbabu-velmurugan.png",
+     "https://www.ee.iitb.ac.in/web/people/rajbabu-velmurugan/"),
     ("Prof. Rahul Singh", "Faculty member", "rahuls@ee.iitb.ac.in",
-     "022-2576-7417 (O)", "assets/img/people/rahul-singh.jpg"),
+     "022-2576-7417 (O)", "assets/img/people/rahul-singh.jpg",
+     "https://www.ee.iitb.ac.in/web/people/rahul-singh/"),
     ("Prof. Dwaipayan Mukherjee", "Faculty member", "dm@ee.iitb.ac.in",
-     "022-2576-9426 (O)", "assets/img/people/dwaipayan-mukherjee.png"),
-    ("Prof. Arun S.", "Faculty member", "sarun.laha@ee.iitb.ac.in",
-     "022-2576-7413 (O)", "assets/img/people/arun-s.jpg"),
+     "022-2576-9426 (O)", "assets/img/people/dwaipayan-mukherjee.png",
+     "https://www.ee.iitb.ac.in/web/people/dwaipayan-mukherjee/"),
+    ("Prof. Arun S.", "Faculty member", "sarun@ee.iitb.ac.in",
+     "022-2576-7413 (O)", "assets/img/people/arun-s.jpg",
+     "https://www.ee.iitb.ac.in/web/people/arun-s/"),
     ("Prof. Apurba Laha", "Faculty member", "laha@ee.iitb.ac.in",
-     "022-2576-9408 (O)", "assets/img/people/apurba-laha.png"),
+     "022-2576-9408 (O)", "assets/img/people/apurba-laha.png",
+     "https://www.ee.iitb.ac.in/web/people/apurba-laha/"),
 ]
 
-STAFF = [
-    ("Mahesh A. Bhaganagare", "Technical Officer", "mab@ee.iitb.ac.in",
-     "022-2576-4412 / 4403 (O) &middot; 92264 19459 (M)", "assets/img/people/mahesh-bhaganagare.jpg", "Technical"),
-    ("Amit Shetye", "Sr. Technical Superintendent", "amits@ee.iitb.ac.in",
-     "022-2576-4484 (O) &middot; 99202 45689 (M)", "assets/img/people/amit-shetye.jpg", "Technical"),
-    ("Maheshwar Mangat", "Sr. Technical Superintendent", "maheshgm@ee.iitb.ac.in",
-     "022-2576-4412 / 4409 (O) &middot; 96198 27670 (M)", "assets/img/people/maheshwar-mangat.jpg", "Technical"),
-    ("Ankur Agarwal", "Jr. Technical Superintendent", "ankur_ee@iitb.ac.in",
-     "022-2576-4409 (O) &middot; 99674 43616 (M)", "assets/img/people/ankur-agarwal.jpg", "Technical"),
-    ("Nilesh Sawant", "Sr. Technical Superintendent (System Administration)", "nilesh.t.sawant@ee.iitb.ac.in",
-     "022-2576-4412 (O) &middot; 95946 20670 (M)", "assets/img/people/nilesh-sawant.jpg", "Technical"),
-    ("Anil Gawai", "Project Assistant (Administration)", "anilrg@ee.iitb.ac.in",
-     "022-2576-4412 (O) &middot; 09220 087540 (M)", "assets/img/people/anil-gawai.jpg", "Administration"),
-    ("Chandrashekhar Shele", "Multi-Skilled Assistant", "shekhars@ee.iitb.ac.in",
-     "022-2576-4409 (O) &middot; 92202 12167 (M)", "assets/img/people/chandrashekhar-shele.jpg", "Support"),
-    ("Sadanand Sawant", "Sr. Mechanic (Electronics)", "ssawant@ee.iitb.ac.in",
-     "022-2576-4412 (O)", "assets/img/people/sadanand-sawant.jpg", "Support"),
-    ("Suraj S. Sarfare", "Jr. Mechanic", "sarfaresuraj@ee.iitb.ac.in",
-     "022-2576-4412 (O)", "assets/img/people/suraj-sarfare.jpg", "Support"),
-    ("V. V. Shahin", "Jr. Mechanic (Electronics)", "vvshahin@ee.iitb.ac.in",
-     "022-2576-4412 (O)", "", "Support"),
+# ---------------------------------------------------------------------------
+# Staff, grouped as the lab groups them.
+# (name, role, email, phone, photo, bio)
+# Bios come from the team page; phone numbers from the current staff listing.
+# ---------------------------------------------------------------------------
+STAFF_GROUPS = [
+    ("Technical Team", "Technical", [
+        ("Mahesh Ashok Bhaganagare", "Technical Officer", "mab@ee.iitb.ac.in",
+         "022-2576-4412 / 4403 (O) &middot; 92264 19459 (M)",
+         "assets/img/team/mahesh-bhaganagare.jpg",
+         "Mahesh is the Senior Technical Superintendent at WEL. He is responsible for overall lab "
+         "administration and procurement, development of new hardware platforms and experiments, "
+         "resources and infrastructure planning and execution of lab courses, planning and execution "
+         "of outreach programs, assistance in project development activities, guidance to research "
+         "and teaching assistants, and assistance in infrastructure planning and setting up of new "
+         "teaching and research labs and classrooms in the department. Mahesh is an IIT Bombay "
+         "alumnus, having graduated with an M.Tech (Electronic Systems) from IIT Bombay."),
+        ("Maheshwar Mangat", "Sr. Technical Superintendent", "maheshgm@ee.iitb.ac.in",
+         "022-2576-4412 / 4409 (O) &middot; 96198 27670 (M)",
+         "assets/img/team/maheshwar-mangat.jpg",
+         "Maheshwar is Technical Superintendent at WEL, where he oversees the overall administration, "
+         "development of new experiments and resource/infrastructure management of UG lab courses, "
+         "development of portable lab kits, assistance in project development activities, and "
+         "conducting workshops. Maheshwar holds a B.Tech (E&amp;TC) from Dr. Babasaheb Ambedkar "
+         "Technological University and a PG Diploma in Embedded Systems and Industrial Automation. "
+         "His main interest lies in PCB design, embedded systems design, programming, and "
+         "industrial IoT."),
+        ("Amit Shetye", "Sr. Technical Superintendent", "amits@ee.iitb.ac.in",
+         "022-2576-4484 (O) &middot; 99202 45689 (M)",
+         "assets/img/team/amit-shetye.jpg",
+         "Amit is Technical Superintendent at WEL. He oversees all administration of lab courses. "
+         "Additionally, he is involved in activities in the following domains: embedded systems, "
+         "hardware description languages, PCB designing, and hardware testing and repairing. He is "
+         "an IIT Bombay alumnus, having graduated with an M.Tech in Electronic Systems at IIT Bombay "
+         "after acquiring a Bachelor of Engineering in E&amp;TC from Mumbai University."),
+        ("Ankur Agarwal", "Jr. Technical Superintendent", "ankur_ee@iitb.ac.in",
+         "022-2576-4409 (O) &middot; 99674 43616 (M)",
+         "assets/img/team/ankur-agarwal.jpg",
+         "Ankur is Technical Superintendent at WEL. He is involved in electronic product design, "
+         "embedded system design, PCB design and assembly, 3D modelling, and fabrication. He has "
+         "completed his M.Des. in Electronic Systems from the Indian Institute of Information "
+         "Technology Design and Manufacturing, Kancheepuram. He is working on two research projects, "
+         "codenamed PicoIRIS and iPEC."),
+        ("Yadnyik Pandurang Sonalkar", "Technical Superintendent", "yadnyik.sonalkar@iitb.ac.in",
+         "022-2576-4412 (O)",
+         "assets/img/team/yadnyik-sonalkar.jpg",
+         "Yadnyik is a Technical Superintendent. He is involved in embedded software development and "
+         "PCB fabrication."),
+    ]),
+    ("Research &amp; Development Team", "Research", [
+        ("Sadanand Sahadev Sawant", "Sr. Mechanic (Electronics)", "ssawant@iitb.ac.in",
+         "022-2576-4412 (O)",
+         "assets/img/team/sadanand-sawant.jpg",
+         "Sadanand handles day-to-day teaching lab activities of UG and PG students. His expertise is "
+         "in soldering, testing, and repair and maintenance of measurement equipment, development "
+         "boards, and modules. He has received a Diploma in Electronics from the Maharashtra State "
+         "Board of Technical Education, Mumbai."),
+        ("Suraj Suresh Sarfare", "Jr. Mechanic", "sarfaresuraj@ee.iitb.ac.in",
+         "022-2576-4412 (O)",
+         "assets/img/team/suraj-sarfare.jpg",
+         "Suraj oversees the handling of the UG and PG teaching labs, operating and fault finding and "
+         "repair and maintenance of electronic measuring instruments and development boards, "
+         "maintaining the lab records, and keeping track of the lab equipment and boards. He has "
+         "received a Diploma in Electronics from the Maharashtra State Board of Technical Education, "
+         "Mumbai."),
+        ("Sheetal Shivaji Patil", "Sr. Project Technical Assistant", "214076006@iitb.ac.in",
+         "022-2576-4412 (O)",
+         "assets/img/team/sheetal-patil.jpg",
+         "Sheetal is pursuing a Ph.D. in Electronic Systems from Electrical Engineering, IIT Bombay. "
+         "Her research work includes FPGA-based embedded systems and structural health monitoring."),
+    ]),
+    ("System Administration", "Systems", [
+        ("Nilesh Tukaram Sawant", "Sr. Technical Superintendent (Sysad)", "nilesh.t.sawant@ee.iitb.ac.in",
+         "022-2576-4412 (O) &middot; 95946 20670 (M)",
+         "assets/img/team/nilesh-sawant.jpg",
+         "Nilesh is Technical Superintendent. He oversees all the system administration work at WEL. "
+         "He is responsible for development of Linux drivers for WEL lab boards and development of "
+         "barcode-based online verification of WEL lab electronics equipment stock. Nilesh has a "
+         "Master's degree in Computer Application."),
+    ]),
+    ("Administration / Accounts Team", "Administration", [
+        ("Varsha Suresh Ingle", "Sr. Project Assistant", "varshaingle@iitb.ac.in",
+         "022-2576-4412 (O)",
+         "assets/img/team/varsha-ingle.jpg",
+         "Varsha is a Senior Project Assistant. She looks after office administration, preparing and "
+         "processing purchase bills, procurement, the GeM process and day-to-day activity related to "
+         "projects. Additionally, she is involved in stock data entry work. She completed a Bachelor "
+         "of Arts in Economics."),
+        ("Anil Ramrao Gawai", "Project Assistant (Administration)", "anilrg@ee.iitb.ac.in",
+         "022-2576-4412 (O) &middot; 09220 087540 (M)",
+         "assets/img/team/anil-gawai.jpg",
+         "Anil is responsible for the day-to-day administration and accounting work, photography, and "
+         "video shooting for lab sessions, workshops, and other events conducted in WEL and the EE "
+         "department. Additionally, he assists in preparing financial statements for annual reports "
+         "and handling general expenditures. Anil received a Bachelor of Commerce degree from Mumbai "
+         "University."),
+    ]),
+    ("Supporting Staff", "Support", [
+        ("Mangesh U. Ingle", "Project Assistant", "mangesh@ee.iitb.ac.in",
+         "022-2576-4412 (O)",
+         "assets/img/team/mangesh-ingle.jpg",
+         "Mangesh is a Project Assistant. He is involved in testing teaching lab boards, modules, ICs, "
+         "electronic components, accessories, and equipment; through-hole soldering, lab equipment "
+         "testing, and PCB drilling. He has completed a Bachelor of Arts from YCMOU."),
+        ("Sunil Sheshrao Raut", "Project Attendant", "sunilraut26@gmail.com",
+         "022-2576-4412 (O)",
+         "assets/img/team/sunil-raut.jpg",
+         "Sunil is involved in testing activities such as teaching lab boards, modules, electronic ICs "
+         "and components; through-hole soldering, lab equipment testing, board accessories testing, "
+         "and dispatch-related work and follow-up. Sunil is SSC passed from the Maharashtra State "
+         "Board."),
+        ("Sandhya Samadhan Birare", "Lab Attendant", "sandhyabirare1980@gmail.com",
+         "022-2576-4412 (O)",
+         "assets/img/team/sandhya-birare.jpg",
+         "Sandhya is a Lab Attendant. She is involved in electronic component and IC testing and "
+         "sorting, equipment probes and accessories testing, inward and outward entries, dispatch "
+         "work and follow-up with other sections. Sandhya is HSC passed in Arts from the Maharashtra "
+         "State Board."),
+        ("Vijay Vilas Patil", "Project Assistant", "vijaypatil4045@gmail.com",
+         "022-2576-4412 (O)",
+         "assets/img/team/vijay-patil.jpg",
+         "Vijay is a Project Assistant. He is involved in testing and checking of the Krypton board, "
+         "digital multimeter, arbitrary function generator, and power supply. He has completed his "
+         "Bachelor of Arts."),
+        ("Chandrashekhar Shele", "Multi-Skilled Assistant", "shekhars@ee.iitb.ac.in",
+         "022-2576-4409 (O) &middot; 92202 12167 (M)",
+         "assets/img/people/chandrashekhar-shele.jpg",
+         "Chandrashekhar is a Multi-Skilled Assistant at WEL, supporting day-to-day lab operations "
+         "across the teaching laboratories."),
+        ("V. V. Shahin", "Jr. Mechanic (Electronics)", "vvshahin@ee.iitb.ac.in",
+         "022-2576-4412 (O)",
+         "",
+         "Shahin is a Junior Mechanic (Electronics) at WEL, working on the teaching laboratories and "
+         "the maintenance of lab equipment and development boards."),
+    ]),
 ]
 
+STAFF_FLAT = [m for _title, _cat, members in STAFF_GROUPS for m in members]
 
-def _initials(name):
-    parts = [p for p in name.replace("Prof.", "").replace("Dr.", "").split() if p and p[0].isalpha()]
-    if not parts:
-        return "WEL"
-    if len(parts) == 1:
-        return parts[0][:2].upper()
-    return (parts[0][0] + parts[-1][0]).upper()
-
-
-def _photo(name, src):
-    if src:
-        return '<img src="%s" alt="%s" loading="lazy">' % (src, name)
-    return '<div class="person__initials">%s</div>' % _initials(name)
-
-
-def _person(name, role, email, phone, src, cat=None):
-    data = ' data-cat="%s"' % cat if cat else ""
-    return """        <article class="person reveal"{data}>
-          <div class="person__photo">{photo}</div>
-          <div class="person__body">
-            <h4>{name}</h4>
-            <span class="person__role">{role}</span>
-            <div class="person__contact">
-              <div>{i_mail}<a href="mailto:{email}">{email}</a></div>
-              <div>{i_phone}<span>{phone}</span></div>
-            </div>
-          </div>
-        </article>""".format(data=data, photo=_photo(name, src), name=name, role=role,
-                             email=email, phone=phone, i_mail=icon("mail"), i_phone=icon("phone"))
-
-
-def _people_grid(rows, with_cat=False):
-    return "\n".join(_person(*(r if with_cat else r[:5])) for r in rows)
-
-
-# M.Tech research assistants currently working at WEL.
+# ---------------------------------------------------------------------------
+# M.Tech research assistants.  (name, batch, email, photo, bio)
+# ---------------------------------------------------------------------------
 RESEARCH_ASSISTANTS = [
     ("Prayag Mohanty", "M.Tech EE6 (2027)", "24m1177@iitb.ac.in",
      "assets/img/people/prayag-mohanty.jpg",
@@ -100,25 +193,99 @@ RESEARCH_ASSISTANTS = [
      "assets/img/people/aatmaj-barbhaiya.jpg",
      "Aatmaj completed his B.E. in Electronics and Communication Engineering from L.D. College of "
      "Engineering. His research interests encompass accelerator architecture."),
+    ("Shantan Rao Pinninti", "M.Tech EE7 (2027)", "shanthanrao078@gmail.com",
+     "assets/img/team/shantan-pinninti.png",
+     "Shantan completed his B.Tech from CVR College of Engineering. His research interests lie at "
+     "the intersection of semiconductor devices and circuit design, with a focus on CMOS technology, "
+     "low-power VLSI circuits, and device-circuit co-design."),
 ]
 
 
-def _ra_cards():
-    out = []
-    for name, batch, email, src, bio in RESEARCH_ASSISTANTS:
-        out.append("""        <article class="person reveal">
-          <div class="person__photo">{photo}</div>
+# ===========================================================================
+# Card builders
+# ===========================================================================
+def _initials(name):
+    parts = [p for p in name.replace("Prof.", "").replace("Dr.", "").split() if p and p[0].isalpha()]
+    if not parts:
+        return "WEL"
+    if len(parts) == 1:
+        return parts[0][:2].upper()
+    return (parts[0][0] + parts[-1][0]).upper()
+
+
+def _photo(name, src, cls="person__photo"):
+    inner = ('<img src="%s" alt="%s" loading="lazy">' % (src, name) if src
+             else '<div class="person__initials">%s</div>' % _initials(name))
+    return '<div class="%s">%s</div>' % (cls, inner)
+
+
+def _faculty_card(name, role, email, phone, src, profile):
+    """Faculty card - the whole card links to their EE department profile."""
+    return """        <a class="person reveal" href="{profile}" target="_blank" rel="noopener">
+          {photo}
           <div class="person__body">
             <h4>{name}</h4>
-            <span class="person__role">{batch}</span>
-            <p>{bio}</p>
+            <span class="person__role">{role}</span>
             <div class="person__contact">
-              <div>{i_mail}<a href="mailto:{email}">{email}</a></div>
+              <div>{i_mail}<span>{email}</span></div>
+              <div>{i_phone}<span>{phone}</span></div>
+              <div style="margin-top:.45rem"><span class="arrow-link" style="font-size:.76rem">EE profile</span></div>
             </div>
           </div>
-        </article>""".format(photo=_photo(name, src), name=name, batch=batch, bio=bio,
-                             email=email, i_mail=icon("mail")))
-    return "\n".join(out)
+        </a>""".format(profile=profile, photo=_photo(name, src), name=name, role=role,
+                       email=email, phone=phone, i_mail=icon("mail"), i_phone=icon("phone"))
+
+
+def _flip_card(name, role, email, phone, src, bio, cat=None):
+    """Flip card: contact on the front, bio on the back."""
+    data = ' data-cat="%s"' % cat if cat else ""
+    phone_line = '<div>%s</div>' % phone if phone else ""
+    return """        <div class="flipcard reveal" tabindex="0" role="button" aria-label="{name}, {role}. Activate to read biography."{data}>
+          <div class="flipcard__inner">
+            <div class="flipcard__face flipcard__front">
+              {photo}
+              <span class="flipcard__hint" aria-hidden="true">i</span>
+              <div class="flipcard__id">
+                <h4>{name}</h4>
+                <span class="person__role">{role}</span>
+                <div class="flipcard__contact">
+                  <div><a href="mailto:{email}">{email}</a></div>
+                  {phone_line}
+                </div>
+              </div>
+            </div>
+            <div class="flipcard__face flipcard__back">
+              <h4>{name}</h4>
+              <span class="person__role">{role}</span>
+              <p>{bio}</p>
+            </div>
+          </div>
+        </div>""".format(name=name, role=role, data=data,
+                         photo=_photo(name, src, "flipcard__photo"),
+                         email=email, phone_line=phone_line, bio=bio)
+
+
+def _faculty_grid():
+    return "\n".join(_faculty_card(*f) for f in FACULTY)
+
+
+def _staff_groups_html(with_cat=False):
+    out = []
+    for title, cat, members in STAFF_GROUPS:
+        cards = "\n".join(_flip_card(n, r, e, p, s, b, cat if with_cat else None)
+                          for n, r, e, p, s, b in members)
+        out.append("""      <div class="section-head reveal" style="margin-top:3rem">
+        <span class="eyebrow">{cat}</span>
+        <h2>{title}</h2>
+      </div>
+      <div class="grid g4">
+{cards}
+      </div>""".format(cat=cat, title=title, cards=cards))
+    return "\n\n".join(out)
+
+
+def _ra_cards():
+    return "\n".join(_flip_card(n, b_, e, "", s, bio) for n, b_, e, s, bio in RESEARCH_ASSISTANTS)
 
 
 # ===========================================================================
@@ -137,12 +304,15 @@ PEOPLE_BODY = """  <section class="section">
       <div class="section-head reveal">
         <span class="eyebrow">Faculty</span>
         <h2>Faculty associated with WEL</h2>
+        <p>Each card opens that faculty member's profile on the Department of Electrical Engineering
+          website.</p>
       </div>
       <div class="grid g4">
 {faculty}
       </div>
       <div class="btn-row mt2" style="margin-top:1.8rem">
         <a class="btn btn--outline btn--sm" href="faculty.html">Faculty page</a>
+        <a class="btn btn--outline btn--sm" href="staff.html">Staff page</a>
       </div>
     </div>
   </section>
@@ -150,28 +320,11 @@ PEOPLE_BODY = """  <section class="section">
   <section class="section section--alt">
     <div class="wrap">
       <div class="section-head reveal">
-        <span class="eyebrow">Staff</span>
-        <h2>The team that runs the lab</h2>
-        <p>Technical, administrative and support staff across lab administration, procurement, hardware
-          development, system administration and day-to-day teaching lab operations.</p>
-      </div>
-      <div class="grid g4">
-{staff}
-      </div>
-      <div class="btn-row mt2" style="margin-top:1.8rem">
-        <a class="btn btn--outline btn--sm" href="staff.html">Staff page with roles</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head reveal">
         <span class="eyebrow">Research assistants</span>
         <h2>M.Tech research assistants</h2>
         <p>Research assistants work at WEL across digital design, computer architecture, embedded
-          systems and accelerator design. They contribute to hardware development, course support and
-          the lab's R&amp;D projects, and in turn get the run of a very well-equipped bench.</p>
+          systems, semiconductor devices and accelerator design. Hover over a card &mdash; or tap it
+          &mdash; to read more.</p>
       </div>
       <div class="grid g4">
 {ras}
@@ -183,7 +336,7 @@ PEOPLE_BODY = """  <section class="section">
       </div>
     </div>
   </section>
-""".format(faculty=_people_grid(FACULTY), staff=_people_grid(STAFF[:4]), ras=_ra_cards())
+""".format(faculty=_faculty_grid(), ras=_ra_cards())
 
 
 # ===========================================================================
@@ -194,19 +347,22 @@ FACULTY_BODY = """  <section class="section">
       <div class="section-head reveal">
         <span class="eyebrow">Faculty members</span>
         <h2>Faculty associated with the lab</h2>
-        <p>Faculty who oversee the Wadhwani Electronics Laboratory and the courses conducted in it.</p>
+        <p>Faculty who oversee the Wadhwani Electronics Laboratory and the courses conducted in it.
+          Each card opens that faculty member's profile on the Department of Electrical Engineering
+          website.</p>
       </div>
       <div class="grid g4">
 {faculty}
       </div>
       <div class="note mt2 reveal" style="margin-top:2.2rem">
         The wider set of faculty who use WEL for courses and projects is listed with the
-        <a href="https://www.ee.iitb.ac.in/web/people/faculty/" target="_blank" rel="noopener">Department of
-        Electrical Engineering</a>.
+        <a href="https://www.ee.iitb.ac.in/web/people/" target="_blank" rel="noopener">Department of
+        Electrical Engineering</a>. Faculty teaching individual lab courses are listed on each
+        <a href="teaching-labs.html">course page</a>.
       </div>
     </div>
   </section>
-""".format(faculty=_people_grid(FACULTY))
+""".format(faculty=_faculty_grid())
 
 
 # ===========================================================================
@@ -216,27 +372,23 @@ STAFF_BODY = """  <section class="section">
     <div class="wrap">
       <div class="section-head reveal">
         <span class="eyebrow">Staff members</span>
-        <h2>Technical, administrative and support staff</h2>
-        <p>The team responsible for lab administration and procurement, development of new hardware
-          platforms and experiments, planning and execution of lab courses, outreach programs, systems
-          and network, and day-to-day operations.</p>
+        <h2>The team that runs the lab</h2>
+        <p>Lab administration and procurement, development of new hardware platforms and experiments,
+          planning and execution of lab courses, outreach programs, systems and network, and
+          day-to-day operations. Hover over a card &mdash; or tap it &mdash; to read what each person
+          does.</p>
       </div>
 
-      <div class="filters reveal" data-filter-group data-filter-target=".person[data-cat]">
-        <button class="filter is-active" data-filter="all">Everyone</button>
-        <button class="filter" data-filter="Technical">Technical</button>
-        <button class="filter" data-filter="Administration">Administration</button>
-        <button class="filter" data-filter="Support">Support</button>
-      </div>
-
-      <div class="grid g4">
-{staff}
-      </div>
+{groups}
     </div>
   </section>
 
   <section class="section section--alt section--tight">
     <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Directory</span>
+        <h2>Contact details at a glance</h2>
+      </div>
       <div class="table-wrap reveal">
         <table>
           <thead><tr><th>Name</th><th>Position</th><th>Email</th><th>Contact</th></tr></thead>
@@ -252,13 +404,15 @@ STAFF_BODY = """  <section class="section">
 
 def _staff_rows():
     out = []
-    for name, role, email, phone, _src, _cat in STAFF:
-        out.append('            <tr><td>%s</td><td>%s</td><td><a href="mailto:%s">%s</a></td><td>%s</td></tr>'
-                   % (name, role, email, email, phone))
+    for _title, _cat, members in STAFF_GROUPS:
+        for name, role, email, phone, _src, _bio in members:
+            out.append('            <tr><td>%s</td><td>%s</td>'
+                       '<td><a href="mailto:%s">%s</a></td><td>%s</td></tr>'
+                       % (name, role, email, email, phone))
     return "\n".join(out)
 
 
-STAFF_BODY = STAFF_BODY.format(staff=_people_grid(STAFF, with_cat=True), rows=_staff_rows())
+STAFF_BODY = STAFF_BODY.format(groups=_staff_groups_html(), rows=_staff_rows())
 
 
 # ===========================================================================
@@ -282,8 +436,7 @@ def _gallery():
 
     figs = []
     for it in items:
-        cat = it["cat"]
-        label = CAT_LABELS.get(cat, cat)
+        label = CAT_LABELS.get(it["cat"], it["cat"])
         figs.append(
             '        <figure data-cat="{label}" data-full="assets/img/gallery/{f}">'
             '<img src="assets/img/gallery/thumbs/{f}" alt="{label} at WEL" loading="lazy"></figure>'
@@ -349,8 +502,8 @@ PAGES = [
     {
         "file": "staff.html", "nav": "people.html", "sub": "staff.html",
         "title": "Staff Members | Wadhwani Electronics Laboratory",
-        "desc": "Technical, administrative and support staff at the Wadhwani Electronics Laboratory, "
-                "IIT Bombay, with roles and contact details.",
+        "desc": "Technical, research, systems, administration and support staff at the Wadhwani "
+                "Electronics Laboratory, IIT Bombay, with roles, biographies and contact details.",
         "hero": page_hero("Staff Members",
                           "The technical, administrative and support team that keeps the lab running.",
                           [("People", "people.html"), ("Staff Members", "staff.html")],
