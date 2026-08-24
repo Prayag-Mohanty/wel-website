@@ -25,7 +25,9 @@ def _embed(video_id, title):
 
 # ---------------------------------------------------------------------------
 # NPTEL editions, newest first.
-#   videos: (youtube id, title as it appears on the channel)
+#   videos:   (youtube id, title as it appears on the channel)
+#   playlist: (url, label) - shown instead of embeds when there is nothing
+#             publicly playable to embed
 # ---------------------------------------------------------------------------
 NPTEL_EDITIONS = [
     {
@@ -49,6 +51,25 @@ NPTEL_EDITIONS = [
             ("Vwu8l5C_kn8", "NPTEL Workshop 2026 &mdash; Analog Circuits Design: Simulation Lab"),
             ("Gv5aY6PEQXY", "NPTEL Workshop 2026 &mdash; Microcontroller Systems &amp; Applications: Pt-51"),
         ],
+        "image": None,
+        "quotes": [],
+    },
+    {
+        # The 12 videos in the NPTEL 2025 playlist are private, so YouTube
+        # hides them and an embed would render as "Video unavailable". Linking
+        # the playlist instead. Make the videos public or unlisted and they can
+        # be embedded here like every other year - see the note in README.
+        "year": "2025",
+        "dates": "",
+        "tag": "",
+        "intro": [
+            "The annual NPTEL workshop ran again in 2025, with highlights collected in a dedicated "
+            "playlist on the WEL YouTube channel.",
+        ],
+        "courses": [],
+        "videos": [],
+        "playlist": ("https://www.youtube.com/playlist?list=PLciAry6p1zzc",
+                     "NPTEL 2025 playlist on YouTube"),
         "image": None,
         "quotes": [],
     },
@@ -171,6 +192,11 @@ def _edition(e):
         videos = """      <div class="video-grid reveal">
 %s
       </div>""" % vids
+    elif e.get("playlist"):
+        url, label = e["playlist"]
+        videos = """      <div class="wrap-narrow reveal" style="width:100%%;padding:0">
+        <a class="btn btn--outline btn--sm" href="%s" target="_blank" rel="noopener">%s %s</a>
+      </div>""" % (url, label, icon("external"))
 
     quotes = ""
     if e["quotes"]:
@@ -224,7 +250,7 @@ WORKSHOPS_BODY = """  <section class="section section--tight">
         <div class="stat reveal"><b><span data-count="400" data-suffix="+">400+</span></b><span>Colleges reached</span></div>
         <div class="stat reveal"><b><span data-count="30" data-suffix="+">30+</span></b><span>Teacher training workshops</span></div>
         <div class="stat reveal"><b><span data-count="2500" data-suffix="+">2,500+</span></b><span>Teachers trained</span></div>
-        <div class="stat reveal"><b><span data-count="5" data-suffix="">5</span></b><span>Years of NPTEL workshops</span></div>
+        <div class="stat reveal"><b><span data-count="6" data-suffix="">6</span></b><span>Years of NPTEL workshops</span></div>
       </div>
     </div>
   </section>

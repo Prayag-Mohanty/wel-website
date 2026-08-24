@@ -350,6 +350,12 @@ A few things are reproduced exactly as the current site publishes them, and may 
    `internal` because they only resolve on the institute network. Some sidebar items on the source
    pages - EDL group allotment and timeline, EE 230 batch lists, EE 712 lab schedule - had no
    destination at all, so they are described in a note rather than linked.
-6. **Course descriptions** on the semester pages and course pages come from the current Drupal
+6. **NPTEL 2025 videos are private.** The playlist has 12 videos but YouTube reports all of them as
+   unavailable, so nothing is publicly playable and an embed would show "Video unavailable". That
+   edition links the playlist instead. Set the videos to Public or Unlisted on YouTube and they can
+   be embedded like every other year - add their ids to the 2025 entry in
+   `_src/pages_workshops.py`. The 2025 courses and dates are not published anywhere I could find,
+   so that entry is deliberately thin; fill in `courses` and `dates` when you have them.
+7. **Course descriptions** on the semester pages and course pages come from the current Drupal
    site. The one-line summaries in the semester lists are new and worth a review by whoever runs
    each course.
