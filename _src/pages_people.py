@@ -343,7 +343,7 @@ PEOPLE_BODY = """  <section class="section">
       </div>
 
 {staff_filters}
-      <div class="grid staff-grid">
+      <div class="grid g4">
 {staff_grid}
       </div>
     </div>
@@ -413,7 +413,7 @@ STAFF_BODY = """  <section class="section">
       </div>
 
 {staff_filters}
-      <div class="grid staff-grid">
+      <div class="grid g4">
 {staff_grid}
       </div>
     </div>

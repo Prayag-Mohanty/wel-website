@@ -327,8 +327,10 @@ hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
    Every staff member sits in one continuous grid rather than a headed section
    per team. A team of one used to cost a heading plus a row with three empty
    slots; now the team travels on the card itself, so nothing is wasted and the
-   grouping is still readable at a glance. */
-.staff-grid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1.1rem}
+   grouping is still readable at a glance.
+
+   Sizing is deliberately left to .g4, the same track and gap the research
+   assistants use, so a staff card and an RA card are the same box. */
 .filters .filter em{font-style:normal;opacity:.6;font-size:.8em;margin-left:.15rem}
 
 /* ---------- flip cards (staff and research assistants) ----------
