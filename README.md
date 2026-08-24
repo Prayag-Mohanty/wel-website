@@ -7,6 +7,7 @@ WordPress site (`ee.iitb.ac.in/~wel_iitb`) and every section of the current Drup
 The site is **plain static HTML/CSS/JS** — no framework, no build tooling to install, no database.
 Drop it on any web server (or open `index.html` directly) and it works.
 
+Link: https://prayag-mohanty.github.io/wel-website/
 ---
 
 ## Quick start — the editing loop
