@@ -312,6 +312,17 @@ hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
 }
 .person.is-hidden{display:none}
 
+/* name-only cards - the homepage team preview, which carries no photographs */
+.name-cards{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.name-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.2rem 1.3rem;border-left:3px solid var(--primary);
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),border-color .25s var(--ease);
+}
+.name-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm);border-color:var(--primary-mid);border-left-color:var(--primary)}
+.name-card h4{margin:0 0 .2rem;font-size:1rem;line-height:1.3}
+.name-card .person__role{margin:0}
+
 /* ---------- staff grid ----------
    Every staff member sits in one continuous grid rather than a headed section
    per team. A team of one used to cost a heading plus a row with three empty

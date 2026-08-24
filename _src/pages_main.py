@@ -269,22 +269,18 @@ HOME_BODY = """  <section class="section section--tight">
           everything from embedded systems and PCB design to equipment maintenance and logistics &mdash;
           alongside M.Tech research assistants who bring fresh perspectives across domains.</p>
       </div>
-      <div class="grid g4">
-        <article class="person reveal">
-          <div class="person__photo"><img src="assets/img/people/rajbabu-velmurugan.png" alt="Prof. Rajbabu Velmurugan" loading="lazy"></div>
-          <div class="person__body"><h4>Prof. Rajbabu Velmurugan</h4><span class="person__role">Lab In-charge</span></div>
+      <div class="grid g4 name-cards">
+        <article class="name-card reveal">
+          <h4>Prof. Rajbabu Velmurugan</h4><span class="person__role">Lab In-charge</span>
         </article>
-        <article class="person reveal">
-          <div class="person__photo"><img src="assets/img/people/mahesh-bhaganagare.jpg" alt="Mahesh A. Bhaganagare" loading="lazy"></div>
-          <div class="person__body"><h4>Mahesh A. Bhaganagare</h4><span class="person__role">Technical Officer</span></div>
+        <article class="name-card reveal">
+          <h4>Mahesh A. Bhaganagare</h4><span class="person__role">Technical Officer</span>
         </article>
-        <article class="person reveal">
-          <div class="person__photo"><img src="assets/img/people/maheshwar-mangat.jpg" alt="Maheshwar Mangat" loading="lazy"></div>
-          <div class="person__body"><h4>Maheshwar Mangat</h4><span class="person__role">Sr. Technical Superintendent</span></div>
+        <article class="name-card reveal">
+          <h4>Maheshwar Mangat</h4><span class="person__role">Sr. Technical Superintendent</span>
         </article>
-        <article class="person reveal">
-          <div class="person__photo"><img src="assets/img/people/amit-shetye.jpg" alt="Amit Shetye" loading="lazy"></div>
-          <div class="person__body"><h4>Amit Shetye</h4><span class="person__role">Sr. Technical Superintendent</span></div>
+        <article class="name-card reveal">
+          <h4>Amit Shetye</h4><span class="person__role">Sr. Technical Superintendent</span>
         </article>
       </div>
       <div class="btn-row mt2 reveal">
