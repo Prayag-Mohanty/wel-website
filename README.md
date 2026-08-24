@@ -375,11 +375,10 @@ A few things are reproduced exactly as the current site publishes them, and may 
    ones the current site actually populates. The other five categories are described but have no
    model listings yet. Add them to `SIGNAL_GENERATORS`-style lists in `pages_resources.py` as the
    data becomes available.
-4. **Five research assistants have no photograph yet** - Adisha P V, Nikita Rajpurohit, Utkarsh
-   Shukla, Vevinya A and Navaneeth C - so their cards show initials. Save each photo into
-   `assets/img/team/` and put the path in the fourth field of their entry in
-   `RESEARCH_ASSISTANTS` in `_src/pages_people.py`. Their batch year was not supplied either, so
-   the card says "M.Tech EE7" rather than a guessed graduation year.
+4. **Utkarsh Shukla's photograph has two people in it** - him and a colleague at a lab bench - so
+   the card crop is ambiguous about which one he is. Replace `assets/img/team/utkarsh-shukla.jpg`
+   with a single-subject photo, or say which person he is and the existing one can be cropped to
+   him.
 5. **Course pages** carry many links to `10.107.68.222`, the old lab server. They are tagged
    `internal` because they only resolve on the institute network. Some sidebar items on the source
    pages - EDL group allotment and timeline, EE 230 batch lists, EE 712 lab schedule - had no

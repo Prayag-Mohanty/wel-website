@@ -207,29 +207,26 @@ RESEARCH_ASSISTANTS = [
      "Shanthan completed his B.Tech from CVR College of Engineering. His research interests lie at "
      "the intersection of semiconductor devices and circuit design, with a focus on CMOS technology, "
      "low-power VLSI circuits, and device-circuit co-design."),
-    # Photographs for the five below have not been supplied as files yet, so their
-    # cards fall back to initials. Drop a photo into assets/img/team/ and put the
-    # path in the fourth field to use it.
-    ("Adisha P V", "M.Tech EE7", "24m1221@iitb.ac.in",
-     "",
+    ("Adisha P V", "M.Tech EE7 (2027)", "24m1221@iitb.ac.in",
+     "assets/img/team/adisha-pv.jpg",
      "Adisha completed her B.Tech in Electronics and Communication Engineering from Government "
      "Engineering College Wayanad. Her research interests are semiconductor devices and digital "
      "VLSI design."),
-    ("Nikita Rajpurohit", "M.Tech EE7", "24m1203@iitb.ac.in",
-     "",
+    ("Nikita Rajpurohit", "M.Tech EE7 (2027)", "24m1203@iitb.ac.in",
+     "assets/img/team/nikita-rajpurohit.jpg",
      "Nikita completed her B.Tech in Electrical Engineering from Engineering College Bikaner. Her "
      "research interests are analog circuits and devices."),
-    ("Utkarsh Shukla", "M.Tech EE6", "24m1171@iitb.ac.in",
-     "",
+    ("Utkarsh Shukla", "M.Tech EE6 (2027)", "24m1171@iitb.ac.in",
+     "assets/img/team/utkarsh-shukla.jpg",
      "Utkarsh completed his B.Tech in Electrical Engineering from MMMUT Gorakhpur. His research "
      "interests are analog and mixed-signal design."),
-    ("Vevinya A", "M.Tech EE6", "vevinyagifty@gmail.com",
-     "",
+    ("Vevinya A", "M.Tech EE6 (2027)", "vevinyagifty@gmail.com",
+     "assets/img/team/vevinya-a.jpg",
      "Vevinya completed her B.Tech in Electronics and Communication Engineering from MEPCO Schlenk "
      "Engineering College. Her research interests are processor design, digital circuit design and "
      "VLSI design."),
-    ("Navaneeth C", "M.Tech EE1", "nvneethc@gmail.com",
-     "",
+    ("Navaneeth C", "M.Tech EE1 (2027)", "nvneethc@gmail.com",
+     "assets/img/team/navaneeth-c.jpg",
      "Navaneeth completed his B.Tech at TKM College of Engineering. His research interests are "
      "wireless communication and the capacity of wireless channels."),
 ]
