@@ -28,8 +28,8 @@ SITE = {
     "email": "wel@ee.iitb.ac.in",
     "phone_lab": "+91-22-2576-4484",
     "phone_office": "+91-22-2159-3524",
-    "linkedin": "https://www.linkedin.com/company/wadhwani-electronics-laboratory/",
-    "youtube": "https://www.youtube.com/@wadhwanielectronicslaborat9314",
+    "linkedin": "https://www.linkedin.com/company/wel-iit-bombay/",
+    "youtube": "https://www.youtube.com/@WEL_IITB",
     "old_site": "https://www.ee.iitb.ac.in/~wel_iitb/index.php",
 
     # ------------------------------------------------------------------
@@ -185,7 +185,7 @@ def header(active, active_sub):
   <header class="site-header" id="siteHeader">
     <div class="wrap header__inner">
       <a class="brand" href="index.html" aria-label="Wadhwani Electronics Laboratory - home">
-        <img src="assets/img/site/wel-logo.png" alt="Wadhwani Electronics Laboratory" width="120" height="46">
+        <img src="assets/img/site/wel-logo.png" alt="Wadhwani Electronics Laboratory" width="95" height="52">
       </a>
 
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
@@ -215,7 +215,7 @@ def footer():
     <div class="wrap">
       <div class="footer__grid">
         <div class="footer__brand">
-          <img src="assets/img/site/wel-logo.png" alt="Wadhwani Electronics Laboratory" width="140" height="56">
+          <img src="assets/img/site/wel-logo.png" alt="Wadhwani Electronics Laboratory" width="102" height="56">
           <p>Where electronics lives. WEL provides students at IIT Bombay the space, hardware and
              mentorship to make impactful innovations in electronic systems, through curricular and
              co-curricular activities.</p>
@@ -304,7 +304,9 @@ TEMPLATE = """<!DOCTYPE html>
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta name="theme-color" content="#0c53a5">
-<link rel="icon" href="assets/img/site/wel-logo.png" type="image/png">
+<link rel="icon" href="assets/img/site/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/img/site/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/site/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
