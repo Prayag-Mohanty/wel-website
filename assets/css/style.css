@@ -582,6 +582,27 @@ table td .tag-internal{margin-left:.2rem}
   margin-top:.7rem;font-size:.85rem;line-height:1.5;color:var(--muted);text-align:center;
 }
 
+/* video embeds */
+.video-grid{
+  display:grid;gap:1.6rem;margin:1.6rem 0 0;
+  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+}
+.video-grid--one{grid-template-columns:minmax(0,760px);justify-content:center}
+.video-grid figure{margin:0}
+.video-embed{
+  position:relative;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--line);background:var(--ink);box-shadow:var(--shadow-sm);
+}
+.video-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video figcaption{margin-top:.7rem;font-size:.88rem;line-height:1.5;color:var(--muted)}
+
+/* one NPTEL edition */
+.workshop-year{padding:2.6rem 0;border-top:1px solid var(--line)}
+.workshop-year:first-of-type{border-top:0;padding-top:0}
+.workshop-year .card__tag{margin-bottom:.6rem}
+.workshop-year .card__meta{margin:-.2rem 0 1rem;font-size:.9rem}
+.filters a.filter{text-decoration:none}
+
 /* pull quote inside an article */
 .pullquote{
   margin:2.2rem 0;padding:1.4rem 1.6rem;border-left:4px solid var(--primary);

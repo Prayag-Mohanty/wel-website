@@ -204,7 +204,7 @@ HOME_BODY = """  <section class="section section--tight">
             <h3>Workshops &amp; outreach</h3>
             <p>The WEL brand has reached 400+ colleges across India, training more than 2,000 teachers
                and students on hardware and lab content developed here.</p>
-            <a class="arrow-link" href="programs.html#workshops">Read more</a>
+            <a class="arrow-link" href="workshops.html">See all workshops</a>
           </div>
         </article>
         <article class="card reveal">
@@ -469,6 +469,9 @@ PROGRAMS_BODY = """  <section class="section">
           through other entities at IIT Bombay (QIP, TiH-IoT) also use WEL premises. Recently WEL has
           been part of alumni outreach activities through the EE Alumni and Corporate Engagement (ACE)
           cell.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary btn--sm" href="workshops.html">All workshops, with recordings</a>
+        </div>
       </div>
     </div>
   </section>

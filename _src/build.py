@@ -74,7 +74,10 @@ NAV = [
         ("Autumn Semester", "autumn-semester.html", "Courses running July - November"),
         ("Spring Semester", "spring-semester.html", "Courses running January - April"),
     ]),
-    ("Programs", "programs.html", None),
+    ("Programs", "programs.html", [
+        ("Programs overview", "programs.html", "Workshops, courses, internships, MOOCs"),
+        ("Workshops", "workshops.html", "NPTEL, teacher training and outreach"),
+    ]),
     ("Resources", "resources.html", [
         ("Advanced Facilities in WEL", "advanced-facilities.html", "Chambers, printers, cutters, winders"),
         ("Development Boards - Made in WEL", "made-in-wel.html", "PicoIRIS, PT-51, Xen-10, IQ Modulator"),
@@ -342,10 +345,11 @@ def render(page):
 
 def main():
     import pages_main, pages_labs, pages_resources, pages_people, pages_courses, pages_blog
+    import pages_workshops
 
     pages = []
     for mod in (pages_main, pages_labs, pages_resources, pages_people, pages_courses,
-                pages_blog):
+                pages_blog, pages_workshops):
         pages.extend(mod.PAGES)
 
     written = []
