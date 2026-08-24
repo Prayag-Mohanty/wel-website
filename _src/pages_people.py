@@ -235,9 +235,16 @@ def _faculty_card(name, role, email, phone, src, profile):
                        email=email, phone=phone, i_mail=icon("mail"), i_phone=icon("phone"))
 
 
-def _flip_card(name, role, email, phone, src, bio, cat=None):
-    """Flip card: photo, name and role on the front; bio and contact on the back."""
+def _flip_card(name, role, email, phone, src, bio, cat=None, team=""):
+    """Flip card: photo, name and role on the front; bio and contact on the back.
+
+    `team` puts a badge on the photo, which lets every staff member sit in one
+    continuous grid instead of a separate headed section per team - small teams
+    no longer leave most of a row empty.
+    """
     data = ' data-cat="%s"' % cat if cat else ""
+    badge = '<span class="flipcard__team">%s</span>' % team if team else ""
+    back_team = '<span class="flipcard__team-back">%s</span>' % team if team else ""
 
     lines = ['<div>%s<a href="mailto:%s">%s</a></div>' % (icon("mail"), email, email)]
     if phone:
@@ -250,6 +257,7 @@ def _flip_card(name, role, email, phone, src, bio, cat=None):
           <div class="flipcard__inner">
             <div class="flipcard__face flipcard__front">
               {photo}
+              {badge}
               <span class="flipcard__hint" aria-hidden="true">i</span>
               <div class="flipcard__id">
                 <h4>{name}</h4>
@@ -259,13 +267,14 @@ def _flip_card(name, role, email, phone, src, bio, cat=None):
             <div class="flipcard__face flipcard__back">
               <h4>{name}</h4>
               <span class="person__role">{role}</span>
+              {back_team}
               <p>{bio}</p>
               <div class="flipcard__contact">
                 {contact}
               </div>
             </div>
           </div>
-        </div>""".format(name=name, role=role, data=data,
+        </div>""".format(name=name, role=role, data=data, badge=badge, back_team=back_team,
                          photo=_photo(name, src, "flipcard__photo"),
                          contact="\n                ".join(lines), bio=bio)
 
@@ -274,19 +283,23 @@ def _faculty_grid():
     return "\n".join(_faculty_card(*f) for f in FACULTY)
 
 
-def _staff_groups_html(with_cat=False):
-    out = []
-    for title, cat, members in STAFF_GROUPS:
-        cards = "\n".join(_flip_card(n, r, e, p, s, b, cat if with_cat else None)
-                          for n, r, e, p, s, b in members)
-        out.append("""      <div class="section-head reveal" style="margin-top:3rem">
-        <span class="eyebrow">{cat}</span>
-        <h2>{title}</h2>
-      </div>
-      <div class="grid g4">
-{cards}
-      </div>""".format(cat=cat, title=title, cards=cards))
-    return "\n\n".join(out)
+def _staff_grid():
+    """Every staff member in one grid, ordered by team, each card badged with
+    its team. Keeps the grouping visible without a headed section per team."""
+    cards = []
+    for _title, cat, members in STAFF_GROUPS:
+        for n, r, e, p, s, b in members:
+            cards.append(_flip_card(n, r, e, p, s, b, cat=cat, team=cat))
+    return "\n".join(cards)
+
+
+def _staff_filters():
+    chips = ['<button class="filter is-active" data-filter="all">Everyone</button>']
+    for _title, cat, members in STAFF_GROUPS:
+        chips.append('<button class="filter" data-filter="%s">%s <em>%d</em></button>'
+                     % (cat, cat, len(members)))
+    return ('      <div class="filters reveal" data-filter-group data-filter-target=".flipcard[data-cat]">\n'
+            '        %s\n      </div>' % "\n        ".join(chips))
 
 
 def _ra_cards():
@@ -329,7 +342,10 @@ PEOPLE_BODY = """  <section class="section">
           does and how to reach them.</p>
       </div>
 
-{staff_groups}
+{staff_filters}
+      <div class="grid staff-grid">
+{staff_grid}
+      </div>
     </div>
   </section>
 
@@ -352,7 +368,8 @@ PEOPLE_BODY = """  <section class="section">
       </div>
     </div>
   </section>
-""".format(faculty=_faculty_grid(), staff_groups=_staff_groups_html(), ras=_ra_cards())
+""".format(faculty=_faculty_grid(), staff_filters=_staff_filters(),
+           staff_grid=_staff_grid(), ras=_ra_cards())
 
 
 # ===========================================================================
@@ -395,12 +412,15 @@ STAFF_BODY = """  <section class="section">
           does.</p>
       </div>
 
-{groups}
+{staff_filters}
+      <div class="grid staff-grid">
+{staff_grid}
+      </div>
     </div>
   </section>
 """
 
-STAFF_BODY = STAFF_BODY.format(groups=_staff_groups_html())
+STAFF_BODY = STAFF_BODY.format(staff_filters=_staff_filters(), staff_grid=_staff_grid())
 
 
 # ===========================================================================
