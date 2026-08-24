@@ -520,7 +520,7 @@ PROGRAMS_BODY = """  <section class="section">
   <section class="section section--tight">
     <div class="wrap">
       <div class="cta-band reveal">
-        <h2>Want to run a workshop with WEL?</h2>
+        <h2>Want to collaborate with WEL?</h2>
         <p>Institutions and student groups interested in workshops, training or outreach programs on
            WEL hardware and lab content are welcome to get in touch.</p>
         <div class="btn-row"><a class="btn btn--red" href="contact.html">Talk to the lab</a></div>
