@@ -9,24 +9,30 @@ Drop it on any web server (or open `index.html` directly) and it works.
 
 ---
 
-## Quick start
-
-Preview it locally:
+## Quick start — the editing loop
 
 ```bash
-python -m http.server 8123
+python _src/dev.py
 ```
 
-Then open <http://localhost:8123>.
+That is the whole workflow. It opens <http://localhost:8000>, watches the source files, and the
+moment you save anything it rebuilds the site and **refreshes the browser by itself** — keeping your
+scroll position, so you stay exactly where you were on the page. Edit, save, look. Typically under a
+second.
 
-To rebuild the pages after editing content:
+If a build breaks, you get the Python error as a red banner across the bottom of the browser and the
+last working version of the page stays on screen. Fix the file, save, the banner disappears.
+
+Stop it with `Ctrl+C`. It needs nothing installed — Python's standard library only.
+
+To build once without the server (this is also what the deploy runs):
 
 ```bash
 python _src/build.py
 ```
 
-That regenerates all 20 HTML files in the project root and verifies that every internal link
-resolves.
+That regenerates all 20 HTML files in the project root and fails loudly if any internal link no
+longer resolves.
 
 ---
 
@@ -41,6 +47,7 @@ WEL website/
 │   └── img/                         site imagery, people, boards, facilities,
 │                                    instruments and 67 gallery photos (+ thumbnails)
 ├── _src/                            page sources — edit here, then rebuild
+│   ├── dev.py                       live editing server (rebuild + auto-refresh)
 │   ├── build.py                     layout, navigation, header, footer, site constants
 │   ├── pages_main.py                home, about, programs, achievements, blogs, contact
 │   ├── pages_labs.py                teaching labs, autumn, spring, online request
@@ -49,6 +56,7 @@ WEL website/
 │   ├── pages_people.py              people, faculty, staff, gallery
 │   └── gallery_manifest.json        gallery filenames and their categories
 ├── inventory-app/                   the Flask inventory app, restyled to match the site
+├── .github/workflows/deploy.yml     rebuilds and publishes to GitHub Pages on every push
 └── .claude/launch.json              local preview config
 ```
 
@@ -80,6 +88,28 @@ WEL website/
 ---
 
 ## Editing content
+
+### Cheat sheet — where things live
+
+| I want to change… | Edit |
+|---|---|
+| Phone number, email, address, portal URLs | `SITE` at the top of `_src/build.py` |
+| The menu — add, rename, reorder, remove | `NAV` in `_src/build.py` |
+| Header, footer, breadcrumbs — anything on every page | `header()` / `footer()` in `_src/build.py` |
+| Colours, spacing, fonts, any styling | `assets/css/style.css` (tokens are in `:root` at the top) |
+| Homepage hero, stats, sections | `HOME_HERO` / `HOME_BODY` in `_src/pages_main.py` |
+| About, Programs, Achievements, Blogs, Contact | `_src/pages_main.py` |
+| Teaching labs, course lists, online requests | `_src/pages_labs.py` |
+| Facilities specs, boards, instruments, components, inventory | `_src/pages_resources.py` |
+| Faculty and staff names, roles, emails, phones | `FACULTY` / `STAFF` in `_src/pages_people.py` |
+| Gallery photos and their categories | `_src/gallery_manifest.json` |
+| Add a whole new page | copy an entry in any `PAGES` list, then add it to `NAV` |
+
+The structured lists (`FACULTY`, `STAFF`, `FACILITIES`, `BOARDS`, `AUTUMN_COURSES`, …) are plain
+Python tuples — editing them is filling in text between quotes, no code involved. Everything else is
+ordinary HTML inside triple-quoted strings.
+
+### The general rule
 
 Everything that appears on more than one page — header, navigation, footer, phone numbers, the
 inventory portal URL — lives at the top of **`_src/build.py`**:
@@ -130,7 +160,85 @@ go that route, delete `_src/` so nobody later regenerates over your edits.
 
 ---
 
-## Deploying
+## Publishing free on GitHub Pages
+
+The repository is already initialised, committed on `main`, and carries a workflow that rebuilds and
+publishes on every push. You only need to create the remote and push once.
+
+**1. Create an empty repository** at <https://github.com/new>. Name it something like `wel-website`.
+Do **not** tick "Add a README" — the repo already has one.
+
+**2. Push it** (replace `YOUR-USERNAME`):
+
+```bash
+git remote add origin https://github.com/YOUR-USERNAME/wel-website.git
+```
+
+```bash
+git push -u origin main
+```
+
+**3. Turn Pages on.** In the repository: **Settings → Pages → Build and deployment → Source →
+GitHub Actions**. That is the only click required; do not pick "Deploy from a branch".
+
+**4. Watch it build.** The **Actions** tab shows the run. After about a minute the site is live at:
+
+```
+https://YOUR-USERNAME.github.io/wel-website/
+```
+
+That URL is public, shareable, HTTPS, and free with no bandwidth bill.
+
+### After that, editing is a push
+
+```bash
+git add -A && git commit -m "Update the staff list" && git push
+```
+
+The workflow rebuilds and redeploys automatically — roughly a minute from push to live. If the build
+fails (a broken link, a Python typo), the deploy is skipped and the old site stays up, so you cannot
+push a broken site by accident.
+
+You can also **edit straight on github.com** — open any file in `_src/`, click the pencil, commit.
+The Action rebuilds and deploys. Useful for a quick fix from a phone or someone else's machine.
+
+### A custom address
+
+Free options, in order of effort:
+
+- **Rename the repo** to `YOUR-USERNAME.github.io` and the site serves from
+  `https://YOUR-USERNAME.github.io/` with no subfolder.
+- **Use a domain you own** — add it under Settings → Pages → Custom domain, and GitHub issues the
+  HTTPS certificate for free.
+- **Ask the department** for something like `wel.ee.iitb.ac.in` to point at the Pages site with a
+  CNAME. Then the public site is on GitHub and the lab server only has to run the inventory app.
+
+Every link in the site is relative, so it works correctly whether it is served from a subfolder, a
+domain root, or a `file://` path.
+
+### Before you make the repository public
+
+Two things become world-readable the moment you push to a public repo:
+
+1. **The internal portal address.** `SITE["request_portal"]` is currently `http://10.107.68.191`,
+   and it appears in the built HTML. It is an RFC 1918 address that nobody outside the institute
+   network can reach, so it is not exploitable — but it does advertise a piece of internal network
+   layout. If that bothers whoever runs the network, point those links at a hostname
+   (`https://wel.ee.iitb.ac.in/request`) or at `online-request.html`, and let the lab server
+   redirect internally.
+2. **Staff names, emails and phone numbers.** These are already published on the current public WEL
+   site, so nothing new is exposed — but confirm the staff are happy with the mobile numbers in
+   particular, since `staff.html` lists them and they were carried over verbatim.
+
+If either is a problem, make the repository **private** — GitHub Pages still works from a private
+repo on free accounts, and the published site stays public while the source stays closed.
+
+No secrets are committed: `.gitignore` excludes `inventory-app/.env` and the SQLite database, and
+only `.env.example` with placeholder values is tracked.
+
+---
+
+## Other ways to deploy
 
 **Option A — serve it directly (simplest).** Copy the `.html` files and `assets/` to the web root on
 the lab server. Nothing else is required: no PHP, no database, no Drupal. This also removes the
