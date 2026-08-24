@@ -202,13 +202,6 @@ hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
     linear-gradient(105deg,rgba(6,11,35,.97) 0%,rgba(6,11,35,.86) 45%,rgba(6,11,35,.58) 100%);
 }
 .hero__inner{position:relative;padding:clamp(4rem,10vw,7.5rem) 0 clamp(3.4rem,8vw,6rem)}
-.hero__tag{
-  display:inline-flex;align-items:center;gap:.6rem;padding:.42rem 1rem;border-radius:999px;
-  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);
-  font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#d7deff;
-  margin-bottom:1.5rem;
-}
-.hero__tag .dot{width:7px;height:7px;border-radius:50%;background:var(--secondary);box-shadow:0 0 0 4px rgba(218,33,47,.24)}
 .hero h1{
   color:#fff;font-size:clamp(2.5rem,7vw,5.2rem);font-weight:800;line-height:.98;
   letter-spacing:-.03em;margin-bottom:1.1rem;max-width:16ch;
@@ -236,19 +229,6 @@ hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
 .crumbs a{color:#b9c2e0}
 .crumbs a:hover{color:#fff}
 .crumbs span{opacity:.5}
-
-/* ticker */
-.ticker{background:var(--secondary);color:#fff;overflow:hidden;font-size:.86rem;font-weight:600}
-.ticker__inner{display:flex;align-items:center;gap:0}
-.ticker__label{
-  flex:none;background:rgba(0,0,0,.22);padding:.7rem 1.1rem;letter-spacing:.14em;
-  text-transform:uppercase;font-size:.74rem;font-weight:700;
-}
-.ticker__track{display:flex;gap:3rem;padding:.7rem 1.4rem;white-space:nowrap;animation:ticker 42s linear infinite}
-.ticker__track span{display:inline-flex;align-items:center;gap:.6rem}
-.ticker__track span::before{content:"\25C6";font-size:.6rem;opacity:.7}
-.ticker:hover .ticker__track{animation-play-state:paused}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ==========================================================================
    Cards
@@ -576,7 +556,6 @@ tbody td:first-child{font-weight:600;color:var(--ink)}
 @media (max-width:640px){
   body{font-size:16px}
   .wrap,.wrap-narrow{width:min(100% - 1.8rem,var(--wrap))}
-  .topbar__meta{display:none}
   .footer__grid{grid-template-columns:1fr;gap:2rem}
   .gallery{columns:2 150px;column-gap:.7rem}
   .gallery figure{margin-bottom:.7rem}
@@ -588,7 +567,7 @@ tbody td:first-child{font-weight:600;color:var(--ink)}
 }
 
 @media print{
-  .site-header,.topbar,.site-footer,.to-top,.ticker,.nav-scrim{display:none}
+  .site-header,.site-footer,.to-top,.nav-scrim{display:none}
   body{font-size:12pt}
 }
 @media (prefers-reduced-motion:reduce){

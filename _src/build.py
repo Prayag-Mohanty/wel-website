@@ -48,13 +48,11 @@ NAV = [
         ("Blogs", "blogs.html", "Reports and writing from the lab"),
     ]),
     ("Teaching Labs", "teaching-labs.html", [
-        ("Overview", "teaching-labs.html", "How the teaching labs run"),
         ("Autumn Semester", "autumn-semester.html", "Courses running July - November"),
         ("Spring Semester", "spring-semester.html", "Courses running January - April"),
     ]),
     ("Programs", "programs.html", None),
     ("Resources", "resources.html", [
-        ("Overview", "resources.html", "Everything WEL makes available"),
         ("Advanced Facilities in WEL", "advanced-facilities.html", "Chambers, printers, cutters, winders"),
         ("Development Boards - Made in WEL", "made-in-wel.html", "PicoIRIS, PT-51, Xen-10, IQ Modulator"),
         ("Instruments", "instruments.html", "Generators, scopes, analyzers, meters"),
@@ -66,11 +64,7 @@ NAV = [
         ("Development Boards & Modules", "online-request.html#dev-boards", "Borrow boards for a project"),
         ("Equipment Loan", "online-request.html#equipment-loan", "Borrow instruments for a period"),
     ]),
-    ("People", "people.html", [
-        ("All People", "people.html", "Faculty, staff and research assistants"),
-        ("Faculty Members", "faculty.html", "Faculty associated with WEL"),
-        ("Staff Members", "staff.html", "Technical, administrative and support staff"),
-    ]),
+    ("People", "people.html", None),
     ("Gallery", "gallery.html", None),
     ("Contact", "contact.html", None),
 ]

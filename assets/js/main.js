@@ -68,6 +68,16 @@
         });
       }, { rootMargin: '0px 0px -60px 0px', threshold: 0.08 });
       revealables.forEach(function (el) { io.observe(el); });
+
+      // Safety net: content must never stay invisible. If the observer has not
+      // fired for anything after a few seconds - a page rendered in a
+      // background tab, a headless capture, an odd embedded browser - reveal
+      // everything rather than leave the reader looking at a blank page.
+      setTimeout(function () {
+        if (!document.querySelector('.reveal.is-in')) {
+          revealables.forEach(function (el) { el.classList.add('is-in'); });
+        }
+      }, 2500);
     } else {
       revealables.forEach(function (el) { el.classList.add('is-in'); });
     }

@@ -80,6 +80,47 @@ def _people_grid(rows, with_cat=False):
     return "\n".join(_person(*(r if with_cat else r[:5])) for r in rows)
 
 
+# M.Tech research assistants currently working at WEL.
+RESEARCH_ASSISTANTS = [
+    ("Prayag Mohanty", "M.Tech EE6 (2027)", "24m1177@iitb.ac.in",
+     "assets/img/people/prayag-mohanty.jpg",
+     "Prayag completed his Bachelors in Electrical &amp; Electronics Engineering from BITS Pilani. "
+     "His research interests include computer systems architecture, AI/ML inference accelerators, "
+     "ML-assisted system design and reconfigurable computing."),
+    ("Anubhav Bhura", "M.Tech EE7 (2027)", "24m1219@iitb.ac.in",
+     "assets/img/people/anubhav-bhura.jpg",
+     "Anubhav completed his B.Tech in Electrical Engineering from Shri Govindram Seksaria Institute "
+     "of Technology and Science. His research interests lie in digital VLSI design and computer "
+     "architecture."),
+    ("Sachin Soneria", "M.Tech EE6 (2027)", "24m1178@iitb.ac.in",
+     "assets/img/people/sachin-soneria.jpg",
+     "Sachin completed his B.Tech in Electronics Engineering from K. J. Somaiya College of "
+     "Engineering, Mumbai. He is interested in digital VLSI and embedded design."),
+    ("Aatmaj Barbhaiya", "M.Tech EE2 (2027)", "aatmaj017@gmail.com",
+     "assets/img/people/aatmaj-barbhaiya.jpg",
+     "Aatmaj completed his B.E. in Electronics and Communication Engineering from L.D. College of "
+     "Engineering. His research interests encompass accelerator architecture."),
+]
+
+
+def _ra_cards():
+    out = []
+    for name, batch, email, src, bio in RESEARCH_ASSISTANTS:
+        out.append("""        <article class="person reveal">
+          <div class="person__photo">{photo}</div>
+          <div class="person__body">
+            <h4>{name}</h4>
+            <span class="person__role">{batch}</span>
+            <p>{bio}</p>
+            <div class="person__contact">
+              <div>{i_mail}<a href="mailto:{email}">{email}</a></div>
+            </div>
+          </div>
+        </article>""".format(photo=_photo(name, src), name=name, batch=batch, bio=bio,
+                             email=email, i_mail=icon("mail")))
+    return "\n".join(out)
+
+
 # ===========================================================================
 # PEOPLE - OVERVIEW
 # ===========================================================================
@@ -125,36 +166,24 @@ PEOPLE_BODY = """  <section class="section">
 
   <section class="section">
     <div class="wrap">
-      <div class="grid g2">
-        <div class="reveal">
-          <span class="eyebrow">Research assistants</span>
-          <h2>M.Tech research assistants</h2>
-          <p>A rotating group of M.Tech research assistants works at WEL each year across digital design,
-            computer architecture, analog and RF circuits, embedded systems and semiconductor devices.
-            They contribute to hardware development, course support and the lab's R&amp;D projects, and
-            in turn get the run of a very well-equipped bench.</p>
-          <p>Interested in an RA or intern position at WEL?
-            <a href="contact.html">Write to the lab</a> or see the
-            <a href="programs.html#internships">internships section</a>.</p>
-        </div>
-        <div class="reveal">
-          <span class="eyebrow">Working with WEL</span>
-          <h2>Who to approach</h2>
-          <ul class="specs" style="font-size:.95rem">
-            <li><b>Lab access &amp; courses</b><span>Teaching lab staff</span></li>
-            <li><b>Equipment &amp; boards</b><span>Technical superintendents</span></li>
-            <li><b>Special facilities</b><span>Advanced measurements wing</span></li>
-            <li><b>Accounts &amp; procurement</b><span>Administration team</span></li>
-            <li><b>Systems &amp; network</b><span>System administration</span></li>
-          </ul>
-          <div class="btn-row" style="margin-top:1.4rem">
-            <a class="btn btn--primary btn--sm" href="contact.html">Contact details</a>
-          </div>
-        </div>
+      <div class="section-head reveal">
+        <span class="eyebrow">Research assistants</span>
+        <h2>M.Tech research assistants</h2>
+        <p>Research assistants work at WEL across digital design, computer architecture, embedded
+          systems and accelerator design. They contribute to hardware development, course support and
+          the lab's R&amp;D projects, and in turn get the run of a very well-equipped bench.</p>
+      </div>
+      <div class="grid g4">
+{ras}
+      </div>
+      <div class="note mt2 reveal" style="margin-top:2.2rem">
+        <strong>Interested in an RA or intern position at WEL?</strong>
+        <a href="contact.html">Write to the lab</a>, or see the
+        <a href="programs.html#internships">internships section</a>.
       </div>
     </div>
   </section>
-""".format(faculty=_people_grid(FACULTY), staff=_people_grid(STAFF[:4]))
+""".format(faculty=_people_grid(FACULTY), staff=_people_grid(STAFF[:4]), ras=_ra_cards())
 
 
 # ===========================================================================
@@ -273,14 +302,6 @@ _figs, _chips, _count = _gallery()
 
 GALLERY_BODY = """  <section class="section">
     <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">WEL gallery</span>
-        <h2>{count} photographs from the lab</h2>
-        <p>Electronics Design Lab projects, NPTEL workshops, guest visits, school outreach and the
-          facilities themselves. Click any photograph to open it full size; use the arrow keys to move
-          through the set.</p>
-      </div>
-
       <div class="filters reveal" data-filter-group data-filter-target=".gallery figure">
         {chips}
       </div>
@@ -298,7 +319,7 @@ GALLERY_BODY = """  <section class="section">
     <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next photograph">{next}</button>
     <div class="lightbox__caption" id="lightboxCap"></div>
   </div>
-""".format(count=_count, chips=_chips, figs=_figs, prev=icon("prev"), next=icon("next"))
+""".format(chips=_chips, figs=_figs, prev=icon("prev"), next=icon("next"))
 
 
 PAGES = [

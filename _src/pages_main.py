@@ -8,7 +8,6 @@ from build import SITE, icon, page_hero
 HOME_HERO = """  <section class="hero">
     <div class="hero__bg"><img src="assets/img/site/homepage-hero.jpg" alt="" fetchpriority="high"></div>
     <div class="wrap hero__inner">
-      <span class="hero__tag"><span class="dot"></span>Established 12 February 2001 &middot; IIT Bombay</span>
       <h1>Where electronics <em>lives.</em></h1>
       <p class="hero__sub">The <strong>Wadhwani Electronics Laboratory</strong> is the hub of electronics
         activity in the Department of Electrical Engineering, IIT Bombay &mdash; teaching labs, in-house
@@ -26,22 +25,6 @@ HOME_HERO = """  <section class="hero">
       </div>
     </div>
   </section>
-
-  <div class="ticker">
-    <div class="ticker__inner">
-      <div class="ticker__label">At the lab</div>
-      <div class="ticker__track">
-        <span>Equipment loans and development board requests are now fully online</span>
-        <span>Advanced measurements wing: thermal &amp; climate chambers, EMI/EMC pre-compliance</span>
-        <span>PicoIRIS &mdash; an all-in-one lab-on-board &mdash; is under development at WEL</span>
-        <span>Experiential Learning Laboratory inaugurated on 14 February 2022</span>
-        <span>Equipment loans and development board requests are now fully online</span>
-        <span>Advanced measurements wing: thermal &amp; climate chambers, EMI/EMC pre-compliance</span>
-        <span>PicoIRIS &mdash; an all-in-one lab-on-board &mdash; is under development at WEL</span>
-        <span>Experiential Learning Laboratory inaugurated on 14 February 2022</span>
-      </div>
-    </div>
-  </div>
 """
 
 HOME_BODY = """  <section class="section section--tight">
@@ -712,11 +695,6 @@ CONTACT_BODY = """  <section class="section">
               <h3 style="font-size:1.02rem">Ankur Agarwal</h3>
               <p>Jr. Technical Superintendent &mdash; <a href="mailto:ankur_ee@iitb.ac.in">ankur_ee@iitb.ac.in</a><br>
                  022-2576-4409 (O)</p>
-            </div>
-            <div class="lcard">
-              <h3 style="font-size:1.02rem">Nilesh Sawant</h3>
-              <p>System administration &mdash; <a href="mailto:nilesh.t.sawant@ee.iitb.ac.in">nilesh.t.sawant@ee.iitb.ac.in</a><br>
-                 022-2576-4412 (O)</p>
             </div>
           </div>
           <div class="btn-row mt2" style="margin-top:1.4rem">
