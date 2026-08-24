@@ -4,10 +4,11 @@ A complete rebuild of the WEL website for IIT Bombay. It carries over every sect
 WordPress site (`ee.iitb.ac.in/~wel_iitb`) and every section of the current Drupal site
 (`wel.ee.iitb.ac.in`), including the IITB WEL Inventory, which now sits under **Resources**.
 
+Link: https://prayag-mohanty.github.io/wel-website/
+
 The site is **plain static HTML/CSS/JS** — no framework, no build tooling to install, no database.
 Drop it on any web server (or open `index.html` directly) and it works.
 
-Link: https://prayag-mohanty.github.io/wel-website/
 ---
 
 ## Quick start — the editing loop
