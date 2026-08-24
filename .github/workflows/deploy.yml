@@ -28,10 +28,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Build the site
-        run: python _src/build.py
-
-      - name: Fail if any internal link is broken
+      - name: Build the site, and fail if any internal link is broken
         run: |
           python _src/build.py | tee build.log
           grep -q "All internal links resolve." build.log
@@ -41,7 +38,6 @@ jobs:
           mkdir -p _site
           cp *.html _site/
           cp -r assets _site/
-          cp README.md _site/ 2>/dev/null || true
           touch _site/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3
