@@ -673,6 +673,33 @@ CONTACT_BODY = """  <section class="section">
 """.format(email=SITE["email"], phone_lab=SITE["phone_lab"], phone_office=SITE["phone_office"])
 
 
+NOT_FOUND_BODY = """  <section class="section">
+    <div class="wrap">
+      <div class="wrap-narrow reveal" style="width:100%;padding:0;margin:0 0 2.4rem">
+        <p class="lead">Nothing lives at that address. It may have been renamed when the site was
+          rebuilt, or the link that brought you here may be mistyped.</p>
+        <p>The pages people most often arrive looking for:</p>
+      </div>
+      <div class="grid g3">
+        <a class="lcard reveal" href="index.html"><span class="lcard__icon">{i_flask}</span>
+          <h3>Home</h3><p>Start again from the front page.</p></a>
+        <a class="lcard reveal" href="teaching-labs.html"><span class="lcard__icon">{i_scope}</span>
+          <h3>Teaching Labs</h3><p>Courses running this semester and the one before it.</p></a>
+        <a class="lcard reveal" href="resources.html"><span class="lcard__icon">{i_box}</span>
+          <h3>Resources</h3><p>Facilities, instruments, components and boards made in WEL.</p></a>
+        <a class="lcard reveal" href="online-request.html"><span class="lcard__icon">{i_clip}</span>
+          <h3>Online Request</h3><p>WEL Inventory, facilities, boards and equipment loans.</p></a>
+        <a class="lcard reveal" href="people.html"><span class="lcard__icon">{i_people}</span>
+          <h3>People</h3><p>Faculty, staff and research assistants.</p></a>
+        <a class="lcard lcard--red reveal" href="contact.html"><span class="lcard__icon">{i_ext}</span>
+          <h3>Contact</h3><p>Where we are, and how to reach the lab.</p></a>
+      </div>
+    </div>
+  </section>
+""".format(i_flask=icon("flask"), i_scope=icon("scope"), i_box=icon("box"),
+           i_clip=icon("clipboard"), i_people=icon("people"), i_ext=icon("external"))
+
+
 PAGES = [
     {
         "file": "index.html", "nav": "index.html", "sub": None,
@@ -727,5 +754,17 @@ PAGES = [
                           [("Contact Us", "contact.html")],
                           "assets/img/site/wel1-lab.jpeg"),
         "body": CONTACT_BODY,
+    },
+    {
+        # nginx is configured to serve this for any unknown path, and GitHub
+        # Pages picks up a 404.html automatically, so one page covers both.
+        "file": "404.html", "nav": None, "sub": None,
+        "title": "Page not found | Wadhwani Electronics Laboratory",
+        "desc": "That page does not exist on the Wadhwani Electronics Laboratory website.",
+        "hero": page_hero("Page not found",
+                          "That link has moved, or it was never here.",
+                          [("Page not found", "404.html")],
+                          "assets/img/site/wel1-lab.jpeg"),
+        "body": NOT_FOUND_BODY,
     },
 ]

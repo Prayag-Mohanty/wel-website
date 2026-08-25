@@ -15,12 +15,18 @@ COPY . .
 
 # Rebuild from source so the image can never drift from _src/, and fail the
 # build if any internal link is broken.
+#
+# The favicon copy is wrapped in braces on purpose: `|| true` binds to the
+# whole && chain rather than to the command before it, so leaving it bare
+# would swallow a failed link check and package a broken site happily. The
+# grep is the real gate - if build.py dies, its success line never reaches the
+# log and the chain stops there.
 RUN python _src/build.py | tee /tmp/build.log \
     && grep -q "All internal links resolve." /tmp/build.log \
     && mkdir -p /site \
     && cp *.html /site/ \
     && cp -r assets /site/ \
-    && cp favicon.ico /site/ 2>/dev/null || true
+    && { cp favicon.ico /site/ 2>/dev/null || true; }
 
 # ---- stage 2: serve it ----------------------------------------------------
 FROM nginx:alpine
