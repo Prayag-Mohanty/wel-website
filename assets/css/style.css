@@ -80,6 +80,11 @@ hr{border:0;border-top:1px solid var(--line);margin:2.5rem 0}
 .section--alt{background:var(--bg-alt)}
 .section--dark{background:var(--bg-dark);color:#c8cde0}
 .section--dark h2,.section--dark h3,.section--dark h4{color:#fff}
+/* A card keeps its own light background inside a dark section, so its
+   heading must not take the section's white heading colour - that made the
+   titles on the home page invisible, white on white. */
+.section--dark .card h3,.section--dark .card h4,
+.section--dark .lcard h3,.section--dark .lcard h4{color:var(--ink)}
 .grid{display:grid;gap:1.6rem}
 .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
 .g3{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
