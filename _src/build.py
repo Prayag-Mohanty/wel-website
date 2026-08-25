@@ -148,6 +148,38 @@ def asset_version():
     return _ASSET_V
 
 
+_IMG_V = {}
+
+
+def _stamp_images(html_text):
+    """Append a version stamp to every local image URL.
+
+    Photographs get replaced under the same filename - a new portrait of the
+    same person, say - and browsers then keep serving the old one from cache
+    for days. Stamping the URL with the file's size and modification time
+    means a changed file is a changed URL, so the new picture appears at once
+    while unchanged ones stay cached.
+
+    The stamp comes from stat(), not the file contents, so a rebuild stays
+    fast even with a few hundred images.
+    """
+    def stamp(match):
+        attr, path = match.group(1), match.group(2)
+        if path not in _IMG_V:
+            full = os.path.join(ROOT, path.replace("/", os.sep))
+            try:
+                st = os.stat(full)
+                _IMG_V[path] = "%x" % (((int(st.st_mtime) << 20) ^ st.st_size) & 0xFFFFFFF)
+            except OSError:
+                _IMG_V[path] = ""
+        v = _IMG_V[path]
+        return '%s="%s%s"' % (attr, path, "?v=" + v if v else "")
+
+    # href too, which is how the favicons and the full-size poster links are
+    # written - a favicon is about the most stubbornly cached file there is.
+    return re.sub(r'\b(src|href|data-full)="(assets/img/[^"?]+)"', stamp, html_text)
+
+
 def icon(name, cls=""):
     svg = ICONS[name]
     if cls:
@@ -333,7 +365,7 @@ TEMPLATE = """<!DOCTYPE html>
 
 def render(page):
     body = page.get("hero", "") + page["body"]
-    return TEMPLATE.format(
+    return _stamp_images(TEMPLATE.format(
         title=page["title"],
         v=asset_version(),
         desc=html.escape(page["desc"], quote=True),
@@ -341,7 +373,7 @@ def render(page):
         header=header(page.get("nav"), page.get("sub")),
         body=body,
         footer=footer(page.get("extra_js", "")),
-    )
+    ))
 
 
 def main():
