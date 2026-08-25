@@ -1,0 +1,61 @@
+# Everything the lab runs, in one file.
+#
+#   docker compose up -d                 website on :8080, inventory on :5000
+#   docker compose --profile dev up      live editing on :8000 instead
+#   docker compose down                  stop (the database is kept)
+#
+# See DOCKER.md.
+
+services:
+
+  # ---------------------------------------------------------------- website
+  # Static files served by nginx. Rebuilt from _src/ inside the image, so the
+  # container can never be out of step with the source.
+  site:
+    build:
+      context: .
+      dockerfile: docker/site.Dockerfile
+    image: wel-site:latest
+    container_name: wel-site
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+
+  # -------------------------------------------------------------- inventory
+  # The Flask app. The database lives on a named volume, so stock and team
+  # registrations survive `docker compose down` and every rebuild.
+  inventory:
+    build:
+      context: ./inventory-app
+    image: wel-inventory:latest
+    container_name: wel-inventory
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./inventory-app/.env
+    volumes:
+      - inventory-db:/app/instance
+    restart: unless-stopped
+
+  # ------------------------------------------------------------------- dev
+  # Live editing without installing Python: the repository is mounted into the
+  # container, so saving a file rebuilds the site and refreshes the browser
+  # exactly as it does when running _src/dev.py directly.
+  #
+  # Only starts when asked for: docker compose --profile dev up
+  dev:
+    profiles: ["dev"]
+    image: python:3.12-slim
+    container_name: wel-dev
+    working_dir: /src
+    volumes:
+      - .:/src
+    command: python _src/dev.py
+    environment:
+      WEL_OPEN: "0"          # no browser to open inside a container
+      WEL_PORT: "8000"
+    ports:
+      - "8000:8000"
+
+volumes:
+  inventory-db:

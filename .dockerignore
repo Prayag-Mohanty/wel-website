@@ -1,0 +1,9 @@
+.git/
+.github/
+.claude/
+inventory-app/.env
+inventory-app/instance/
+inventory-app/venv/
+**/__pycache__/
+**/*.pyc
+node_modules/

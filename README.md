@@ -239,6 +239,21 @@ only `.env.example` with placeholder values is tracked.
 
 ---
 
+## Running it with Docker
+
+`compose.yaml` packages the website and the inventory app so they run the same
+anywhere with one command:
+
+```bash
+docker compose up -d
+```
+
+Website on :8080, WEL Inventory on :5000. There is also a `dev` profile that gives you the
+live-editing loop without installing Python. **See [DOCKER.md](DOCKER.md)** for what Docker is, when
+it is worth using here, and how to back up the inventory database.
+
+---
+
 ## Other ways to deploy
 
 **Option A — serve it directly (simplest).** Copy the `.html` files and `assets/` to the web root on
