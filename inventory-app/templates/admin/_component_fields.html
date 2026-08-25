@@ -1,0 +1,35 @@
+{# The same field set for both the add and the edit modal. #}
+<div class="row g-3">
+  <div class="col-md-2">
+    <label class="form-label small fw-semibold">Sr. no.</label>
+    <input type="number" name="sr_no" class="form-control" placeholder="auto">
+  </div>
+  <div class="col-md-5">
+    <label class="form-label small fw-semibold">Type</label>
+    <input type="text" name="component_type" class="form-control" placeholder="e.g. Resistor, Sensor, IC" list="typeList">
+  </div>
+  <div class="col-md-5">
+    <label class="form-label small fw-semibold">Model no.</label>
+    <input type="text" name="model_no" class="form-control" placeholder="e.g. LM358N">
+  </div>
+  <div class="col-12">
+    <label class="form-label small fw-semibold">Description</label>
+    <textarea name="description" class="form-control" rows="2"
+              placeholder="What it is, and anything a student should know before asking for it."></textarea>
+  </div>
+  <div class="col-md-7">
+    <label class="form-label small fw-semibold">Datasheet / purchase link</label>
+    <input type="url" name="link" class="form-control" placeholder="https://">
+  </div>
+  <div class="col-md-3">
+    <label class="form-label small fw-semibold">Location</label>
+    <input type="text" name="location" class="form-control" placeholder="e.g. Rack B, drawer 4">
+  </div>
+  <div class="col-md-2">
+    <label class="form-label small fw-semibold">Quantity</label>
+    <input type="number" name="quantity" class="form-control" min="0" value="1">
+  </div>
+</div>
+<p class="text-muted small mb-0 mt-3">
+  A model number or a description is required. Everything else is optional.
+</p>

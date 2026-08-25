@@ -1,50 +1,79 @@
 {% extends 'base.html' %}
 {% block title %} &mdash; Manage Inventory{% endblock %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-3">
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
   <h4 class="fw-bold mb-0" style="color:var(--wel-primary);">
-    <i class="bi bi-boxes"></i> Manage Inventory ({{ components|length }} items)
+    <i class="bi bi-boxes"></i> Manage Inventory
+    <span class="text-muted fw-normal" style="font-size:.95rem;">({{ components|length }}
+      {{ 'archived' if show == 'archived' else 'in stock list' }})</span>
   </h4>
-  <a href="{{ url_for('upload_excel') }}" class="btn btn-iitb btn-sm">
-    <i class="bi bi-upload"></i> Upload Excel
-  </a>
+  <div class="d-flex flex-wrap gap-2">
+    <div class="btn-group btn-group-sm" role="group">
+      <a href="{{ url_for('admin_inventory', show='active') }}"
+         class="btn {{ 'btn-iitb' if show != 'archived' else 'btn-outline-secondary' }}">Active</a>
+      <a href="{{ url_for('admin_inventory', show='archived') }}"
+         class="btn {{ 'btn-iitb' if show == 'archived' else 'btn-outline-secondary' }}">Archived</a>
+    </div>
+    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addModal">
+      <i class="bi bi-plus-lg"></i> Add component
+    </button>
+    <a href="{{ url_for('upload_excel') }}" class="btn btn-iitb btn-sm">
+      <i class="bi bi-upload"></i> Upload Excel
+    </a>
+  </div>
 </div>
 
-<div class="table-responsive">
-  <table class="table table-hover align-middle">
-    <thead>
-      <tr>
-        <th>#</th><th>Type</th><th>Model No.</th><th>Description</th>
-        <th>Location</th><th>Qty</th><th>Update Qty</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for c in components %}
-      <tr>
-        <td class="text-muted small">{{ c.sr_no }}</td>
-        <td><span class="badge rounded-pill" style="background:var(--wel-primary);font-size:.73rem;">{{ c.component_type }}</span></td>
-        <td class="fw-semibold small">
-          {% if c.link %}<a href="{{ c.link }}" target="_blank">{{ c.model_no }}</a>
-          {% else %}{{ c.model_no }}{% endif %}
-        </td>
-        <td class="text-muted small" style="max-width:220px;">{{ c.description[:80] }}</td>
-        <td class="small">{{ c.location }}</td>
-        <td>
-          {% if c.quantity == 0 %}<span class="badge bg-danger">0</span>
-          {% elif c.quantity <= 2 %}<span class="badge bg-warning text-dark">{{ c.quantity }}</span>
-          {% else %}<span class="badge bg-success">{{ c.quantity }}</span>{% endif %}
-        </td>
-        <td>
-          <form method="POST" action="{{ url_for('update_quantity', cid=c.id) }}"
-                class="d-flex gap-1">
-            <input type="number" name="quantity" value="{{ c.quantity }}" min="0"
-                   class="form-control form-control-sm" style="width:70px;">
-            <button type="submit" class="btn btn-sm btn-iitb">Save</button>
-          </form>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<p class="text-muted small mb-3">
+  <i class="bi bi-broadcast"></i>
+  This table updates itself &mdash; if someone else changes stock, or a request is approved,
+  the change appears here without reloading. Editing pauses while you are typing.
+</p>
+
+<div class="table-responsive" id="liveInventory"
+     data-live-url="{{ url_for('admin_inventory_fragment', show=show) }}">
+{% include 'admin/_inventory_rows.html' %}
 </div>
+
+<!-- ── add ─────────────────────────────────────────────────────────────── -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <form class="modal-content" method="POST" action="{{ url_for('create_component') }}">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-plus-lg"></i> Add a component</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% include 'admin/_component_fields.html' %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-iitb">Add to inventory</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ── edit (one modal, filled in from the row you clicked) ─────────────── -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <form class="modal-content" method="POST" action="" id="editForm">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-pencil"></i> Edit component</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% include 'admin/_component_fields.html' %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-iitb">Save changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/inventory-admin.js') }}"></script>
 {% endblock %}

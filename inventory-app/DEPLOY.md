@@ -107,6 +107,8 @@ Copy `.env.example` to `.env` and fill it in:
 SECRET_KEY=<a long random string>
 ADMIN_EMAIL=your_roll_number@iitb.ac.in
 ADMIN_PASSWORD=<a strong password>
+# DATABASE_URL=sqlite:////var/lib/wel-inventory/inventory.db
+# COOKIE_SECURE=1
 ```
 
 - **`SECRET_KEY`** signs the login session cookies. If it is guessable, someone
@@ -115,6 +117,11 @@ ADMIN_PASSWORD=<a strong password>
   python -c "import secrets; print(secrets.token_hex(32))"
   ```
 - **`ADMIN_EMAIL`** gets the admin account. Log in at `/admin/login`.
+- **`DATABASE_URL`** moves the database off the default `instance/inventory.db`.
+  Use it to put the file on a mounted disk that your backups actually reach.
+- **`COOKIE_SECURE=1`** stops the session cookie being sent over plain HTTP.
+  Set it as soon as the app is behind HTTPS, and not before, or you will not be
+  able to log in over `http://`.
 - **`.env` is gitignored** and must never be committed.
 
 ## First run
@@ -128,6 +135,21 @@ ADMIN_PASSWORD=<a strong password>
 3. Students register their team at `/register` with an `@iitb.ac.in` address,
    then browse stock, add to a cart and submit a request.
 4. You approve or reject at **Admin → Requests**. Approving decrements stock.
+
+You do not have to start from a spreadsheet: **Admin → Inventory → Add
+component** builds the list by hand, and every field of an existing part can be
+edited from the same page. `ADMIN_GUIDE.md` covers the day-to-day side of that,
+including how the screens keep themselves up to date.
+
+## Upgrading an existing installation
+
+Safe to do in place. On start-up the app adds the one new column and the one new
+table it needs, leaving existing stock, teams and request history untouched.
+Take a copy of the database first anyway:
+
+```bash
+cp instance/inventory.db instance/inventory-before-upgrade.db
+```
 
 ## Two things worth fixing before real use
 

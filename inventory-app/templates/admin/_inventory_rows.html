@@ -1,0 +1,72 @@
+<table class="table table-hover align-middle mb-0">
+  <thead>
+    <tr>
+      <th style="width:3rem;">#</th><th>Type</th><th>Model No.</th><th>Description</th>
+      <th>Location</th><th style="width:5rem;">Qty</th>
+      <th style="width:9rem;">Set qty</th><th style="width:7rem;"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in components %}
+    <tr{% if c.archived %} class="table-light text-muted"{% endif %}>
+      <td class="text-muted small">{{ c.sr_no if c.sr_no is not none else '' }}</td>
+      <td>
+        {% if c.component_type %}
+        <span class="badge rounded-pill" style="background:var(--wel-primary);font-size:.73rem;">{{ c.component_type }}</span>
+        {% endif %}
+      </td>
+      <td class="fw-semibold small">
+        {% if c.link %}<a href="{{ c.link }}" target="_blank" rel="noopener">{{ c.model_no }}</a>
+        {% else %}{{ c.model_no }}{% endif %}
+      </td>
+      <td class="text-muted small" style="max-width:220px;">{{ (c.description or '')[:80] }}</td>
+      <td class="small">{{ c.location }}</td>
+      <td>
+        {% if c.quantity == 0 %}<span class="badge bg-danger">0</span>
+        {% elif c.quantity <= 2 %}<span class="badge bg-warning text-dark">{{ c.quantity }}</span>
+        {% else %}<span class="badge bg-success">{{ c.quantity }}</span>{% endif %}
+      </td>
+      <td>
+        <form method="POST" action="{{ url_for('update_quantity', cid=c.id) }}" class="d-flex gap-1">
+          <input type="number" name="quantity" value="{{ c.quantity }}" min="0"
+                 class="form-control form-control-sm" style="width:70px;" aria-label="Quantity">
+          <button type="submit" class="btn btn-sm btn-iitb">Save</button>
+        </form>
+      </td>
+      <td class="text-end">
+        <button type="button" class="btn btn-sm btn-outline-secondary js-edit"
+                title="Edit this component"
+                data-id="{{ c.id }}"
+                data-sr_no="{{ c.sr_no if c.sr_no is not none else '' }}"
+                data-component_type="{{ c.component_type or '' }}"
+                data-model_no="{{ c.model_no or '' }}"
+                data-description="{{ c.description or '' }}"
+                data-link="{{ c.link or '' }}"
+                data-location="{{ c.location or '' }}"
+                data-quantity="{{ c.quantity }}">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <form method="POST" action="{{ url_for('archive_component', cid=c.id) }}" class="d-inline"
+              onsubmit="return confirm({% if c.archived %}'Restore this component to the student list?'{% else %}'Archive this component? It disappears from the student list, but past requests keep working and you can restore it.'{% endif %})">
+          <button type="submit" class="btn btn-sm btn-outline-{{ 'success' if c.archived else 'warning' }}"
+                  title="{{ 'Restore to the inventory' if c.archived else 'Archive (hide from students)' }}">
+            <i class="bi bi-{{ 'arrow-counterclockwise' if c.archived else 'archive' }}"></i>
+          </button>
+        </form>
+        {% if c.archived %}
+        <form method="POST" action="{{ url_for('delete_component', cid=c.id) }}" class="d-inline"
+              onsubmit="return confirm('Delete permanently? This cannot be undone. It only works if the component has never appeared on a request.')">
+          <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete permanently">
+            <i class="bi bi-trash"></i>
+          </button>
+        </form>
+        {% endif %}
+      </td>
+    </tr>
+    {% else %}
+    <tr><td colspan="8" class="text-center text-muted py-4">
+      {% if show == 'archived' %}Nothing archived.{% else %}No components yet &mdash; add one, or upload a spreadsheet.{% endif %}
+    </td></tr>
+    {% endfor %}
+  </tbody>
+</table>
