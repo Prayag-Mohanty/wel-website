@@ -641,6 +641,21 @@ tbody td:first-child{font-weight:600;color:var(--ink)}
 .course h4{transition:color .2s var(--ease)}
 .course .arrow-link{margin-top:.6rem;font-size:.8rem}
 
+/* board detail pages */
+.feature-list{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;gap:.55rem}
+.feature-list li{
+  position:relative;padding:.7rem .9rem .7rem 2.1rem;background:#fff;border:1px solid var(--line);
+  border-radius:var(--radius-sm);font-size:.94rem;line-height:1.5;
+}
+.feature-list li::before{
+  content:"";position:absolute;left:.85rem;top:1.15rem;width:7px;height:7px;border-radius:50%;
+  background:var(--primary);
+}
+.spec-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.3rem 1.4rem}
+.spec-card h3{font-size:1.02rem;margin-bottom:.7rem;color:var(--primary)}
+.board-dev{font-size:.9rem;color:var(--muted);margin-top:1rem}
+.board-dev strong{color:var(--ink)}
+
 /* course detail pages */
 .res-list{list-style:none;padding:0;margin:0;display:grid;gap:.6rem;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
 .res-list li{

@@ -59,12 +59,11 @@ RESOURCES_BODY = """  <section class="section">
           <div class="card__media"><img src="assets/img/site/madeinwel.png" alt="Boards made in WEL" loading="lazy"></div>
           <div class="card__body">
             <h3>Made in WEL</h3>
-            <div class="card__meta">Product developer: Vivekanand Dhakane</div>
             <p>Hardware required for laboratory courses at WEL is primarily designed and manufactured
               in-house. This tradition has been in place for more than 10 years. Notable examples include
               Krypton (Intel MAX V CPLD), Xen-10 (MAX 10 CPLD), PT-51 (Microchip AT89C5131), the IQ
               modulator board and PicoIRIS, an all-in-one lab-on-board under development.</p>
-            <a class="arrow-link" href="made-in-wel.html">See the boards</a>
+            <a class="btn btn--outline btn--sm" href="made-in-wel.html">Read more</a>
           </div>
         </article>
 
@@ -72,13 +71,12 @@ RESOURCES_BODY = """  <section class="section">
           <div class="card__media"><img src="assets/img/site/work-stations.jpeg" alt="Instructional laboratories" loading="lazy"></div>
           <div class="card__body">
             <h3>Instructional laboratories</h3>
-            <div class="card__meta">Product developer: Ruchira Nandeshwar</div>
             <p>WEL has more than 5,000 sq. ft. of space dedicated to laboratory courses that form part of
               the curriculum for Electrical Engineering students. These sections are equipped with about
               100 identical setups of arbitrary function generators, digital storage oscilloscopes, power
               supplies, multimeters and desktop computers, plus soldering stations, components and
               accessories for assembling circuit boards.</p>
-            <a class="arrow-link" href="teaching-labs.html">Teaching labs</a>
+            <a class="btn btn--outline btn--sm" href="teaching-labs.html">Read more</a>
           </div>
         </article>
 
@@ -86,11 +84,10 @@ RESOURCES_BODY = """  <section class="section">
           <div class="card__media"><img src="assets/img/site/ell.jpeg" alt="Experiential Learning Laboratory" loading="lazy"></div>
           <div class="card__body">
             <h3>Experiential Learning Laboratory</h3>
-            <div class="card__meta">Inaugurated 14 February 2022</div>
             <p>The ELL was inaugurated by Dr. Hemant Kanakia, a Distinguished Alumnus of IIT Bombay. The
               lab has a variety of rapid prototyping equipment to facilitate hands-on learning and
               inculcate a spirit of making among students.</p>
-            <a class="arrow-link" href="advanced-facilities.html">Prototyping equipment</a>
+            <a class="btn btn--outline btn--sm" href="facility-ell.html">Read more</a>
           </div>
         </article>
 
@@ -98,11 +95,10 @@ RESOURCES_BODY = """  <section class="section">
           <div class="card__media"><img src="assets/img/facilities/climate-thermal-chamber.jpeg" alt="Advanced measurements lab" loading="lazy"></div>
           <div class="card__body">
             <h3>Advanced measurements lab</h3>
-            <div class="card__meta">Set up September 2022</div>
             <p>The advanced measurements wing of WEL houses state-of-the-art facilities such as thermal
               and environmental chambers, EMI/EMC pre-compliance test setups, and facilities for
               biosensing and synthetic biology.</p>
-            <a class="arrow-link" href="advanced-facilities.html">See the chambers</a>
+            <a class="btn btn--outline btn--sm" href="advanced-facilities.html">Read more</a>
           </div>
         </article>
 
@@ -110,10 +106,9 @@ RESOURCES_BODY = """  <section class="section">
           <div class="card__media"><img src="assets/img/site/pcb-blue.png" alt="PCB fabrication" loading="lazy"></div>
           <div class="card__body">
             <h3>PCB fabrication lab</h3>
-            <div class="card__meta">Product developer: Ruchira Nandeshwar</div>
             <p>WEL has a printed circuit board manufacturing facility that can produce 2-layer PCBs with
               12 mil resolution for surface mount packages.</p>
-            <a class="arrow-link" href="online-request.html#special-facilities">Request PCB fabrication</a>
+            <a class="btn btn--outline btn--sm" href="online-request.html#special-facilities">Read more</a>
           </div>
         </article>
 
@@ -121,10 +116,9 @@ RESOURCES_BODY = """  <section class="section">
           <div class="card__media"><img src="assets/img/facilities/esd-workstation.jpeg" alt="EMI/EMC test facility" loading="lazy"></div>
           <div class="card__body">
             <h3>EMI/EMC test facility</h3>
-            <div class="card__meta">Advanced measurements wing</div>
             <p>EMI/EMC pre-compliance test setups sit alongside the thermal and environmental chambers in
               the advanced measurements wing, set up in September 2022.</p>
-            <a class="arrow-link" href="online-request.html#special-facilities">Request access</a>
+            <a class="btn btn--outline btn--sm" href="online-request.html#special-facilities">Read more</a>
           </div>
         </article>
       </div>
@@ -325,7 +319,13 @@ BOARDS = [
 
 def _board_cards():
     out = []
+    from pages_boards import BOARDS_BY_SLUG
+    detail = {"picoiris": "board-picoiris.html", "pt-51": "board-pt51.html",
+              "xen-10": "board-xen10.html", "iq-modulator": "board-iq-modulator.html",
+              "qmagpi": "product-qmagpi.html"}
     for anchor, name, img, tag, dev, body in BOARDS:
+        href = detail.get(anchor)
+        more = ('<a class="btn btn--primary btn--sm" href="%s">Read more</a>' % href) if href else ""
         out.append("""        <article class="card reveal" id="{a}">
           <div class="card__media card__media--contain"><img src="{img}" alt="{name}" loading="lazy"></div>
           <div class="card__body">
@@ -333,9 +333,13 @@ def _board_cards():
             <h3>{name}</h3>
             <div class="card__meta">{dev}</div>
             <p>{body}</p>
-            <a class="arrow-link" href="online-request.html#dev-boards">Request this board</a>
+            <div class="btn-row">
+              {more}
+              <a class="btn btn--outline btn--sm" href="online-request.html#dev-boards">Request</a>
+            </div>
           </div>
-        </article>""".format(a=anchor, img=img, name=name, tag=tag, dev=dev, body=body))
+        </article>""".format(a=anchor, img=img, name=name, tag=tag, dev=dev, body=body,
+                             more=more))
     return "\n".join(out)
 
 
@@ -349,6 +353,48 @@ BOARDS_BODY = """  <section class="section">
       </div>
       <div class="grid g3">
 {cards}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Beyond the course boards</span>
+        <h2>What else gets built here</h2>
+      </div>
+      <div class="grid g2">
+        <article class="card reveal">
+          <div class="card__media card__media--contain"><img src="assets/img/boards/custom-hardware.png" alt="Application-specific PCB development at WEL" loading="lazy"></div>
+          <div class="card__body">
+            <h3>Application-specific PCB development</h3>
+            <p>Staff and students at WEL work closely with research groups across the Department of
+              Electrical Engineering &mdash; the Cyber Physical Systems lab, the Photonics and Quantum
+              Enabled Sensing Technology (P-Quest) lab and others &mdash; on application-specific
+              electronic system development.</p>
+            <p>Recent and ongoing systems include an FPGA-based smart structural health monitoring
+              system for guided-wave ultrasonics with machine learning models deployed at the edge; a
+              high-density EEG recording system powered by an RFSoC, doing low-latency feature
+              extraction and event classification in hardware straight from raw time-domain signals;
+              and portable quantum sensing systems.</p>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card__media card__media--contain"><img src="assets/img/boards/prototyping-resources.png" alt="Prototyping platforms and reference designs held at WEL" loading="lazy"></div>
+          <div class="card__body">
+            <h3>Know-how and IP for prototyping</h3>
+            <p>Staff and students have built up a large collection of intellectual property, resources
+              and technical content for development platforms and prototyping kits, much of it drawing
+              on open-source work.</p>
+            <p>It includes introductory guides for developing custom digital systems on the PYNQ-Z2
+              board with a Xilinx XC7Z020 SoC; Internet of Things platforms around the Texas
+              Instruments CC3235SF, a Wi-Fi-enabled ARM Cortex-M4 microcontroller; and prototyping
+              material for the STMicroelectronics STM32 ARM Cortex-M family and the Raspberry Pi Pico.</p>
+            <p>WEL also holds a substantial body of verified content and reference designs covering
+              analog front-end and instrumentation, embedded systems, wireless connectivity and
+              human-machine interfaces.</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
