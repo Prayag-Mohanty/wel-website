@@ -397,10 +397,9 @@ PEOPLE_BODY = """  <section class="section">
 {ras}
       </div>
       <div class="note mt2 reveal" style="margin-top:2.2rem">
-        <strong>Interested in an RA position at WEL?</strong> Research assistants here are appointed
-        as <strong>Institute RAs</strong> by the Department of Electrical Engineering, which assigns
-        them to its teaching laboratories &mdash; the positions are not filled by the lab directly. A
-        valid GATE score is normally required. Eligibility and the full description are on the
+        <strong>Interested in an RA position at WEL?</strong> Research assistants are appointed
+        as <strong>Institute RAs</strong> by the Department of Electrical Engineering and not by the
+        lab directly. A valid GATE score is normally required. Eligibility and the full description are on the
         department's
         <a href="https://www.ee.iitb.ac.in/admissions/postgraduation/research-assistant/" target="_blank" rel="noopener">Research
         Assistant admissions page</a>.
