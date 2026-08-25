@@ -164,7 +164,7 @@ REQUEST_BODY = """  <section class="section">
         <div class="lcard reveal" id="special-facilities">
           <span class="lcard__icon">{i_flask}</span>
           <h3>Special facilities online request</h3>
-          <p>Thermal and climate chambers, EMI/EMC pre-compliance setups, PCB fabrication, 3D printing,
+          <p>Thermal and climate chambers, EMI/EMC test facility, PCB fabrication, 3D printing,
              laser cutting, milling and coil winding. Describe what you need and the expected duration.</p>
           <div class="btn-row" style="margin-top:1.2rem">
             <a class="btn btn--primary btn--sm" href="{facilities_form}" target="_blank" rel="noopener">Open the form {i_ext}</a>

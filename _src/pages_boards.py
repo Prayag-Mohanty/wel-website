@@ -363,3 +363,152 @@ for _b in BOARDS:
                           "assets/img/site/madeinwel.png"),
         "body": _board_body(_b),
     })
+
+
+# ---------------------------------------------------------------------------
+# EMI/EMC test facility
+#
+# The old site's EMI/EMC page carried no text at all - only five photographs.
+# The descriptions below are written from those photographs and from what the
+# rest of the site already records about the advanced measurements wing. No
+# instrument models, frequency ranges or standards are claimed, because none
+# were published.
+# ---------------------------------------------------------------------------
+EMI_PHOTOS = [
+    ("assets/img/emiemc/emi-5.jpg",
+     "Inside the EMI/EMC chamber at WEL",
+     "The chamber, lined on every surface with pyramidal RF absorber. The mast at the far "
+     "wall carries the measurement antenna; the device under test sits on the low-loss "
+     "pedestal in front of it."),
+    ("assets/img/emiemc/emi-3.jpg",
+     "Setting up a circuit board on the test pedestal",
+     "Setting up a board for a measurement. The antenna on the tripod is placed at a fixed "
+     "distance and height from the board, and the run is repeated with the setup unchanged."),
+    ("assets/img/emiemc/emi-1.jpg",
+     "A quantum magnetometer under test in the chamber",
+     "A QMagPi quantum magnetometer, built by the PQuEST group at IIT Bombay, being "
+     "characterised in the chamber &mdash; an example of research hardware from elsewhere in "
+     "the institute using the facility."),
+    ("assets/img/emiemc/emi-2.jpg",
+     "A development board with a whip antenna under test",
+     "A development board with its own whip antenna on the pedestal, with the measurement "
+     "antenna on its tripod behind. Radiating boards are measured the same way as complete "
+     "instruments."),
+    ("assets/img/emiemc/emi-4.jpg",
+     "Instrumentation inside the chamber during a measurement",
+     "Supporting instrumentation kept inside the chamber for a run: a rack unit driving the "
+     "setup, a trolley holding the device, and a laptop recording the measurement."),
+]
+
+
+def _emi_figures():
+    out = []
+    for src, alt, cap in EMI_PHOTOS:
+        out.append("""        <figure class="reveal">
+          <img src="{src}" alt="{alt}" loading="lazy">
+          <figcaption>{cap}</figcaption>
+        </figure>""".format(src=src, alt=alt, cap=cap))
+    return "\n".join(out)
+
+
+EMI_BODY = """  <section class="section section--tight">
+    <div class="wrap split">
+      <div class="split__media reveal">
+        <img src="assets/img/emiemc/emi-3.jpg" alt="Setting up a board inside the EMI/EMC chamber" loading="lazy">
+      </div>
+      <div class="split__body prose reveal">
+        <p>The EMI/EMC test facility is part of the advanced measurements wing of WEL, set up in
+          <strong>September 2022</strong>. At its centre is a shielded anechoic chamber: a screened
+          room lined on every surface with pyramidal radio-frequency absorber.</p>
+        <p>The lining does two jobs at once. It soaks up reflections, so a signal measured inside the
+          room has travelled straight from the device to the antenna rather than bouncing off the
+          walls; and the screening keeps the broadcast, mobile and Wi-Fi traffic of a busy campus
+          out, so that emissions far weaker than the ambient noise floor can still be seen. Together
+          they make the room a controlled, repeatable electromagnetic environment &mdash; something
+          an ordinary lab bench can never be.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt section--tight">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">What it is used for</span>
+        <h2>Measuring what a design radiates &mdash; and what it puts up with</h2>
+      </div>
+      <div class="grid g3">
+        <article class="card reveal">
+          <div class="card__body">
+            <h3>Radiated emissions</h3>
+            <p>How much a board, instrument or product radiates, and at which frequencies. Run early
+              enough, it catches the layout and shielding problems that are expensive to fix once a
+              design is finished.</p>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card__body">
+            <h3>Antenna and RF characterisation</h3>
+            <p>A reflection-free room is the right place to look at how an antenna or a wireless
+              module actually behaves, without the walls and benches of the lab shaping the result.</p>
+          </div>
+        </article>
+        <article class="card reveal">
+          <div class="card__body">
+            <h3>Sensitive measurements</h3>
+            <p>Work that simply needs a quiet environment &mdash; low-noise and precision
+              instrumentation, magnetometry, and research prototypes from groups across the
+              department.</p>
+          </div>
+        </article>
+      </div>
+      <div class="wrap-narrow reveal" style="width:100%;padding:1.6rem 0 0;margin:0">
+        <p class="note">The facility is meant for design-stage measurement and research work.
+          Formal certification against a published standard is done at accredited test
+          laboratories; what this chamber gives you is the chance to find the problems long before
+          you get there.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">The facility</span>
+        <h2>Inside the chamber</h2>
+      </div>
+      <div class="figure-grid figure-grid--3">
+{figures}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt section--tight">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <h2>Book the chamber</h2>
+        <p>The chamber is available to students, research groups and departmental projects.
+           Time on it is arranged through the special facilities request, and the lab staff will
+           help you set a measurement up.</p>
+        <div class="btn-row">
+          <a class="btn btn--red" href="online-request.html#special-facilities">Request a facility</a>
+          <a class="btn btn--ghost" href="advanced-facilities.html">Advanced facilities</a>
+        </div>
+      </div>
+    </div>
+  </section>
+""".format(figures=_emi_figures())
+
+
+PAGES.append({
+    "file": "facility-emi-emc.html", "nav": "resources.html", "sub": "resources.html",
+    "title": "EMI/EMC test facility | Wadhwani Electronics Laboratory",
+    "desc": "The EMI/EMC test facility at WEL, IIT Bombay - a shielded anechoic chamber for "
+            "radiated emission measurements, antenna characterisation and sensitive "
+            "low-noise work.",
+    "hero": page_hero("EMI/EMC test facility",
+                      "A shielded anechoic chamber, for measurements a lab bench cannot give you.",
+                      [("Resources", "resources.html"),
+                       ("EMI/EMC test facility", "facility-emi-emc.html")],
+                      "assets/img/emiemc/emi-5.jpg"),
+    "body": EMI_BODY,
+})

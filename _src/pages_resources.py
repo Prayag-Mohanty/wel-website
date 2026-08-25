@@ -96,7 +96,7 @@ RESOURCES_BODY = """  <section class="section">
           <div class="card__body">
             <h3>Advanced measurements lab</h3>
             <p>The advanced measurements wing of WEL houses state-of-the-art facilities such as thermal
-              and environmental chambers, EMI/EMC pre-compliance test setups, and facilities for
+              and environmental chambers, EMI/EMC test facility, and facilities for
               biosensing and synthetic biology.</p>
             <a class="btn btn--outline btn--sm" href="advanced-facilities.html">Read more</a>
           </div>
@@ -113,12 +113,13 @@ RESOURCES_BODY = """  <section class="section">
         </article>
 
         <article class="card reveal">
-          <div class="card__media"><img src="assets/img/facilities/esd-workstation.jpeg" alt="EMI/EMC test facility" loading="lazy"></div>
+          <div class="card__media"><img src="assets/img/emiemc/emi-3.jpg" alt="EMI/EMC test facility" loading="lazy"></div>
           <div class="card__body">
             <h3>EMI/EMC test facility</h3>
-            <p>EMI/EMC pre-compliance test setups sit alongside the thermal and environmental chambers in
-              the advanced measurements wing, set up in September 2022.</p>
-            <a class="btn btn--outline btn--sm" href="online-request.html#special-facilities">Read more</a>
+            <p>A shielded anechoic chamber in the advanced measurements wing, set up in September
+              2022, for radiated emission measurements, antenna characterisation and other work
+              that needs a quiet electromagnetic environment.</p>
+            <a class="btn btn--outline btn--sm" href="facility-emi-emc.html">Read more</a>
           </div>
         </article>
       </div>
@@ -270,9 +271,10 @@ FACILITIES_BODY = """  <section class="section">
         </div>
         <div class="lcard reveal">
           <span class="lcard__icon">{i_scope}</span>
-          <h3>EMI/EMC pre-compliance</h3>
-          <p>The advanced measurements wing, set up in September 2022, houses EMI/EMC pre-compliance test
-             setups alongside facilities for biosensing and synthetic biology.</p>
+          <h3>EMI/EMC test facility</h3>
+          <p>The advanced measurements wing, set up in September 2022, houses the
+             <a href="facility-emi-emc.html">EMI/EMC test facility</a> alongside facilities for
+             biosensing and synthetic biology.</p>
         </div>
       </div>
       <div class="cta-band reveal" style="margin-top:2.4rem">
