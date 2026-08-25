@@ -586,11 +586,11 @@ ACHIEVEMENTS_BODY = """  <section class="section">
     <div class="wrap">
       <div class="cta-band reveal">
         <h2>WEL Publications</h2>
-        <p>The complete list of publications based on pedagogical activities at WEL, along with the
-           R&amp;D done by students, research assistants and staff working at the lab.</p>
+        <p>Papers based on the pedagogical activities at WEL, along with the R&amp;D done by
+           students, research assistants and staff working at the lab &mdash; each linked to the
+           publisher.</p>
         <div class="btn-row">
-          <a class="btn btn--red" href="contact.html">Request the publication list</a>
-          <a class="btn btn--ghost" href="https://www.ee.iitb.ac.in/~wel_iitb/achievements/index.html" target="_blank" rel="noopener">Archived list</a>
+          <a class="btn btn--red" href="publications.html">See the publication list</a>
         </div>
       </div>
     </div>
