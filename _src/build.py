@@ -83,9 +83,9 @@ NAV = [
         ("Development Boards - Made in WEL", "made-in-wel.html", "PicoIRIS, PT-51, Xen-10, IQ Modulator"),
         ("Instruments", "instruments.html", "Generators, scopes, analyzers, meters"),
         ("Components", "components.html", "Stock, datasheets and component lists"),
-        ("WEL Inventory", "inventory.html", "Search stock and raise a component request"),
     ]),
     ("Online Request", "online-request.html", [
+        ("WEL Inventory", "inventory.html", "Search stock and raise a component request"),
         ("Special Facilities Request", "online-request.html#special-facilities", "Chambers, EMI/EMC, PCB, prototyping"),
         ("Development Boards & Modules", "online-request.html#dev-boards", "Borrow boards for a project"),
         ("Equipment Loan", "online-request.html#equipment-loan", "Borrow instruments for a period"),

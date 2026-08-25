@@ -837,14 +837,14 @@ PAGES = [
         "body": COMPONENTS_BODY,
     },
     {
-        "file": "inventory.html", "nav": "resources.html", "sub": "inventory.html",
+        "file": "inventory.html", "nav": "online-request.html", "sub": "inventory.html",
         "title": "WEL Inventory | Wadhwani Electronics Laboratory",
         "desc": "Search the WEL component stock, build a request cart and submit it as a project team. "
                 "The WEL Inventory portal for students and lab staff.",
         "hero": page_hero("WEL Inventory",
                           "The component stock portal: search what the lab holds, build a cart and "
                           "submit a request as a project team.",
-                          [("Resources", "resources.html"), ("WEL Inventory", "inventory.html")],
+                          [("Online Request", "online-request.html"), ("WEL Inventory", "inventory.html")],
                           "assets/img/site/components.jpg"),
         "body": INVENTORY_BODY,
         "extra_js": '  <script src="assets/js/inventory.js"></script>\n',
