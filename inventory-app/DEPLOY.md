@@ -12,6 +12,10 @@ prayag-mohanty.github.io/wel-website/   the website        (GitHub Pages, static
         └── "Open WEL Inventory" ──────► wherever you host this app  (runs Python)
 ```
 
+**If you just want it online for free:** go to Option 2, PythonAnywhere. It is
+the only free host in this list where the database survives a restart, which
+for a stock system is the whole point.
+
 Once the app is running somewhere, put its address in **one place**:
 
 ```python
@@ -66,22 +70,32 @@ survives restarts.
 4. In the Web tab set:
    - **Source code**: `/home/USERNAME/wel-website/inventory-app`
    - **Virtualenv**: `/home/USERNAME/wel-website/inventory-app/venv`
-   - **WSGI configuration file**: click it and replace the contents with:
-     ```python
-     import os, sys
-     path = '/home/USERNAME/wel-website/inventory-app'
-     if path not in sys.path:
-         sys.path.insert(0, path)
-     from dotenv import load_dotenv
-     load_dotenv(os.path.join(path, '.env'))
-     from wsgi import app as application
-     ```
-5. Create the `.env` file (Files tab) — see **Settings** below.
+   - **WSGI configuration file**: click it, delete everything in it, and paste
+     the contents of `pythonanywhere_wsgi.py` from this folder. Change
+     `USERNAME` on the `PROJECT` line to your username.
+5. Create the `.env` file (Files tab) — see **Settings** below. Include
+   `COOKIE_SECURE=1`: PythonAnywhere serves `*.pythonanywhere.com` over HTTPS,
+   so the session cookie should never travel unencrypted.
 6. Hit **Reload**.
 
-Your address is `https://USERNAME.pythonanywhere.com`.
+Your address is `https://USERNAME.pythonanywhere.com`. Send it over and it goes
+into `SITE["inventory_app"]`, which points every inventory link on the website
+at it.
 
 To update later: `git pull` in a Bash console, then **Reload**.
+
+### Three things to know about the free tier
+
+- **The web app expires every three months.** PythonAnywhere emails you a
+  reminder and there is a button to renew it. Miss it and the site goes down
+  until you click it. Nothing is lost — the database is untouched.
+- **Outbound internet is restricted to a whitelist.** The *Upload Excel* import
+  works, because the file comes from your browser. Importing straight from a
+  Google Sheets link may not, because that request goes out from the server. If
+  it fails, download the sheet as `.xlsx` and upload the file instead.
+- **Disk is 512 MB; the install needs about 130 MB.** Plenty of room, though
+  100 MB of it is pandas and numpy, which are there only for the spreadsheet
+  import.
 
 ## Option 3 — Render (free, but the database resets)
 
@@ -93,9 +107,9 @@ The SQLite database is wiped on every restart and redeploy, and free services
 sleep after inactivity. Every team registration and every stock change would be
 lost. Fine for showing someone how it works; not fine for real stock records.
 
-To use Render properly, either attach a paid disk or switch the app to Render's
-managed Postgres by changing `SQLALCHEMY_DATABASE_URI` in `app.py` to read
-`os.environ['DATABASE_URL']`.
+To use Render properly, either attach a paid disk, or point the app at Render's
+managed Postgres — the app already reads `DATABASE_URL`, so that is a dashboard
+setting and `psycopg2-binary` in `requirements.txt`, with no code change.
 
 ---
 
