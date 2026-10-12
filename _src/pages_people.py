@@ -178,6 +178,7 @@ LINKEDIN = {
     "Utkarsh Shukla": "https://www.linkedin.com/in/usin",
     "Vevinya A": "https://www.linkedin.com/in/vevinya-a-0002641aa/",
     "Navaneeth C": "https://www.linkedin.com/in/nvneethc",
+    "Aditya Tare": "https://www.linkedin.com/in/aditya-tare-b505a5199/",
 }
 
 # ---------------------------------------------------------------------------
@@ -229,6 +230,11 @@ RESEARCH_ASSISTANTS = [
      "assets/img/team/navaneeth-c.jpg",
      "Navaneeth completed his B.Tech at TKM College of Engineering. His research interests are "
      "wireless communication and the capacity of wireless channels."),
+    ("Aditya Tare", "M.Tech EE6 (2027)", "adityatare1@gmail.com",
+     "assets/img/team/aditya-tare.jpg",
+     "Aditya completed his B.Tech in Electrical Engineering from Fr. C. Rodrigues Institute of "
+     "Technology, Vashi (Mumbai University). His research interests are computer architecture, "
+     "compute in memory and digital IC design."),
 ]
 
 
