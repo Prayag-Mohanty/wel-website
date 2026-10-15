@@ -179,6 +179,10 @@ LINKEDIN = {
     "Vevinya A": "https://www.linkedin.com/in/vevinya-a-0002641aa/",
     "Navaneeth C": "https://www.linkedin.com/in/nvneethc",
     "Aditya Tare": "https://www.linkedin.com/in/aditya-tare-b505a5199/",
+    "Md Aariz Mozammil": "https://www.linkedin.com/in/md-aariz-mozammil-117462202",
+    "Woodrow Gonsalves": "https://www.linkedin.com/in/woodrow-gonsalves-022b03269",
+    "Giridhara Datta G": "https://www.linkedin.com/in/giridhara-datta",
+    "Dhruv": "https://www.linkedin.com/in/dhruv-7a3392268",
 }
 
 # ---------------------------------------------------------------------------
@@ -235,6 +239,25 @@ RESEARCH_ASSISTANTS = [
      "Aditya completed his B.Tech in Electrical Engineering from Fr. C. Rodrigues Institute of "
      "Technology, Vashi (Mumbai University). His research interests are computer architecture, "
      "compute in memory and digital IC design."),
+    ("Md Aariz Mozammil", "M.Tech EE5 (2028)", "25m1182@iitb.ac.in",
+     "assets/img/team/md-aariz-mozammil.jpg",
+     "Aariz completed his B.Tech in Electronics and Electrical Engineering. His research interests "
+     "are analog, RF and mixed-signal VLSI, with a focus on precision silicon that bridges the "
+     "physical world with high-performance electronic systems."),
+    ("Woodrow Gonsalves", "M.Tech EE5 (2029)", "26m1158@iitb.ac.in",
+     "assets/img/team/woodrow-gonsalves.jpg",
+     "Woodrow completed his B.Tech in Electronics and Telecommunications Engineering from Sardar "
+     "Patel Institute of Technology. His research interests are analog and digital VLSI circuits "
+     "and embedded systems."),
+    ("Giridhara Datta G", "M.Tech EE6 (2029)", "26m1201@iitb.ac.in",
+     "assets/img/team/giridhara-datta-g.jpg",
+     "Giridhara completed his B.E. in Electronics and Communication Engineering from M. S. Ramaiah "
+     "Institute of Technology, Bengaluru. His research interests are analog and digital VLSI."),
+    ("Dhruv", "M.Tech EE5 (2029)", "dhruvsh079@gmail.com",
+     "assets/img/team/dhruv.jpg",
+     "Dhruv completed his B.Tech in Electronics and Communication Engineering from Chandigarh "
+     "College of Engineering and Technology. His research interests are analog and digital "
+     "circuit design."),
 ]
 
 
