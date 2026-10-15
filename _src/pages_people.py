@@ -241,9 +241,10 @@ RESEARCH_ASSISTANTS = [
      "compute in memory and digital IC design."),
     ("Md Aariz Mozammil", "M.Tech EE5 (2028)", "25m1182@iitb.ac.in",
      "assets/img/team/md-aariz-mozammil.jpg",
-     "Aariz completed his B.Tech in Electronics and Electrical Engineering. His research interests "
-     "are analog, RF and mixed-signal VLSI, with a focus on precision silicon that bridges the "
-     "physical world with high-performance electronic systems."),
+     "Aariz completed his B.Tech in Electronics and Electrical Engineering from Punjab Technical "
+     "University. His research interests are analog, RF and mixed-signal VLSI, with a focus on "
+     "precision silicon that bridges the physical world with high-performance electronic "
+     "systems."),
     ("Woodrow Gonsalves", "M.Tech EE5 (2029)", "26m1158@iitb.ac.in",
      "assets/img/team/woodrow-gonsalves.jpg",
      "Woodrow completed his B.Tech in Electronics and Telecommunications Engineering from Sardar "
