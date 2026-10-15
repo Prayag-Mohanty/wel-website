@@ -403,8 +403,7 @@ PEOPLE_BODY = """  <section class="section">
         <h2>The team that runs the lab</h2>
         <p>Lab administration and procurement, development of new hardware platforms and experiments,
           planning and execution of lab courses, outreach programs, systems and network, and
-          day-to-day operations. Hover over a card &mdash; or tap it &mdash; to read what each person
-          does and how to reach them.</p>
+          day-to-day operations.</p>
       </div>
 
 {staff_filters}
@@ -420,8 +419,7 @@ PEOPLE_BODY = """  <section class="section">
         <span class="eyebrow">Research assistants</span>
         <h2>M.Tech research assistants</h2>
         <p>Research assistants work at WEL across digital design, computer architecture, embedded
-          systems, semiconductor devices and accelerator design. Hover over a card &mdash; or tap it
-          &mdash; to read more.</p>
+          systems, semiconductor devices and accelerator design.</p>
       </div>
       <div class="grid g4">
 {ras}
@@ -480,8 +478,7 @@ STAFF_BODY = """  <section class="section">
         <h2>The team that runs the lab</h2>
         <p>Lab administration and procurement, development of new hardware platforms and experiments,
           planning and execution of lab courses, outreach programs, systems and network, and
-          day-to-day operations. Hover over a card &mdash; or tap it &mdash; to read what each person
-          does.</p>
+          day-to-day operations.</p>
       </div>
 
 {staff_filters}
